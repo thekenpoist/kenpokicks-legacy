@@ -1,0 +1,27 @@
+{
+  "name": "kenpokicks-legacy",
+  "version": "1.0.0",
+  "description": "kenpokicks.com re-code in modern",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js",
+    "start-server": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thekenpoist/kenpokicks-legacy.git"
+  },
+  "author": "Steve Hull",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/thekenpoist/kenpokicks-legacy/issues"
+  },
+  "homepage": "https://github.com/thekenpoist/kenpokicks-legacy#readme",
+  "dependencies": {
+    "express": "^4.21.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9"
+  }
+}
