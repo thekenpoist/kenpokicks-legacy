@@ -1,0 +1,25 @@
+doctype html
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    title AMTS - KenpoKicks
+    link(rel="stylesheet", href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css")
+    //- Martial arts style font from Google Fonts
+    link(rel="stylesheet", href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&display=swap")
+    style.
+      body { font-family: 'Cinzel', serif; }
+
+  body(class="bg-white text-gray-900")
+
+    //- Navigation Header
+    header(class="bg-red-700 text-white shadow p-4")
+      nav(class="max-w-6xl mx-auto flex justify-center space-x-12 text-lg uppercase tracking-wide")
+        a(href="/login" class="hover:text-yellow-300 transition") Login
+        a(href="/faqs" class="hover:text-yellow-300 transition") FAQs
+        a(href="/history" class="hover:text-yellow-300 transition") History
+
+    //- Main Content Area with logo
+    main(class="bg-white max-w-4xl mx-auto p-8 mt-8 shadow-lg rounded-lg text-center")
+      img(src="/images/amts_index.jpg" alt="Kenpo Kicks Logo" class="mx-auto w-full max-w-lg")
