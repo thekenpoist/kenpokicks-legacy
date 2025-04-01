@@ -2,7 +2,7 @@ require('dotenv').config();
 
 const path = require('path');
 const express = require('express');
-
+const errorController = require('./controllers/error')
 const PORT = process.env.PORT || 3000;
 
 const app = express();
@@ -20,8 +20,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(indexRouter);
 
-app.use((req, res, next) => {
-    res.status(404).render('404', {title: 'Page Not Found'});
-});
+app.use(errorController.get404);
 
 app.listen(PORT);
