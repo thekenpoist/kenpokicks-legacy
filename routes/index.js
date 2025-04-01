@@ -1,10 +1,9 @@
 const path = require('path');
 const express = require('express');
+const indexController = require('../controllers/home')
 
 const router = express.Router();
 
-router.get('/', (req, res, next) => {
-    res.render('index', { title: 'Welcome to Kenpokicks '});
-});
+router.get('/', indexController.getIndex);
 
 module.exports = router;
