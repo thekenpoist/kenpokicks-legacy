@@ -1,10 +1,10 @@
 extends layouts/main-layout
 
 block content
-  h1.text-3xl.font-bold.text-red-800.mb-8 AMTS Martial Arts FAQ
+  h1.text-3xl.font-bold.text-red-800.mb-8 American Martial Training Systems Martial Arts FAQ
   h2.text-2xl.text-red-800.font-semibold.mt-10.mb-4 Getting Started
   div.mb-4
-    button.text-left.w-full.bg-red-800.text-white.font-semibold.p-3.rounded-md.shadow-md.transition.duration-300.hover.bg-red-700(onclick="toggleAnswer('faq-1')")
+    button(class="text-left w-full bg-red-100 text-red-800 font-semibold p-3 rounded-md shadow-md transition duration-300 hover:bg-red-200", onclick="toggleAnswer('faq-1')")
       | 1. What style or system of martial arts is best for me?
     div.hidden.mt-2.text-left.p-4.bg-white.rounded-md.shadow-inner(id='faq-1')
       p That depends on your goals. Are you looking for self-defense, fitness, competition, confidence, discipline - or all of the above?
@@ -15,128 +15,156 @@ block content
       br
       p I chose Kenpo as the foundation of my personal combat system after training in various styles. The logic, practicality, and inclusiveness of the art just felt natural - not just as a method of defense, but as a comprehensive way of thinking.
   div.mb-4
-    button.text-left.w-full.bg-red-800.text-white.font-semibold.p-3.rounded-md.shadow-md.transition.duration-300.hover.bg-red-700(onclick="toggleAnswer('faq-2')")
+    button(class="text-left w-full bg-red-100 text-red-800 font-semibold p-3 rounded-md shadow-md transition duration-300 hover:bg-red-200", onclick="toggleAnswer('faq-2')")      
       | 2. Do I need previous experience to get started?
     div.hidden.mt-2.text-left.p-4.bg-white.rounded-md.shadow-inner(id='faq-2')
-      p Not at all. Martial arts is for everyone - not just athletes or people with a background in combat sports. Everyone starts somewhere, and a good school will meet you where you are. Whether you're brand new or coming back after years away, you'll be guided step by step through the process.
+      p Not at all. Martial arts is for everyone - not just athletes or people with a background in combat sports. Everyone starts somewhere, and a good school will meet you where you are. Whether you're brand new or coming back after years away, you'll be guided throughout your training.
   div.mb-4
-    button.text-left.w-full.bg-red-100.text-red-800.font-semibold.p-3.rounded-md.shadow-md.transition duration-300 hover:bg-red-200(onclick="toggleAnswer('faq-3')")
-      | 3. Can I train if Iâ€™m older, out of shape, or recovering from an injury?
-    div.hidden.mt-2.text-left.p-4.bg-gray-100.rounded-md.shadow-inner(id='faq-3')
-      p Absolutely. Training can be adapted to your needs. Iâ€™ve worked with students in their teens, in their 60s, and everywhere in between â€” some were seasoned athletes, others were just getting started. A good instructor will help you train safely and intelligently, no matter your age or condition. Everyone has a different path, and martial arts can be tailored to support yours.
+    button(class="text-left w-full bg-red-100 text-red-800 font-semibold p-3 rounded-md shadow-md transition duration-300 hover:bg-red-200", onclick="toggleAnswer('faq-3')")
+      | 3. Can I train if I'm older, out of shape, or recovering from an injury?
+    div.hidden.mt-2.text-left.p-4.bg-white.rounded-md.shadow-inner(id='faq-3')
+      p Absolutely. Training can be adapted to your needs. I've worked with students in their teens, in their 60s, and everywhere in between - some were seasoned athletes, others were just getting started. A good instructor will help you train safely and intelligently, no matter your age or condition. Everyone has a different path, and martial arts can be tailored to support yours.
   div.mb-4
-    button.text-left.w-full.bg-red-100.text-red-800.font-semibold.p-3.rounded-md.shadow-md.transition duration-300 hover:bg-red-200(onclick="toggleAnswer('faq-4')")
+    button(class="text-left w-full bg-red-100 text-red-800 font-semibold p-3 rounded-md shadow-md transition duration-300 hover:bg-red-200", onclick="toggleAnswer('faq-4')")
       | 4. What should I wear to my first class?
-    div.hidden.mt-2.text-left.p-4.bg-gray-100.rounded-md.shadow-inner(id='faq-4')
-      p If you donâ€™t have a uniform yet, wear comfortable workout clothes â€” something you can move in easily. A t-shirt and sweatpants or shorts usually work fine. Avoid anything with zippers, buttons, or jewelry.
-      p Most schools will sell you a uniform once you enroll, include a uniform with enrollment, or youâ€™ll be given guidance on what to buy..
+    div.hidden.mt-2.text-left.p-4.bg-white.rounded-md.shadow-inner(id='faq-4')
+      p If you don't have a uniform yet, wear comfortable workout clothes - something you can move in easily. A t-shirt and sweatpants or shorts usually work fine. Avoid anything with zippers, buttons, or jewelry.
+      br
+      p Most schools will sell you a uniform once you enroll, include a uniform with enrollment, or you'll be given guidance on what to buy.
   h2.text-2xl.text-red-800.font-semibold.mt-10.mb-4 Instructor & School Quality
   div.mb-4
-    button.text-left.w-full.bg-red-100.text-red-800.font-semibold.p-3.rounded-md.shadow-md.transition duration-300 hover:bg-red-200(onclick="toggleAnswer('faq-5')")
-      | 5. What should I know about an instructorâ€™s credentials?
-    div.hidden.mt-2.text-left.p-4.bg-gray-100.rounded-md.shadow-inner(id='faq-5')
-      p A good martial arts instructor should be able to clearly explain their training background â€” not just with certificates on the wall, but with a depth of experience that reflects both knowledge and the ability to teach effectively.
-      p A certificate might show that someone was taught â€” but it doesnâ€™t necessarily prove they understood, or that they can pass it on. Teaching martial arts isnâ€™t about displaying a rank â€” itâ€™s about transmitting skill, mindset, and discipline in a way the student can absorb and apply.
+    button(class="text-left w-full bg-red-100 text-red-800 font-semibold p-3 rounded-md shadow-md transition duration-300 hover:bg-red-200", onclick="toggleAnswer('faq-5')")
+      | 5. What should I know about an instructor's credentials?
+    div.hidden.mt-2.text-left.p-4.bg-white.rounded-md.shadow-inner(id='faq-5')
+      p A good martial arts instructor should be able to clearly explain their training background - not just with certificates on the wall, but with a depth of experience that reflects both knowledge and the ability to teach effectively.
+      br
+      p A certificate might show that someone was taught - but it doesn't necessarily prove they understood, or that they can pass it on. Teaching martial arts isn't about displaying a rank - it's about transmitting skill, mindset, and discipline in a way the student can absorb and apply.
   div.mb-4
-    button.text-left.w-full.bg-red-100.text-red-800.font-semibold.p-3.rounded-md.shadow-md.transition duration-300 hover:bg-red-200(onclick="toggleAnswer('faq-6')")
+    button(class="text-left w-full bg-red-100 text-red-800 font-semibold p-3 rounded-md shadow-md transition duration-300 hover:bg-red-200", onclick="toggleAnswer('faq-6')")
       | 6. Can the instructor trace their lineage to traditional systems?
-    div.hidden.mt-2.text-left.p-4.bg-gray-100.rounded-md.shadow-inner(id='faq-6')
-      p Lineage matters. It tells you where the knowledge came from, how it evolved, and whether itâ€™s grounded in time-tested principles or made-up ideas.
+    div.hidden.mt-2.text-left.p-4.bg-white.rounded-md.shadow-inner(id='faq-6')
+      p Lineage matters. It tells you where the knowledge came from, how it evolved, and whether it's grounded in time-tested principles or made-up ideas.
+      br
       p Having already been training in martial arts, I began my Kenpo journey under Professor John Conway in Saugus, California. After his passing, I continued training through the American Kenpo Karate Systems (AKKS), founded by Jeff Speakman, where I earned my 2nd Degree Black Belt. After many years of training and teaching, I was eventually promoted to 6th Degree Black Belt by Grandmaster Cecil Peoples.
+      br
       p My studio in Saugus was certified by the AKKS for many years before I founded American Martial Training Systems (AMTS), which reflected my evolving approach to training and instruction.
   div.mb-4
-    button.text-left.w-full.bg-red-100.text-red-800.font-semibold.p-3.rounded-md.shadow-md.transition duration-300 hover:bg-red-200(onclick="toggleAnswer('faq-7')")
+    button(class="text-left w-full bg-red-100 text-red-800 font-semibold p-3 rounded-md shadow-md transition duration-300 hover:bg-red-200", onclick="toggleAnswer('faq-7')")
       | 7. Does the school owner or head instructor actually teach?
-    div.hidden.mt-2.text-left.p-4.bg-gray-100.rounded-md.shadow-inner(id='faq-7')
+    div.hidden.mt-2.text-left.p-4.bg-white.rounded-md.shadow-inner(id='faq-7')
       p One of the most important things to understand about a martial arts school is who is actually teaching you. Is the head instructor personally involved, or are classes mostly run by junior assistants?
-      p In my studio, I personally taught the majority of classes. I believe that if your name is on the wall, your presence should be on the mat. Students benefit the most when theyâ€™re learning directly from the person responsible for the schoolâ€™s direction and values.
+      br
+      p In my studio, I personally taught the majority of classes. I believe that if your name is on the wall, your presence should be on the mat. Students benefit the most when they're learning directly from the person responsible for the school's direction and values.
   div.mb-4
-    button.text-left.w-full.bg-red-100.text-red-800.font-semibold.p-3.rounded-md.shadow-md.transition duration-300 hover:bg-red-200(onclick="toggleAnswer('faq-8')")
+    button(class="text-left w-full bg-red-100 text-red-800 font-semibold p-3 rounded-md shadow-md transition duration-300 hover:bg-red-200", onclick="toggleAnswer('faq-8')")
       | 8. Are assistant instructors properly trained before teaching?
-    div.hidden.mt-2.text-left.p-4.bg-gray-100.rounded-md.shadow-inner(id='faq-8')
-      p In my studio, only advanced students â€” typically Brown Belt and above â€” were permitted to assist with instruction, and only under close supervision. They had to demonstrate technical skill, consistency, and a strong grasp of how to teach respectfully and effectively.
-      p Thatâ€™s how I learned under Professor John Conway, and how he learned before me. Teaching is a responsibility, not a privilege â€” and certainly not something that should be bought.
-      p Iâ€™ve never agreed with the practice of charging students for â€œinstructor trainingâ€ programs. If a student is ready to teach, it should be because theyâ€™ve earned that role through effort, mentorship, and maturity â€” not because they paid for the title.
+    div.hidden.mt-2.text-left.p-4.bg-white.rounded-md.shadow-inner(id='faq-8')
+      p In my studio, only advanced students - typically Brown Belt and above - were permitted to assist with instruction, and only under close supervision. They had to demonstrate technical skill, consistency, and a strong grasp of how to teach respectfully and effectively.
+      br
+      p That's how I learned under Professor John Conway, and how he learned before me. Teaching is a responsibility, not a privilege - and certainly not something that should be bought.
+      br
+      p I've never agreed with the practice of charging students for "instructor training" programs. If a student is ready to teach, it should be because they've earned that role through effort, mentorship, and maturity - not because they paid for the title.
   h2.text-2xl.text-red-800.font-semibold.mt-10.mb-4 Curriculum & Structure
   div.mb-4
-    button.text-left.w-full.bg-red-100.text-red-800.font-semibold.p-3.rounded-md.shadow-md.transition duration-300 hover:bg-red-200(onclick="toggleAnswer('faq-9')")
+    button(class="text-left w-full bg-red-100 text-red-800 font-semibold p-3 rounded-md shadow-md transition duration-300 hover:bg-red-200", onclick="toggleAnswer('faq-9')")
       | 9. Does the school follow an established system?
-    div.hidden.mt-2.text-left.p-4.bg-gray-100.rounded-md.shadow-inner(id='faq-9')
-      p A quality martial arts school should be built on a proven, structured system â€” not something thrown together or made up on the spot.\n
+    div.hidden.mt-2.text-left.p-4.bg-white.rounded-md.shadow-inner(id='faq-9')
+      p A quality martial arts school should be built on a proven, structured system - not something thrown together or made up on the spot.
+      br
       p I teach Kenpo, a system rooted in long-standing tradition with a lineage tracing back over a thousand years to the Shaolin Temple in China, passed down through generations of dedicated martial artists. Lineage and structure matter. They show that the system has been tested, refined, and preserved with purpose.
   div.mb-4
-    button.text-left.w-full.bg-red-100.text-red-800.font-semibold.p-3.rounded-md.shadow-md.transition duration-300 hover:bg-red-200(onclick="toggleAnswer('faq-10')")
+    button(class="text-left w-full bg-red-100 text-red-800 font-semibold p-3 rounded-md shadow-md transition duration-300 hover:bg-red-200", onclick="toggleAnswer('faq-10')")
       | 10. Is there a clear curriculum for each belt, and is it posted for students to see?
-    div.hidden.mt-2.text-left.p-4.bg-gray-100.rounded-md.shadow-inner(id='faq-10')
-      p Just as important as lineage is transparency. Students should always know whatâ€™s expected of them. A well-run school will have a clearly defined curriculum for each belt level â€” posted on the wall, provided in handouts, or made available online.
+    div.hidden.mt-2.text-left.p-4.bg-white.rounded-md.shadow-inner(id='faq-10')
+      p Just as important as lineage is transparency. Students should always know what's expected of them. A well-run school will have a clearly defined curriculum for each belt level - posted on the wall, provided in handouts, or made available online.
+      br
       p In my studio, every student received a curriculum sheet tailored to the belt they were working toward. The complete system was posted on large wall charts above the mirror, and every assistant instructor had a curriculum workbook to ensure consistency.
-      p I believe every student should be held to the same standard for advancement. The only exception might be having separate tracks for children and adults. Beyond that, rank should reflect knowledge, ability, and dedication â€” not favoritism or shortcuts. Anything less devalues the effort of those who truly earned their belts.
+      br
+      p I believe every student should be held to the same standard for advancement. The only exception might be having separate tracks for children and adults. Beyond that, rank should reflect knowledge, ability, and dedication - not favoritism or shortcuts. Anything less devalues the effort of those who truly earned their belts.
   div.mb-4
-    button.text-left.w-full.bg-red-100.text-red-800.font-semibold.p-3.rounded-md.shadow-md.transition duration-300 hover:bg-red-200(onclick="toggleAnswer('faq-11')")
+    button(class="text-left w-full bg-red-100 text-red-800 font-semibold p-3 rounded-md shadow-md transition duration-300 hover:bg-red-200", onclick="toggleAnswer('faq-11')")
       | 11. How do students progress through the ranks and earn their next belt?
-    div.hidden.mt-2.text-left.p-4.bg-gray-100.rounded-md.shadow-inner(id='faq-11')
-      p Some schools guarantee belt promotions after a set number of classes â€” but quality schools take a different approach. Advancement should be based on mastery, not attendance.
-      p In my system, students begin as white belts and progress through yellow, orange, purple, blue, green, brown, red, red/black, and finally black belt. Advancement requires the student to fully understand and demonstrate the material for their current rank â€” and meet the same high standard as every other student at that level.
+    div.hidden.mt-2.text-left.p-4.bg-white.rounded-md.shadow-inner(id='faq-11')
+      p Some schools guarantee belt promotions after a set number of classes - but quality schools take a different approach. Advancement should be based on mastery, not attendance.
+      br
+      p In my system, students begin as white belts and progress through yellow, orange, purple, blue, green, brown, red, red/black, and finally black belt. Advancement requires the student to fully understand and demonstrate the material for their current rank - and meet the same high standard as every other student at that level.
+      br
       p When training with me, the minimum time to earn a 1st Degree Black Belt was four years, though most students took five to six, depending on their ability, consistency, and commitment. Higher degrees of black belt typically required an additional three to five years per level.
-      p Not all systems are this rigorous â€” and that shows in the depth of whatâ€™s taught. Be cautious of any school that guarantees a black belt in a fixed timeframe. More often than not, thatâ€™s a sign the school is focused on money, not meaningful progress.
+      br
+      p Not all systems are this rigorous - and that shows in the depth of what's taught. Be cautious of any school that guarantees a black belt in a fixed timeframe. More often than not, that's a sign the school is focused on money, not meaningful progress.
   div.mb-4
-    button.text-left.w-full.bg-red-100.text-red-800.font-semibold.p-3.rounded-md.shadow-md.transition duration-300 hover:bg-red-200(onclick="toggleAnswer('faq-12')")
-      | 12. Whatâ€™s the minimum age to start training in martial arts?
-    div.hidden.mt-2.text-left.p-4.bg-gray-100.rounded-md.shadow-inner(id='faq-12')
-      p Most experienced instructors agree that 5 to 6 years old is the minimum age for a child to start martial arts training with meaningful results. Younger children often lack the focus, coordination, or emotional maturity needed to retain what theyâ€™re being taught â€” and classes can easily turn into expensive babysitting sessions.
-      p I also believe that certain techniques and concepts â€” especially those involving serious combat application â€” should be reserved for older, more mature students. Young children should first develop coordination, discipline, confidence, and a strong foundation in basic self-defense. Not every part of martial arts is appropriate for every age group, and a good instructor will know what to teach â€” and when.
+    button(class="text-left w-full bg-red-100 text-red-800 font-semibold p-3 rounded-md shadow-md transition duration-300 hover:bg-red-200", onclick="toggleAnswer('faq-12')")
+      | 12. What's the minimum age to start training in martial arts?
+    div.hidden.mt-2.text-left.p-4.bg-white.rounded-md.shadow-inner(id='faq-12')
+      p Most experienced instructors agree that 5 to 6 years old is the minimum age for a child to start martial arts training with meaningful results. Younger children often lack the focus, coordination, or emotional maturity needed to retain what they're being taught - and classes can easily turn into expensive babysitting sessions.
+      br
+      p I also believe that certain techniques and concepts - especially those involving serious combat application - should be reserved for older, more mature students. Young children should first develop coordination, discipline, confidence, and a strong foundation in basic self-defense. Not every part of martial arts is appropriate for every age group, and a good instructor will know what to teach - and when.
   div.mb-4
-    button.text-left.w-full.bg-red-100.text-red-800.font-semibold.p-3.rounded-md.shadow-md.transition duration-300 hover:bg-red-200(onclick="toggleAnswer('faq-13')")
+    button(class="text-left w-full bg-red-100 text-red-800 font-semibold p-3 rounded-md shadow-md transition duration-300 hover:bg-red-200", onclick="toggleAnswer('faq-13')")
       | 13. Can I observe a class before enrolling?
-    div.hidden.mt-2.text-left.p-4.bg-gray-100.rounded-md.shadow-inner(id='faq-13')
-      p Yes â€” and you should. A quality martial arts school will welcome prospective students and parents to observe a class in progress. If youâ€™re not allowed to watch, it raises a red flag.
-      p Martial arts should be rooted in discipline, integrity, and transparency â€” not secrecy. The only exception Iâ€™ve made to that was during black belt testing. Those tests were closed-door out of respect for the seriousness of the occasion, but parents and spouses were allowed when appropriate.
-      p Outside of that, everything that happens on the training floor should be something you â€” or your child â€” can see and trust.
+    div.hidden.mt-2.text-left.p-4.bg-white.rounded-md.shadow-inner(id='faq-13')
+      p Yes - and you should. A quality martial arts school will welcome prospective students and parents to observe a class in progress. If you're not allowed to watch, it raises a red flag.
+      br
+      p Martial arts should be rooted in discipline, integrity, and transparency - not secrecy. The only exception I've made to that was during black belt testing. Those tests were closed-door out of respect for the seriousness of the occasion, but parents and spouses were allowed when appropriate.
+      br
+      p Outside of that, everything that happens on the training floor should be something you - or your child - can see and trust.
   h2.text-2xl.text-red-800.font-semibold.mt-10.mb-4 Training Philosophy & Culture
   div.mb-4
-    button.text-left.w-full.bg-red-100.text-red-800.font-semibold.p-3.rounded-md.shadow-md.transition duration-300 hover:bg-red-200(onclick="toggleAnswer('faq-14')")
+    button(class="text-left w-full bg-red-100 text-red-800 font-semibold p-3 rounded-md shadow-md transition duration-300 hover:bg-red-200", onclick="toggleAnswer('faq-14')")
       | 14. What if a school emphasizes tournaments and trophies?
-    div.hidden.mt-2.text-left.p-4.bg-gray-100.rounded-md.shadow-inner(id='faq-14')
-      p Trophies donâ€™t always tell the full story. While competition can be a valuable experience, a wall full of awards doesnâ€™t necessarily reflect the quality of instruction â€” or the effectiveness of the martial art being taught.
-      p I've never believed trophies should be the centerpiece of a schoolâ€™s credibility. They can be fun, motivational, and build confidence â€” but they should be optional, not the goal. The real focus should be on developing effective skills, personal discipline, and the ability to defend yourself when it counts.
-      p I also believe strongly in safety and control. Martial arts is physical, and bumps and bruises are part of training â€” but excessive injuries, broken bones, or head trauma shouldn't be common in any well-run school. Instructors and advanced students should always demonstrate restraint and control, especially when working with newer students.
-      p If a school allows high-ranking students to treat beginners like punching bags, thatâ€™s a major red flag. Martial arts is about building people up â€” not breaking them down.
+    div.hidden.mt-2.text-left.p-4.bg-white.rounded-md.shadow-inner(id='faq-14')
+      p Trophies don't always tell the full story. While competition can be a valuable experience, a wall full of awards doesn't necessarily reflect the quality of instruction - or the effectiveness of the martial art being taught.
+      br
+      p I've never believed trophies should be the centerpiece of a school's credibility. They can be fun, motivational, and build confidence - but they should be optional, not the goal. The real focus should be on developing effective skills, personal discipline, and the ability to defend yourself when it counts.
+      br
+      p I also believe strongly in safety and control. Martial arts is physical, and bumps and bruises are part of training - but excessive injuries, broken bones, or head trauma shouldn't be common in any well-run school. Instructors and advanced students should always demonstrate restraint and control, especially when working with newer students.
+      br
+      p If a school allows high-ranking students to treat beginners like punching bags, that's a major red flag. Martial arts is about building people up - not breaking them down.
   div.mb-4
-    button.text-left.w-full.bg-red-100.text-red-800.font-semibold.p-3.rounded-md.shadow-md.transition duration-300 hover:bg-red-200(onclick="toggleAnswer('faq-15')")
+    button(class="text-left w-full bg-red-100 text-red-800 font-semibold p-3 rounded-md shadow-md transition duration-300 hover:bg-red-200", onclick="toggleAnswer('faq-15')")
       | 15. What can I expect from training in a quality martial arts program?
-    div.hidden.mt-2.text-left.p-4.bg-gray-100.rounded-md.shadow-inner(id='faq-15')
-      p If you're training at a quality school, expect to sweat â€” every class. Expect to leave tired, challenged, and sharper than when you walked in. But also expect that real growth takes time.
-      p In my Kenpo system, training includes forms (structured movement patterns), partner techniques (practical self-defense scenarios), and contact sparring. Each of these elements develops different attributes â€” from coordination and timing to power, control, and tactical awareness.
-      p Over time, we expand into areas like throws, joint locks, grappling, weapon defense, freestyle sparring, and street-oriented scenarios â€” all layered in at appropriate stages of a student's development.
-      p For advanced students, I also incorporated firearms training into the curriculum â€” with a focus on tactical firearm use for self-defense situations. This training wasnâ€™t about glorifying violence, but about equipping students with the knowledge and discipline to handle real-world threats proficiently and responsibly when unarmed defense might not be enough.
-      p Beyond physical skills, we focus heavily on combat mindset, situational awareness, and strategic thinking â€” because martial arts is more than just movement. It's about preparing for the reality of conflict, not just the choreography of it.
-      p Not every school takes this approach. Many prioritize flash over function. So take the time to find a place that teaches usable, adaptable skills â€” and challenges you to grow both inside and outside the studio.
+    div.hidden.mt-2.text-left.p-4.bg-white.rounded-md.shadow-inner(id='faq-15')
+      p If you're training at a quality school, expect to sweat - every class. Expect to leave tired, challenged, and sharper than when you walked in. But also expect that real growth takes time.
+      br
+      p In my Kenpo system, training includes forms (structured movement patterns), partner techniques (practical self-defense scenarios), and contact sparring. Each of these elements develops different attributes - from coordination and timing to power, control, and tactical awareness.
+      br
+      p Over time, we expand into areas like throws, joint locks, grappling, weapon defense, freestyle sparring, and street-oriented scenarios - all layered in at appropriate stages of a student's development.
+      br
+      p For advanced students, I also incorporated firearms training into the curriculum - with a focus on tactical firearm use for self-defense situations. This training wasn't about glorifying violence, but about equipping students with the knowledge and discipline to handle real-world threats proficiently and responsibly when unarmed defense might not be enough.
+      br
+      p Beyond physical skills, we focus heavily on combat mindset, situational awareness, and strategic thinking - because martial arts is more than just movement. It's about preparing for the reality of conflict, not just the choreography of it.
+      br
+      p Not every school takes this approach. Many prioritize flash over function. So take the time to find a place that teaches usable, adaptable skills - and challenges you to grow both inside and outside the studio.
   div.mb-4
-    button.text-left.w-full.bg-red-100.text-red-800.font-semibold.p-3.rounded-md.shadow-md.transition duration-300 hover:bg-red-200(onclick="toggleAnswer('faq-16')")
+    button(class="text-left w-full bg-red-100 text-red-800 font-semibold p-3 rounded-md shadow-md transition duration-300 hover:bg-red-200", onclick="toggleAnswer('faq-16')")
       | 16. Is sparring required for all students?
-    div.hidden.mt-2.text-left.p-4.bg-gray-100.rounded-md.shadow-inner(id='faq-16')
-      p Sparring is an important part of martial arts, but it should always be introduced with purpose and control. In my studio, students were not required to spar until they had the foundational skills to do it safely and intelligently. Even then, it was guided and supervised carefully. Sparring is a valuable tool â€” not a rite of passage â€” and it should be approached with respect, not fear.
+    div.hidden.mt-2.text-left.p-4.bg-white.rounded-md.shadow-inner(id='faq-16')
+      p Sparring is an important part of martial arts, but it should always be introduced with purpose and control. In my studio, students were not required to spar until they had the foundational skills to do it safely and intelligently. Even then, it was guided and supervised carefully. Sparring is a valuable tool - not a rite of passage - and it should be approached with respect, not fear.
   h2.text-2xl.text-red-800.font-semibold.mt-10.mb-4 Practice & Commitment
   div.mb-4
-    button.text-left.w-full.bg-red-100.text-red-800.font-semibold.p-3.rounded-md.shadow-md.transition duration-300 hover:bg-red-200(onclick="toggleAnswer('faq-17')")
+    button(class="text-left w-full bg-red-100 text-red-800 font-semibold p-3 rounded-md shadow-md transition duration-300 hover:bg-red-200", onclick="toggleAnswer('faq-17')")
       | 17. How often should I train each week?
-    div.hidden.mt-2.text-left.p-4.bg-gray-100.rounded-md.shadow-inner(id='faq-17')
-      p It depends on your goals and schedule. Most students benefit from training 2 to 3 times per week to build consistency and retain what theyâ€™re learning. That said, even once a week is better than not training at all â€” and progress comes with commitment and quality, not just quantity.
+    div.hidden.mt-2.text-left.p-4.bg-white.rounded-md.shadow-inner(id='faq-17')
+      p It depends on your goals and schedule. Most students benefit from training 2 to 3 times per week to build consistency and retain what they're learning. That said, even once a week is better than not training at all - and progress comes with commitment and quality, not just quantity.
   div.mb-4
-    button.text-left.w-full.bg-red-100.text-red-800.font-semibold.p-3.rounded-md.shadow-md.transition duration-300 hover:bg-red-200(onclick="toggleAnswer('faq-18')")
+    button(class="text-left w-full bg-red-100 text-red-800 font-semibold p-3 rounded-md shadow-md transition duration-300 hover:bg-red-200", onclick="toggleAnswer('faq-18')")
       | 18. How often should I practice outside of class?
-    div.hidden.mt-2.text-left.p-4.bg-gray-100.rounded-md.shadow-inner(id='faq-18')
+    div.hidden.mt-2.text-left.p-4.bg-white.rounded-md.shadow-inner(id='faq-18')
       p Consistent practice outside of class is one of the best ways to accelerate your progress.
-      p For beginners, just 10 to 15 minutes a day can make a huge difference in retention and coordination. As you advance, aim for 30 minutes or more of focused practice each day â€” whether thatâ€™s working on forms, techniques, footwork, or mindset.
-      p The goal isnâ€™t perfection â€” itâ€™s discipline. Even a short daily routine builds lasting skill over time.
+      br
+      p For beginners, just 10 to 15 minutes a day can make a huge difference in retention and coordination. As you advance, aim for 30 minutes or more of focused practice each day - whether that's working on forms, techniques, footwork, or mindset.
+      br
+      p The goal isn't perfection - it's discipline. Even a short daily routine builds lasting skill over time.
   h2.text-2xl.text-red-800.font-semibold.mt-10.mb-4 Cost & Value
   div.mb-4
-    button.text-left.w-full.bg-red-100.text-red-800.font-semibold.p-3.rounded-md.shadow-md.transition duration-300 hover:bg-red-200(onclick="toggleAnswer('faq-19')")
+    button(class="text-left w-full bg-red-100 text-red-800 font-semibold p-3 rounded-md shadow-md transition duration-300 hover:bg-red-200", onclick="toggleAnswer('faq-19')")
       | 19. How much should I expect to pay for martial arts training?
-    div.hidden.mt-2.text-left.p-4.bg-gray-100.rounded-md.shadow-inner(id='faq-19')
-      p Martial arts instruction is one of the most undervalued forms of personal development. A good instructor isnâ€™t just teaching movement â€” theyâ€™re giving you the tools to protect yourself, build discipline, gain confidence, and improve your physical and mental health.
-      p Rates vary by school and location, but as of 2025, you can generally expect to pay between $100 and $200 per month for group classes, with two to three sessions per week. Private lessons typically range from $50 to $100 per hour, depending on the instructorâ€™s experience and the depth of instruction.
-      p While price is always a factor, remember: you're not just paying for a workout. You're investing in real-world knowledge and long-term personal growth. Look for a school that aligns with your values and teaches with purpose â€” not just one that offers the lowest rate.
+    div.hidden.mt-2.text-left.p-4.bg-white.rounded-md.shadow-inner(id='faq-19')
+      p Martial arts instruction is one of the most undervalued forms of personal development. A good instructor isn't just teaching movement - they're giving you the tools to protect yourself, build discipline, gain confidence, and improve your physical and mental health.
+      br
+      p Rates vary by school and location, but as of 2025, you can generally expect to pay between $100 and $200 per month for group classes, with two to three sessions per week. Private lessons typically range from $50 to $100 per hour, depending on the instructor's experience and the depth of instruction.
+      br
+      p While price is always a factor, remember: you're not just paying for a workout. You're investing in real-world knowledge and long-term personal growth. Look for a school that aligns with your values and teaches with purpose - not just one that offers the lowest rate.
 
   script.
     function toggleAnswer(id) {
