@@ -4,4 +4,4 @@ exports.getIndex = (req, res, next) => {
 
 exports.getFaqs = (req, res, next) => {
     res.render('faqs', {title: 'Frequently Asked Questions' });
-}
+};
