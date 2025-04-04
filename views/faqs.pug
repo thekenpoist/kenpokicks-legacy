@@ -1,21 +1,24 @@
 extends layouts/main-layout
 
 block content
-  h1.text-3xl.font-bold.text-red-800.mb-8 Kenpokicks Martial Arts FAQ
+  h1.text-3xl.font-bold.text-red-800.mb-8 AMTS Martial Arts FAQ
   h2.text-2xl.text-red-800.font-semibold.mt-10.mb-4 Getting Started
   div.mb-4
-    button.text-left.w-full.bg-red-100.text-red-800.font-semibold.p-3.rounded-md.shadow-md.transition duration-300 hover:bg-red-200(onclick="toggleAnswer('faq-1')")
+    button.text-left.w-full.bg-red-800.text-white.font-semibold.p-3.rounded-md.shadow-md.transition.duration-300.hover.bg-red-700(onclick="toggleAnswer('faq-1')")
       | 1. What style or system of martial arts is best for me?
-    div.hidden.mt-2.text-left.p-4.bg-gray-100.rounded-md.shadow-inner(id='faq-1')
-      p That depends on your goals. Are you looking for self-defense, fitness, competition, confidence, discipline â€” or all of the above?
-      p Personally, I believe the best system is one that adapts to you â€” your body type, mindset, and life situation â€” rather than forcing you to adapt to it.
+    div.hidden.mt-2.text-left.p-4.bg-white.rounded-md.shadow-inner(id='faq-1')
+      p That depends on your goals. Are you looking for self-defense, fitness, competition, confidence, discipline - or all of the above?
+      br
+      p Personally, I believe the best system is one that adapts to you - your body type, mindset, and life situation - rather than forcing you to adapt to it.
+      br
       p Styles like Kenpo, Jeet Kune Do, Judo, and Jujutsu emphasize practical movement and can be tailored to the individual. Whatever you choose, make sure the training feels right for you and supports your growth.
-      p I chose Kenpo as the foundation of my personal combat system after training in various styles. The logic, practicality, and inclusiveness of the art just felt natural â€” not just as a method of defense, but as a comprehensive way of thinking.
+      br
+      p I chose Kenpo as the foundation of my personal combat system after training in various styles. The logic, practicality, and inclusiveness of the art just felt natural - not just as a method of defense, but as a comprehensive way of thinking.
   div.mb-4
-    button.text-left.w-full.bg-red-100.text-red-800.font-semibold.p-3.rounded-md.shadow-md.transition duration-300 hover:bg-red-200(onclick="toggleAnswer('faq-2')")
+    button.text-left.w-full.bg-red-800.text-white.font-semibold.p-3.rounded-md.shadow-md.transition.duration-300.hover.bg-red-700(onclick="toggleAnswer('faq-2')")
       | 2. Do I need previous experience to get started?
-    div.hidden.mt-2.text-left.p-4.bg-gray-100.rounded-md.shadow-inner(id='faq-2')
-      p Not at all. Martial arts is for everyone â€” not just athletes or people with a background in combat sports. Everyone starts somewhere, and a good school will meet you where you are. Whether youâ€™re brand new or coming back after years away, youâ€™ll be guided step by step through the process.
+    div.hidden.mt-2.text-left.p-4.bg-white.rounded-md.shadow-inner(id='faq-2')
+      p Not at all. Martial arts is for everyone - not just athletes or people with a background in combat sports. Everyone starts somewhere, and a good school will meet you where you are. Whether you're brand new or coming back after years away, you'll be guided step by step through the process.
   div.mb-4
     button.text-left.w-full.bg-red-100.text-red-800.font-semibold.p-3.rounded-md.shadow-md.transition duration-300 hover:bg-red-200(onclick="toggleAnswer('faq-3')")
       | 3. Can I train if Iâ€™m older, out of shape, or recovering from an injury?
