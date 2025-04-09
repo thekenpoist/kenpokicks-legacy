@@ -21,5 +21,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(indexRouter);
 
 app.use(errorController.get404);
+app.use(errorController.get500);
 
 app.listen(PORT);
