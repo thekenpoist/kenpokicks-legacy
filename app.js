@@ -2,12 +2,12 @@ require('dotenv').config();
 
 const path = require('path');
 const express = require('express');
-const errorController = require('./controllers/error')
+const errorController = require('./controllers/errorController')
 const PORT = process.env.PORT || 3000;
 
 const app = express();
 
-const indexRouter = require('./routes/index');
+const indexRouter = require('./routes/indexRoutes');
 
 // Set Pug as the view engine
 app.set('view engine', 'pug');

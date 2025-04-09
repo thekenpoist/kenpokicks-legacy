@@ -1,4 +1,4 @@
-const siteModel = require('../models/site');
+const siteModel = require('../models/siteModel');
 
 
 
