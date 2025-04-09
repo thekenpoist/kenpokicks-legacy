@@ -3,7 +3,7 @@ const siteModel = require('../models/site');
 
 
 exports.getIndex = (req, res, next) => {
-    res.render('index', { title: 'Welcome to Kenpokicks '});
+    res.render('index', { pageTitle: 'Welcome to Kenpokicks '});
 };
 
 
