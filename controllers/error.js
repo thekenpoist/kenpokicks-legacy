@@ -16,6 +16,6 @@ exports.get500 = (err, req, res, next) => {
         statusCode: 500,
         message: 'An unexpected error occurred',
         error: err,
-        showStack: process.env.NODE_END !== 'production'
+        showStack: process.env.NODE_ENV !== 'production'
     });
 };
