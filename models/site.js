@@ -23,7 +23,7 @@ exports.getFaqs = () => {
             return a.id - b.id;
         }
 
-        return acatA - catB;
+        return catA - catB;
     });
 
     return faqs;       
