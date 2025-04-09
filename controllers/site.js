@@ -16,6 +16,12 @@ exports.getFaqs = (req, res, next) => {
         });
     } catch (err) {
         console.error('Error reading faqs:', err);
-        res.status(500).render('500', { title: 'Error loading faq page' });
+        res.status(500).render('error', { 
+            pageTitle: 'Server Error',
+            statusCode: 500,
+            message: 'Something went wrong while loading the FAQ page',
+            error: err,
+            showStack: process.env.NODE_END !== 'production'
+         });
     }
 };
