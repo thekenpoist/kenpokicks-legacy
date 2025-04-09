@@ -1,0 +1,7 @@
+extends layouts/main-layout
+
+block content
+  h1.text-3xl.font-bold.text-red-800.mb-6= statusCode
+  p.text-gray-700.mt-4= message
+  if showStack && error
+    pre.mt-6.text-sm.text-red-600= error.stack
