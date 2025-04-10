@@ -7,18 +7,19 @@ block content
     if i === 0 || faqs[i - 1].category !== faq.category
       h2.text-2xl.text-red-800.font-semibold.mt-10.mb-4= faq.category
 
-    div.mb-4
-      button(
-        class="text-left w-full bg-red-100 text-red-800 font-semibold p-3 rounded-md shadow-md transition duration-300 hover:bg-red-200",
-        onclick=`toggleAnswer('faq-${faq.id}')`
-      ) #{faq.id}. #{faq.question}
+    div.mb-4.flex.justify-center
+      div.w-full.max-w-2xl
+        button(
+          class="text-left w-full bg-red-100 text-red-800 font-semibold p-3 rounded-md shadow-md transition duration-300 hover:bg-red-200",
+          onclick=`toggleAnswer('faq-${faq.id}')`
+        ) #{faq.id}. #{faq.question}
 
-      div.hidden.mt-2.text-left.p-4.bg-white.rounded-md.shadow-inner(id=`faq-${faq.id}`)
-        if Array.isArray(faq.answer)
-          each paragraph in faq.answer
-            p.mb-2= paragraph
-        else
-          p= faq.answer
+        div.hidden.mt-2.text-left.p-4.bg-white.rounded-md.shadow-inner(id=`faq-${faq.id}`)
+          if Array.isArray(faq.answer)
+            each paragraph in faq.answer
+              p.mb-2= paragraph
+          else
+            p= faq.answer
 
   script.
     function toggleAnswer(id) {
