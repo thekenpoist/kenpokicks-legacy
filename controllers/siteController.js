@@ -19,3 +19,7 @@ exports.getFaqs = (req, res, next) => {
         next(err);
     }
 };
+
+exports.getHistory = (req, res, next) => {
+    res.render('history', { pageTitle: 'History of Kenpo' });
+};
