@@ -1,7 +1,8 @@
 extends layouts/main-layout
 
 block content
-  h1.text-3xl.font-bold.text-red-800.mb-8 American Martial Training Systems Martial Arts FAQ
+  h1.text-3xl.font-bold.text-red-800.mb-8 American Martial Training Systems 
+  h1.text-3xl.font-bold.text-red-800.mb-8 Martial Arts FAQ
 
   each faq, i in faqs
     if i === 0 || faqs[i - 1].category !== faq.category
