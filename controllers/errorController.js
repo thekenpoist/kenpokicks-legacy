@@ -4,7 +4,8 @@ exports.get404 = (req, res, next) => {
         statusCode: 404,
         message: "The page you're looking for does not exist.",
         error: null,
-        showStack: false
+        showStack: false,
+        showHomeLink: false
     
     });
 };
@@ -16,6 +17,7 @@ exports.get500 = (err, req, res, next) => {
         statusCode: 500,
         message: 'An unexpected error occurred',
         error: err,
-        showStack: process.env.NODE_ENV !== 'production'
+        showStack: process.env.NODE_ENV !== 'production',
+        showHomeLink: true
     });
 };
