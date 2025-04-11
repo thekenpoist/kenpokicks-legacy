@@ -1,2 +1,9 @@
-footer.text-center.text-sm.text-gray-500.py-6.mt-10
-    p © #{new Date().getFullYear()} Steve Hull. All rights reserved.
+footer(class="white text-red-700 p-4")
+    if showHomeLink
+        nav(class="max-w-6xl mx-auto flex justify-center space-x-12 text-2xl uppercase tracking-widest font-semibold kenpo-font")
+            a(
+                href="/" 
+            class="hover:text-green-700 hover:scale-110 hover:drop-shadow-md transform transition-all duration-300 ease-in-out"
+            ) AMTS Home
+
+    p.text-center.text-sm.text-gray-500.py-6.mt-10 © #{new Date().getFullYear()} Steve Hull. All rights reserved.
