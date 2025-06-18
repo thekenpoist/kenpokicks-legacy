@@ -1,5 +1,4 @@
-const siteModel = require('../models/siteModel');
-
+const { getFaqs } = require('../utils/faqUtils');
 
 
 exports.getIndex = (req, res, next) => {
@@ -20,7 +19,7 @@ exports.getHistory = (req, res, next) => {
 
 exports.getFaqs = (req, res, next) => {
     try {
-        const faqs = siteModel.getFaqs();
+        const faqs = getFaqs();
         res.render('faqs', {
             pageTitle: 'Frequently Asked Questions',
             faqs,
