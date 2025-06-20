@@ -16,6 +16,13 @@ exports.getHistory = (req, res, next) => {
     });
 };
 
+exports.getPhilosophy = (req, res, next) => {
+    res.render('philosophy', { 
+        pageTitle: 'AMTS Philosophy',
+        mainWidthClass: 'max-w-4x1',
+        showHomeLink: true
+    });
+};
 
 exports.getFaqs = (req, res, next) => {
     try {
