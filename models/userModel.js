@@ -6,7 +6,12 @@ module.exports = (sequelize) => {
     static associate(models) {
       // define association here
     }
+
+    get fullName() {
+      return `${this.firstName} ${this.lastName}`.trim();
+    }
   }
+
   User.init({
     uuid: {
       type: DataTypes.UUID,
