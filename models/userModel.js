@@ -34,19 +34,21 @@ module.exports = (sequelize) => {
     },
     firstName: {
       type: DataTypes.STRING,
-      allowNull: true
+      allowNull: false
     },
     lastName: {
       type: DataTypes.STRING,
-      allowNull: true
+      allowNull: false
     },
     rank: {
       type: DataTypes.STRING,
-      allowNull: true
+      allowNull: false,
+      defaultValue: 'White Belt'
     },
     style: {
       type: DataTypes.STRING,
-      allowNull: true
+      allowNull: false,
+      defaultValue: 'Kenpo'
     },
     role: {
       type: DataTypes.ENUM('admin', 'instructor', 'student'),
