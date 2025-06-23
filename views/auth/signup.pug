@@ -7,6 +7,16 @@ block content
     p(class="bg-red-100 text-red-700 px-4 py-2 mb-4 rounded-lg shadow") #{errorMessage}
 
   form(action="/signup" method="POST" class="flex flex-col space-y-4 max-w-md mx-auto text-left")
+
+    label(for="firstName" class="block font-semibold") First Name
+    input(type="text" name="firstName" id="firstName" value=formData.firstName || '' required class="w-full border border-gray-300 px-3 py-2 rounded")
+
+    label(for="lastName" class="block font-semibold") Last Name
+    input(type="text" name="lastName" id="lastName" value=formData.lastName || '' required class="w-full border border-gray-300 px-3 py-2 rounded")
+
+    label(for="username" class="block font-semibold") Username
+    input(type="text" name="username" id="username" value=formData.username || '' required class="w-full border border-gray-300 px-3 py-2 rounded")
+
     label(for="email" class="block font-semibold") Email
     input(type="email" name="email" id="email" value=formData.email || '' required class="w-full border border-gray-300 px-3 py-2 rounded")
 
