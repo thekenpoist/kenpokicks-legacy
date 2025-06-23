@@ -1,7 +1,7 @@
 const path = require('path');
 const express = require('express');
 const { body } = require('express-validator');
-const { signupRules, loginRules } = require('../middleware/validators/authValidators');
+const { signupRules, loginRules } = require('../middleware/validators/authValidator');
 
 const authController = require('../controllers/authController');
 

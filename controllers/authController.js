@@ -2,10 +2,10 @@ const { validationResult, Result } = require('express-validator');
 const { User } = require('../models');
 const argon2 = require('argon2');
 const { Op } = require('sequelize');
-const { generateUniqueUsername } = require('../utils/generateUsername');
-const { sendVerificationEmail } = require('../utils/sendVerificationEmail');
+const { generateUniqueUsername } = require('../utils/generateUsernameUtil');
+const { sendVerificationEmail } = require('../utils/sendVerificationEmailUtil');
 const { v4: uuidv4 } = require('uuid');
-const logger = require('../utils/logger');
+const logger = require('../utils/loggerUtil');
 
 exports.getSignup = (req, res, next) => {
     res.render('auth/signup', {
@@ -58,7 +58,6 @@ exports.postSignup = async (req, res, next) => {
             lastName: '',
             rank: '',
             style: '',
-            role: '',
             avatar: '',
             timezone: timezone,
             lastLoggedIn: lastLoggedIn,
