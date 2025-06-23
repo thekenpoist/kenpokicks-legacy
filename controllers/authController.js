@@ -43,7 +43,7 @@ exports.postSignup = async (req, res, next) => {
         });
 
         if (existingUser) {
-            let errorMsg = 'Username of email already in use';
+            let errorMsg = 'Username or email already in use';
 
             if (existingUser.email === trimmedEmail) {
                 errorMsg = 'Email is already registered'
