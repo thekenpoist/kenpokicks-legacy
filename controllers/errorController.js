@@ -1,3 +1,6 @@
+const logger = require('../utils/logger');
+
+// Controller for handling 404 errors
 exports.get404 = (req, res, next) => {
     res.status(404).render('404', {
         pageTitle: 'Page Not Found',
@@ -10,14 +13,18 @@ exports.get404 = (req, res, next) => {
     });
 };
 
+// Controller for handling generic errors
 exports.get500 = (err, req, res, next) => {
-    console.error('Server Error', err.stack);
-    res.status(500).render('error', {
+    logger.error(`Server Error ${err.message}`);
+        if (err.stack) {
+            logger.error(err.stack);
+        }
+
+    res.status(500).render('500', {
         pageTitle: 'Server Error',
         statusCode: 500,
         message: 'An unexpected error occurred',
-        error: err,
-        showStack: process.env.NODE_ENV !== 'production',
-        showHomeLink: true
+        err: err,
+        showstack: process.env.NODE_ENV !== 'production',
     });
 };
