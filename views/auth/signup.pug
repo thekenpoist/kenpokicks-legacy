@@ -1,0 +1,26 @@
+extends ../layouts/main-layout.pug
+
+block content
+  h1(class="text-3xl font-bold kenpo-font mb-6") Create Your KenpoKicks Account
+
+  if errorMessage
+    p(class="bg-red-100 text-red-700 px-4 py-2 mb-4 rounded-lg shadow") #{errorMessage}
+
+  form(action="/signup" method="POST" class="flex flex-col space-y-4 max-w-md mx-auto text-left")
+    label(for="email" class="block font-semibold") Email
+    input(type="email" name="email" id="email" value=formData.email || '' required class="w-full border border-gray-300 px-3 py-2 rounded")
+
+    label(for="confirmEmail" class="block font-semibold") Confirm Email
+    input(type="email" name="confirmEmail" id="confirmEmail" value=formData.confirmEmail || '' required class="w-full border border-gray-300 px-3 py-2 rounded")
+
+    label(for="password" class="block font-semibold") Password
+    input(type="password" name="password" id="password" required class="w-full border border-gray-300 px-3 py-2 rounded")
+
+    label(for="confirmPassword" class="block font-semibold") Confirm Password
+    input(type="password" name="confirmPassword" id="confirmPassword" required class="w-full border border-gray-300 px-3 py-2 rounded")
+
+    button(type="submit" class="bg-red-800 hover:bg-red-700 text-white font-bold py-2 px-4 rounded shadow transition") Sign Up
+
+  p(class="mt-6 text-center")
+    | Already have an account?
+    a(href="/login" class="text-red-700 hover:underline") Log in here
