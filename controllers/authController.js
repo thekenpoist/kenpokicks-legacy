@@ -89,7 +89,7 @@ exports.postSignup = async (req, res, next) => {
             if (err) {
                 logger.error('Session save error:', err);
             }
-            res.redirect('/dashboard');
+            res.redirect('/auth/check-email');
         });
 
     } catch (err) {
@@ -104,6 +104,13 @@ exports.postSignup = async (req, res, next) => {
             formData: req.body
         });
     }
+};
+
+exports.getCheckEmail = (req, res) => {
+    res.render('auth/check-email', {
+        pageTitle: 'Verify Your Email',
+        currentPage: 'check-email'
+    });
 };
 
 exports.getVerifyEmail = async (req, res, next) => {
