@@ -2,7 +2,6 @@ const { validationResult, Result } = require('express-validator');
 const { User } = require('../models');
 const argon2 = require('argon2');
 const { Op } = require('sequelize');
-const { generateUniqueUsername } = require('../utils/generateUsernameUtil');
 const { sendVerificationEmail } = require('../utils/sendVerificationEmailUtil');
 const { v4: uuidv4 } = require('uuid');
 const logger = require('../utils/loggerUtil');
@@ -29,7 +28,7 @@ exports.postSignup = async (req, res, next) => {
     }
 
     try {
-        const { email, password } = req.body;
+        const { email, password, firstName, lastName, username } = req.body;
 
         const existingUser = await User.findOne({ where: { email: email.trim().toLowerCase() } });
 
@@ -45,17 +44,16 @@ exports.postSignup = async (req, res, next) => {
         const timezone = req.session.timezone;
         const lastLoggedIn = new Date();
 
-        const username = await generateUniqueUsername(email);
         const hashedPassword = await argon2.hash(password);
 
         const verificationToken = uuidv4();
 
         const newUser = await User.create({
             username,
+            firstName,
+            lastName,
             email: email.trim().toLowerCase(),
             password: hashedPassword,
-            firstName: '',
-            lastName: '',
             rank: '',
             style: '',
             avatar: '',
