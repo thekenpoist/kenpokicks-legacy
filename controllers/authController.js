@@ -30,18 +30,36 @@ exports.postSignup = async (req, res, next) => {
     try {
         const { email, password, firstName, lastName, username } = req.body;
 
-        const existingUser = await User.findOne({ where: { email: email.trim().toLowerCase() } });
+        const trimmedEmail = email.trim().toLowerCase();
+        const trimmedUsername = username.trim().toLowerCase();
+
+        const existingUser = await User.findOne({ 
+            where: { 
+                [Op.or]: [
+                    { email: trimmedEmail },
+                    { username: trimmedUsername }
+                ]
+            }
+        });
 
         if (existingUser) {
+            let errorMsg = 'Username of email already in use';
+
+            if (existingUser.email === trimmedEmail) {
+                errorMsg = 'Email is already registered'
+            } else if (existingUser.username === trimmedUsername) {
+                errorMsg = 'Username is already taken'
+            }
+
             return res.status(400).render('auth/signup', {
                 pageTitle: 'Sign Up',
                 currentPage: 'signup',
-                errorMessage: 'Email is already registered',
+                errorMessage: errorMsg,
                 formData: req.body
             });
         }
 
-        const timezone = req.session.timezone;
+        const timezone = req.session.timezone || 'UTC';
         const lastLoggedIn = new Date();
 
         const hashedPassword = await argon2.hash(password);
@@ -49,25 +67,27 @@ exports.postSignup = async (req, res, next) => {
         const verificationToken = uuidv4();
 
         const newUser = await User.create({
-            username,
+            username: trimmedUsername,
             firstName,
             lastName,
-            email: email.trim().toLowerCase(),
+            email: trimmedEmail,
             password: hashedPassword,
-            rank: '',
-            style: '',
+            rank: 'White Belt',
+            style: 'Kenpo',
             avatar: '',
-            timezone: timezone,
-            lastLoggedIn: lastLoggedIn,
-            verificationToken: verificationToken,
+            timezone,
+            lastLoggedIn,
+            verificationToken,
             isVerified: false
         });
 
         await sendVerificationEmail(newUser.email, verificationToken);
 
+        req.session.userUuid = newUser.uuid;
+
         req.session.save(err => {
             if (err) {
-                console.error('Session save error:', err);
+                logger.error('Session save error:', err);
             }
             res.redirect('/dashboard');
         });
