@@ -41,7 +41,7 @@ app.use(session({
 app.use(setCurrentUser);
 
 app.use(publicRouter);
-app.use(authRouter);
+app.use('/auth', authRouter);
 
 app.use((err, req, res, next) => {
     errorController.get500(err, req, res, next);
