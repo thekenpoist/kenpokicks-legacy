@@ -8,9 +8,12 @@ exports.addUserRules = [
         .normalizeEmail(),
     body('password')
         .isLength({ min: 10, max: 25 }).withMessage('Password must be between 10 and 25 characters.'),
-    body('realName')
-        .optional({ checkFalsy: true })
-        .isLength({ max: 50 }).withMessage('Real name must be less than 50 characters.'),
+    body('firstName')
+        .trim()
+        .isLength({ max: 50 }).withMessage('First name must be less than 50 characters.'),
+    body('lastName')
+        .trim()
+        .isLength({ max: 50 }).withMessage('Last name must be less than 50 characters.'),
     body('avatar')
         .optional({ checkFalsy: true })
         .isURL().withMessage('Avatar must be a valid URL.')
@@ -26,9 +29,10 @@ exports.editUserRules = [
     body('password')
         .optional({ checkFalsy: true })
         .isLength({ min: 10, max: 25 }).withMessage('Password must be between 10 and 25 characters.'),
-    body('realName')
-        .optional({ checkFalsy: true })
-        .isLength({ max: 50 }).withMessage('Real name must be less than 50 characters.'),
+    body('firstName')
+        .isLength({ max: 50 }).withMessage('First name must be less than 50 characters.'),
+    body('lastName')
+        .isLength({ max: 50 }).withMessage('Last name must be less than 50 characters.'),
     body('avatar')
         .optional({ checkFalsy: true })
         .isURL().withMessage('Avatar must be a valid URL.')
@@ -50,7 +54,9 @@ exports.updateSettingsRules = [
         }),
     body('password')
         .optional({ checkFalsy: true })
-        .isLength({ min: 10, max: 25 }).withMessage('Password must be between 10 and 25 characters.'),
+        .isLength({ min: 10, max: 25 }).withMessage('Password must be between 10 and 25 characters.')
+        .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#^])[A-Za-z\d@$!%*?&#^]{10,25}$/)
+        .withMessage('Password must include upper/lowercase, number, and symbol.'),
     body('confirmPassword')
     .optional({ checkFalsy: true })
         .custom((value, { req }) => {

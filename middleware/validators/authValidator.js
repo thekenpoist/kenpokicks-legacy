@@ -25,7 +25,9 @@ exports.signupRules = [
         }),
     body('password')
         .isLength({ min: 10, max: 25 })
-        .withMessage('Password must be between 10 and 25 characters.'),
+        .withMessage('Password must be between 10 and 25 characters.')
+        .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#^])[A-Za-z\d@$!%*?&#^]{10,25}$/)
+        .withMessage('Password must include upper/lowercase, number, and symbol.'),
     body('confirmPassword')
         .custom((value, { req }) => {
             if (value !== req.body.password) {
