@@ -1,4 +1,4 @@
-const logger = require('../utils/logger');
+const logger = require('../utils/loggerUtil');
 
 // Controller for handling 404 errors
 exports.get404 = (req, res, next) => {

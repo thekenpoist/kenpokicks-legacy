@@ -1,4 +1,4 @@
-const { getFaqs } = require('../utils/faqUtils');
+const { getFaqs } = require('../utils/faqUtil');
 
 
 exports.getIndex = (req, res, next) => {
