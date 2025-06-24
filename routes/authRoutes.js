@@ -17,7 +17,7 @@ router.get('/check-email', authController.getCheckEmail);
 router.get('/login', authController.getLogin);
 router.post('/login', loginRules, authController.postLogin);
 
-router.post('/logout', authController.postLogout);
+router.get('/logout', authController.getLogout);
 
 
 

@@ -152,7 +152,7 @@ exports.postLogin = async (req, res, next) => {
             return res.status(401).render('auth/login', {
                 pageTitle: 'Login',
                 currentPage: 'login',
-                errorMessage: 'Invalid username'
+                errorMessage: 'Invalid credential'
             });
         }
 
@@ -215,7 +215,7 @@ exports.postLogin = async (req, res, next) => {
     }
 };
 
-exports.postLogout = (req, res, next) => {
+exports.getLogout = (req, res, next) => {
     req.session.destroy(err => {
         if (err) {
             logger.error(`Logout session destroy error: ${err.message}`);
@@ -229,7 +229,6 @@ exports.postLogout = (req, res, next) => {
                 errorMessage: 'Could not log you out. Please try again.'
             });
         }
-        
         res.redirect('/');
     });
 };
