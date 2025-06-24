@@ -59,7 +59,8 @@ exports.postSignup = async (req, res, next) => {
             });
         }
 
-        const timezone = req.session.timezone || 'UTC';
+        const timezone = req.body.timezone || 'UTC';
+        console.log(timezone);
         const lastLoggedIn = new Date();
 
         const hashedPassword = await argon2.hash(password);

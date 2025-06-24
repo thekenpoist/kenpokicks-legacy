@@ -7,6 +7,7 @@ block content
     p(class="bg-red-100 text-red-700 px-4 py-2 mb-4 rounded-lg shadow") #{errorMessage}
 
   form(action="/auth/signup" method="POST" class="flex flex-col space-y-4 max-w-md mx-auto text-left")
+    input(type="hidden", name="timezone", id="timezone")
 
     label(for="firstName" class="block font-semibold") First Name
     input(type="text" name="firstName" id="firstName" value=formData.firstName || '' required class="w-full border border-gray-300 px-3 py-2 rounded")
@@ -34,3 +35,12 @@ block content
   p(class="mt-6 text-center")
     | Already have an account?
     a(href="/auth/login" class="text-red-700 hover:underline") Log in here
+
+block scripts
+  script.
+    document.addEventListener('DOMContentLoaded', function () {
+      const timezoneField = document.getElementById('timezone');
+      if (timezoneField) {
+        timezoneField.value = Intl.DateTimeFormat().resolvedOptions().timeZone;
+      }
+    });
