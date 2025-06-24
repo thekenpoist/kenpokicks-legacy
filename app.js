@@ -6,6 +6,7 @@ const session = require('express-session');
 const errorController = require('./controllers/errorController')
 const setCurrentUser = require('./middleware/auth/setCurrentUserMiddlware');
 const authRouter = require('./routes/authRoutes');
+const portalRouter = require('./routes/portalRoutes');
 const publicRouter = require('./routes/publicRoutes');
 
 const PORT = process.env.PORT || 3000;
@@ -40,8 +41,9 @@ app.use(session({
 
 app.use(setCurrentUser);
 
-app.use(publicRouter);
 app.use('/auth', authRouter);
+app.use('/portal', portalRouter);
+app.use(publicRouter);
 
 app.use((err, req, res, next) => {
     errorController.get500(err, req, res, next);
