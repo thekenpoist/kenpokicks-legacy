@@ -33,6 +33,9 @@ block content
                 li.text-gray-600 Last Login: #{currentUser.lastLoggedInFormatted || 'Unavailable'}
                 li.mt-2
                   a(href="/portal/profile/edit" class="text-blue-600 hover:underline") Edit Profile
+    
+    .text-left
+        h1.text-3xl.font-bold.mb-1 Welcome back, #{currentUser.firstName}!
 
     a(
       href="/portal/profile/edit"
@@ -58,6 +61,29 @@ block content
               li Techniques
               li Sets
               li Groundwork
+
+    // 🔹 Right: Training Diary Placeholder
+    div(class="md:col-span-2 bg-white shadow-md rounded-lg p-4")
+      .flex.justify-between.items-center.mb-4
+        h2.text-xl.font-bold.text-red-800 Training Diary
+        a(
+          href="/portal/training-log/add", 
+          class="text-sm px-3 py-1 bg-red-800 text-white rounded hover:bg-green-700 transition"
+        ) Add Entry
+
+      // Table headers
+      .grid.grid-cols-3.font-semibold.text-gray-600.border-b.border-gray-300.pb-2.mb-2.text-sm
+        div Date
+        div Category
+        div Description
+
+      // Placeholder entries
+      each log in [1,2,3]
+        .grid.grid-cols-3.text-sm.text-gray-800.border-b.border-gray-100.py-2
+          div 2025-06-2#{log}
+          div Forms
+          div Practiced Long Form 1 in the garage dojo
+
 
 
   script.
