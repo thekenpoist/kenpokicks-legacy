@@ -1,13 +1,17 @@
-extends ../layouts/main-layout.pug
+extends ../layouts/dashboard-layout.pug
 
 block content
-  h1(class="text-3xl font-bold kenpo-font mb-4") Welcome to Your Dashboard
+  h1.text-3xl.font-bold.mb-6 Welcome, #{user.firstName}
 
-  if currentUser
-    p(class="text-lg mb-2") Hello, #{currentUser.firstName}!
-    p(class="text-gray-600") You're logged in as #{currentUser.username} (#{currentUser.email})
-    p(class="mt-4 text-green-700 font-semibold") Status: Verified
+  div.grid.grid-cols-2.gap-6
+    div.bg-white.shadow-lg.p-6.rounded-xl
+      h2.text-xl.font-semibold.text-red-800 Training Access
+      p.mt-2.text-gray-700 Access your training materials by belt and category.
 
-    a(href="/auth/logout" class="inline-block mt-6 text-red-700 hover:underline") Log out
-  else
-    p(class="text-red-700") No user session found.
+    div.bg-white.shadow-lg.p-6.rounded-xl
+      h2.text-xl.font-semibold.text-red-800 Training Log
+      p.mt-2.text-gray-700 View or add to your recent training entries.
+
+    div.bg-white.shadow-lg.p-6.rounded-xl
+      h2.text-xl.font-semibold.text-red-800 Edit Profile
+      p.mt-2.text-gray-700 Manage your personal and training information.
