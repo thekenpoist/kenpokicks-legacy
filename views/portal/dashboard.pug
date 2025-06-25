@@ -14,10 +14,17 @@ block content
 
         // Username with dropdown
         .text-center.mt-2
-          .relative.group
-            span(class="text-sm font-semibold text-red-800 cursor-pointer") @#{currentUser.username}
-            // Dropdown on hover
-            div(class="absolute left-1/2 transform -translate-x-1/2 mt-2 w-64 bg-white border border-gray-200 shadow-lg rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10")
+          .relative
+            button(
+              type="button",
+              class="text-sm font-semibold text-red-800 cursor-pointer",
+              id="profileDropdownBtn"
+            ) @#{currentUser.username}
+
+            div(
+              id="profileDropdown",
+              class="hidden absolute left-1/2 transform -translate-x-1/2 mt-2 w-64 bg-white border border-gray-200 shadow-lg rounded-md z-10"
+            )
               ul.p-4.text-sm.text-gray-800.text-left
                 li.font-bold.text-lg #{currentUser.firstName} #{currentUser.lastName}
                 li.mt-1.text-gray-600 Rank: #{currentUser.rank}
@@ -51,3 +58,20 @@ block content
               li Techniques
               li Sets
               li Groundwork
+
+
+  script.
+    document.addEventListener('DOMContentLoaded', function () {
+      const btn = document.getElementById('profileDropdownBtn');
+      const dropdown = document.getElementById('profileDropdown');
+
+      btn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        dropdown.classList.toggle('hidden');
+      });
+
+      // Close dropdown if clicked outside
+      document.addEventListener('click', function () {
+        dropdown.classList.add('hidden');
+      });
+    });
