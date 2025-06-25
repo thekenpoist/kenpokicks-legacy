@@ -1,0 +1,26 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title #{pageTitle}
+    link(rel="stylesheet", href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css")
+  body(class="bg-gray-100 flex")
+
+    // Sidebar
+    aside(class="w-64 bg-red-800 text-white h-screen p-6 flex flex-col space-y-6")
+      h1.text-2xl.font-bold.uppercase.kenpo-font KenpoKicks
+
+      nav.flex.flex-col.space-y-4.text-lg
+        a(href="/portal/dashboard" class="hover:text-green-400 transition") Dashboard
+        a(href="/portal/profile" class="hover:text-green-400 transition") Profile
+        a(href="/portal/training" class="hover:text-green-400 transition") Training
+        a(href="/portal/logs" class="hover:text-green-400 transition") Training Log
+        //- Future links
+        // a(href="/portal/goals" class="hover:text-green-400 transition") Goals
+        // a(href="/portal/forum" class="hover:text-green-400 transition") Forum
+        a(href="/auth/logout" class="hover:text-green-400 transition mt-auto text-sm") Logout
+
+    // Main Content
+    main(class="flex-1 p-10")
+      block content
