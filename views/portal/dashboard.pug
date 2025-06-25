@@ -4,18 +4,34 @@ block content
   // 🔷 Top Profile Section
   .bg-white.shadow-lg.rounded-xl.p-6.flex.items-center.justify-between.mb-8
     .flex.items-center.space-x-6
-      // Avatar Placeholder
-      div(class="w-20 h-20 bg-gray-300 rounded-full")
-        // Replace with image when ready
+      // Avatar + username dropdown
+      .relative
+        img(
+          src=currentUser.avatar || '/images/default-avatar.png',
+          alt="User Avatar",
+          class="w-24 h-24 rounded-full border-2 border-red-800 object-cover"
+        )
 
-      .text-left
-        h1.text-2xl.font-bold.mb-1 Welcome back, #{currentUser.firstName}!
-        p.text-sm.text-gray-600 #{currentUser.rank || 'Rank Belt'}
+        // Username with dropdown
+        .text-center.mt-2
+          .relative.group
+            span(class="text-sm font-semibold text-red-800 cursor-pointer") @#{currentUser.username}
+            // Dropdown on hover
+            div(class="absolute left-1/2 transform -translate-x-1/2 mt-2 w-64 bg-white border border-gray-200 shadow-lg rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10")
+              ul.p-4.text-sm.text-gray-800.text-left
+                li.font-bold.text-lg #{currentUser.firstName} #{currentUser.lastName}
+                li.mt-1.text-gray-600 Rank: #{currentUser.rank}
+                li.text-gray-600 Style: #{currentUser.style}
+                li.text-gray-600 Timezone: #{currentUser.timezone}
+                li.text-gray-600 Last Login: #{currentUser.lastLoggedInFormatted || 'Unavailable'}
+                li.mt-2
+                  a(href="/portal/profile/edit" class="text-blue-600 hover:underline") Edit Profile
 
     a(
       href="/portal/profile/edit"
       class="px-4 py-2 bg-red-800 text-white font-semibold rounded hover:bg-green-700 transition"
     ) Edit Profile
+
 
   // 🔷 Grid Container
   div(class="grid grid-cols-1 md:grid-cols-3 gap-6")
