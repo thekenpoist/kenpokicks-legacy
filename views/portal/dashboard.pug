@@ -1,17 +1,37 @@
 extends ../layouts/dashboard-layout.pug
 
 block content
-  h1.text-3xl.font-bold.mb-6 Welcome, #{user.firstName}
+  // 🔷 Top Profile Section
+  .bg-white.shadow-lg.rounded-xl.p-6.flex.items-center.justify-between.mb-8
+    .flex.items-center.space-x-6
+      // Avatar Placeholder
+      div(class="w-20 h-20 bg-gray-300 rounded-full")
+        // Replace with image when ready
 
-  div.grid.grid-cols-2.gap-6
-    div.bg-white.shadow-lg.p-6.rounded-xl
-      h2.text-xl.font-semibold.text-red-800 Training Access
-      p.mt-2.text-gray-700 Access your training materials by belt and category.
+      .text-left
+        h1.text-2xl.font-bold.mb-1 Welcome back, #{currentUser.firstName}!
+        p.text-sm.text-gray-600 #{currentUser.rank || 'Rank Belt'}
 
-    div.bg-white.shadow-lg.p-6.rounded-xl
-      h2.text-xl.font-semibold.text-red-800 Training Log
-      p.mt-2.text-gray-700 View or add to your recent training entries.
+    a(
+      href="/portal/profile/edit"
+      class="px-4 py-2 bg-red-800 text-white font-semibold rounded hover:bg-green-700 transition"
+    ) Edit Profile
 
-    div.bg-white.shadow-lg.p-6.rounded-xl
-      h2.text-xl.font-semibold.text-red-800 Edit Profile
-      p.mt-2.text-gray-700 Manage your personal and training information.
+  // 🔷 Grid Container
+  div(class="grid grid-cols-1 md:grid-cols-3 gap-6")
+
+    // 🔹 Left: Training Curriculum Panel
+    .bg-white.shadow-md.rounded-lg.p-4
+      h2.text-xl.font-bold.mb-4.text-red-800 Training Curriculum
+
+      // Looping through belts (example static content for now)
+      each belt in ['White Belt', 'Yellow Belt', 'Orange Belt', 'Purple Belt', 'Blue Belt', 'Green Belt', 'Brown Belt', 'Red Belt', 'Black/Red Belt', 'Black Belt']
+        .mb-2.border.border-gray-300.rounded
+          details
+            summary.cursor-pointer.px-3.py-2.font-semibold #{belt}
+            ul.pl-6.pt-2.pb-2.text-sm.text-gray-700
+              li Basics
+              li Forms
+              li Techniques
+              li Sets
+              li Groundwork
