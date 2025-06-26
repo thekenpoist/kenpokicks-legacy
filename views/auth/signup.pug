@@ -1,49 +1,57 @@
 extends ../layouts/main-layout.pug
 
 block content
-  h1(class="text-3xl font-bold kenpo-font mb-6") Create Your KenpoKicks Account
+  h1(class="text-3xl font-bold kenpo-font mb-6 text-center") Create Your KenpoKicks Account
 
   if errorMessage
     p(class="bg-red-100 text-red-700 px-4 py-2 mb-4 rounded-lg shadow") #{errorMessage}
 
-  form(action="/auth/signup" method="POST" enctype="multipart/form-data" class="flex flex-col space-y-4 max-w-md mx-auto text-left")
+  form(action="/auth/signup" method="POST" enctype="multipart/form-data" class="space-y-4 max-w-xl mx-auto text-left")
     input(type="hidden", name="timezone", id="timezone")
 
-    label(for="firstName" class="block font-semibold") First Name
-    input(type="text" name="firstName" id="firstName" value=formData.firstName || '' required class="w-full border border-gray-300 px-3 py-2 rounded")
+    .grid.grid-cols-2.gap-4
+      .flex.flex-col
+        label(for="email" class="font-semibold") Email
+        input(type="email" name="email" id="email" value=formData.email || '' required class="border border-gray-300 px-3 py-2 rounded")
+      .flex.flex-col
+        label(for="confirmEmail" class="font-semibold") Confirm Email
+        input(type="email" name="confirmEmail" id="confirmEmail" value=formData.confirmEmail || '' required class="border border-gray-300 px-3 py-2 rounded")
 
-    label(for="lastName" class="block font-semibold") Last Name
-    input(type="text" name="lastName" id="lastName" value=formData.lastName || '' required class="w-full border border-gray-300 px-3 py-2 rounded")
+    .grid.grid-cols-2.gap-4
+      .flex.flex-col
+        label(for="password" class="font-semibold") Password
+        input(type="password" name="password" id="password" required class="border border-gray-300 px-3 py-2 rounded")
+      .flex.flex-col
+        label(for="confirmPassword" class="font-semibold") Confirm Password
+        input(type="password" name="confirmPassword" id="confirmPassword" required class="border border-gray-300 px-3 py-2 rounded")
 
-    label(for="username" class="block font-semibold") Username
+    .grid.grid-cols-2.gap-4
+      .flex.flex-col
+        label(for="firstName" class="font-semibold") First Name
+        input(type="text" name="firstName" id="firstName" value=formData.firstName || '' required class="border border-gray-300 px-3 py-2 rounded")
+      .flex.flex-col
+        label(for="lastName" class="font-semibold") Last Name
+        input(type="text" name="lastName" id="lastName" value=formData.lastName || '' required class="border border-gray-300 px-3 py-2 rounded")
+
+    label(for="username" class="font-semibold") Username
     input(type="text" name="username" id="username" value=formData.username || '' required class="w-full border border-gray-300 px-3 py-2 rounded")
-        
-    label(for="avatar" class="block font-semibold") Upload Avatar (optional)
+
+    hr(class="my-4")
+
+    label(for="style" class="font-semibold") Art Style (optional)
+    input(type="text" name="style" id="style" value=formData.style || '' class="w-full border border-gray-300 px-3 py-2 rounded")
+
+    label(for="rank" class="font-semibold") Belt Rank (optional)
+    input(type="text" name="rank" id="rank" value=formData.rank || '' class="w-full border border-gray-300 px-3 py-2 rounded")
+
+    label(for="avatar" class="font-semibold") Upload Avatar (optional)
     input(type="file" name="avatar" id="avatar" accept=".jpg,.jpeg,.png" class="w-full border border-gray-300 px-3 py-2 rounded file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-semibold file:bg-red-800 file:text-white hover:file:bg-red-700")
 
-    label(for="style" class="block font-semibold") Art Style
-    input(type="text" name="style" id="style" value=formData.style || '' required class="w-full border border-gray-300 px-3 py-2 rounded")
+    button(type="submit" class="bg-red-800 hover:bg-red-700 text-white font-bold py-2 px-4 rounded shadow transition w-full") Sign Up
 
-    label(for="rank" class="block font-semibold") Belt Rank
-    input(type="text" name="rank" id="username" value=formData.rank || '' required class="w-full border border-gray-300 px-3 py-2 rounded")
-
-    label(for="email" class="block font-semibold") Email
-    input(type="email" name="email" id="email" value=formData.email || '' required class="w-full border border-gray-300 px-3 py-2 rounded")
-
-    label(for="confirmEmail" class="block font-semibold") Confirm Email
-    input(type="email" name="confirmEmail" id="confirmEmail" value=formData.confirmEmail || '' required class="w-full border border-gray-300 px-3 py-2 rounded")
-
-    label(for="password" class="block font-semibold") Password
-    input(type="password" name="password" id="password" required class="w-full border border-gray-300 px-3 py-2 rounded")
-
-    label(for="confirmPassword" class="block font-semibold") Confirm Password
-    input(type="password" name="confirmPassword" id="confirmPassword" required class="w-full border border-gray-300 px-3 py-2 rounded")
-
-    button(type="submit" class="bg-red-800 hover:bg-red-700 text-white font-bold py-2 px-4 rounded shadow transition") Sign Up
-
-  p(class="mt-6 text-center")
+  p(class="mt-6 text-center text-sm")
     | Already have an account?
-    a(href="/auth/login" class="text-red-700 hover:underline") Log in here
+    a(href="/auth/login" class="text-red-700 hover:underline ml-1") Log in here
 
 block scripts
   script.
