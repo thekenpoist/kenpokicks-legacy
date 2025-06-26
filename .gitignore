@@ -136,4 +136,4 @@ dist
 .pnp.*
 
 # user uploads
-/public/uploads
+/public/uploads/

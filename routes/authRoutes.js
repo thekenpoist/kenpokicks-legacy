@@ -2,7 +2,7 @@ const path = require('path');
 const express = require('express');
 const { body } = require('express-validator');
 const { signupRules, loginRules } = require('../middleware/validators/authValidator');
-const processAvatar = require('../middleware/uploadAvatar');
+const processAvatar = require('../middleware/uploadAvatarMiddleware');
 
 const authController = require('../controllers/authController');
 
