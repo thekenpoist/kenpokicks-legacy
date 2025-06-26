@@ -2,6 +2,7 @@ const multer = require('multer');
 const sharp = require('sharp');
 const path = require('path');
 const fs = require('fs');
+const logger = require('../utils/loggerUtil');
 
 const tempDir = 'temp/uploads';
 const finalDir = 'public/uploads/avatars';
@@ -54,7 +55,7 @@ const processAvatar = async (req, res, next) => {
             fs.unlinkSync(req.file.path);
 
             // Set path to avatar for controller
-            req.avatarPath = `/uploads/avatars/${safename}.jpg`;
+            req.avatarPath = `/uploads/avatars/${safeName}.jpg`;
 
             next();
         } catch (err) {

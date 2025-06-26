@@ -1,7 +1,7 @@
 extends ../layouts/main-layout.pug
 
 block content
-  h1(class="text-3xl font-bold kenpo-font mb-6") Login to KenpoKicks
+  h1(class="text-3xl font-bold kenpo-font mb-6 text-green-700") Login to KenpoKicks
 
   if errorMessage
     p(class="bg-red-100 text-red-700 px-4 py-2 mb-4 rounded-lg shadow") #{errorMessage}
@@ -17,4 +17,4 @@ block content
 
   p(class="mt-6 text-center")
     | Don’t have an account?
-    a(href="/auth/signup" class="text-red-700 hover:underline") Sign up here
+    a(href="/auth/signup" class="text-red-700 hover:underline")  Sign up here

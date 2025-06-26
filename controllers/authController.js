@@ -28,7 +28,7 @@ exports.postSignup = async (req, res, next) => {
     }
 
     try {
-        const { email, password, firstName, lastName, username } = req.body;
+        const { email, password, firstName, lastName, username, rank, style, timezone } = req.body;
 
         const trimmedEmail = email.trim().toLowerCase();
         const trimmedUsername = username.trim().toLowerCase();
@@ -59,12 +59,8 @@ exports.postSignup = async (req, res, next) => {
             });
         }
 
-        const timezone = req.body.timezone || 'UTC';
-        console.log(timezone);
         const lastLoggedIn = new Date();
-
         const hashedPassword = await argon2.hash(password);
-
         const verificationToken = uuidv4();
 
         const newUser = await User.create({
@@ -73,8 +69,8 @@ exports.postSignup = async (req, res, next) => {
             lastName,
             email: trimmedEmail,
             password: hashedPassword,
-            rank: 'White Belt',
-            style: 'Kenpo',
+            rank: rank || 'White Belt',
+            style: style || 'None',
             avatar: req.avatarPath || null,
             timezone,
             lastLoggedIn,
