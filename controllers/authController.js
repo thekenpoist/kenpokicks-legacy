@@ -75,7 +75,7 @@ exports.postSignup = async (req, res, next) => {
             password: hashedPassword,
             rank: 'White Belt',
             style: 'Kenpo',
-            avatar: '',
+            avatar: req.avatarPath || null,
             timezone,
             lastLoggedIn,
             verificationToken,
