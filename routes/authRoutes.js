@@ -9,7 +9,7 @@ const authController = require('../controllers/authController');
 const router = express.Router();
 
 router.get('/signup', authController.getSignup);
-router.post('/signup', signupRules, processAvatar, authController.postSignup);
+router.post('/signup', processAvatar, signupRules, authController.postSignup);
 
 router.get('/verify-email', authController.getVerifyEmail);
 
