@@ -40,8 +40,9 @@ const processAvatar = async (req, res, next) => {
         if (!req.file) return next();
 
         try {
-            const username = req.body.username;
-            const finalPath = path.join(finalDir, `${username}.jpg`);
+            const username = req.body.username?.toLowerCase();
+            const safeName = username.replace(/[^a-zA-Z0-9_-]/g, '');
+            const finalPath = path.join(finalDir, `${safeName}.jpg`);
 
             // Convert size with sharp
             await sharp(req.file.path)
@@ -53,7 +54,7 @@ const processAvatar = async (req, res, next) => {
             fs.unlinkSync(req.file.path);
 
             // Set path to avatar for controller
-            req.avatarPath = `/uploads/avatars/${username}.jpg`;
+            req.avatarPath = `/uploads/avatars/${safename}.jpg`;
 
             next();
         } catch (err) {
