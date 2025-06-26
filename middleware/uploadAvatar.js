@@ -4,7 +4,7 @@ const path = require('path');
 const fs = require('fs');
 
 const tempDir = 'temp/uploads';
-const finalDir = 'publid/uploads/avatars';
+const finalDir = 'public/uploads/avatars';
 
 // If the dir's don't exist then create them
 if (!fs.existsSync(tempDir)) fs.mkdirSync(tempDir, { recursive: true });
@@ -31,7 +31,7 @@ const upload = multer({
 }).single('avatar');
 
 // Upload and conversion
-const processAvatar = async (req, resizeBy, next) => {
+const processAvatar = async (req, res, next) => {
     upload(req, res, async (err) => {
         if (err) {
             return res.status(400).send('Avatar upload failed.');
@@ -40,8 +40,8 @@ const processAvatar = async (req, resizeBy, next) => {
         if (!req.file) return next();
 
         try {
-            const uuid = req.session.userUuid || req.body.uuid;
-            const finalPath = path.join(finalDir, `${uuid}.jpg`);
+            const username = req.body.username;
+            const finalPath = path.join(finalDir, `${username}.jpg`);
 
             // Convert size with sharp
             await sharp(req.file.path)
@@ -53,7 +53,7 @@ const processAvatar = async (req, resizeBy, next) => {
             fs.unlinkSync(req.file.path);
 
             // Set path to avatar for controller
-            req.avatarPath = `/uploads/avatars/${uuid}.jpg`;
+            req.avatarPath = `/uploads/avatars/${username}.jpg`;
 
             next();
         } catch (err) {
