@@ -28,7 +28,9 @@ exports.getEditProfile = (req, res, next) => {
                 style: user.style || '',
                 rank: user.rank || '',
                 timezone: user.timezone || ''
-            }
+            },
+            submitLabel: 'Update Profile',
+            formMode: 'edit'
         });
 }
 
@@ -72,6 +74,19 @@ exports.postEditProfile = async (req, res, next) => {
                 formData: req.body
             });
         }
+
+        if (password || emailChanged) {
+            const isMatch = await argon2.verify(user.password, currentPassword);
+            if (!isMatch) {
+                return res.status(403).render('profiles/edit-profile', {
+                    pageTitle: 'Edit Profile',
+                    currentPage: 'profile',
+                    errorMessage: 'Current password is incorrect.',
+                    formData: req.body
+                });
+            }
+        }
+
 
         if (email && email.toLowerCase() !== user.email.toLowerCase()) {
             await sendVerificationEmail(email, verificationToken);
