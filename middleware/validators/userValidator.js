@@ -1,49 +1,38 @@
 const { body } = require('express-validator')
 
-exports.addUserRules = [
+exports.validateProfileUpdate = [
+    // Basic Info
     body('username')
+        .optional()
         .isLength({ min: 4, max: 50 }).withMessage('Username must be between 4 and 50 characters.'),
-    body('email')
-        .isEmail().withMessage('A valid email is required.')
-        .normalizeEmail(),
-    body('password')
-        .isLength({ min: 10, max: 25 }).withMessage('Password must be between 10 and 25 characters.'),
+
     body('firstName')
-        .trim()
+        .optional()
         .isLength({ max: 50 }).withMessage('First name must be less than 50 characters.'),
+
     body('lastName')
-        .trim()
+        .optional()
         .isLength({ max: 50 }).withMessage('Last name must be less than 50 characters.'),
+
+    body('style')
+        .optional()
+        .isLength({ max: 100 }).withMessage('Style must be less than 100 characters.'),
+
+    body('rank')
+        .optional()
+        .isLength({ max: 100 }).withMessage('Rank must be less than 100 characters.'),
+
     body('avatar')
         .optional({ checkFalsy: true })
-        .isURL().withMessage('Avatar must be a valid URL.')
         .isLength({ max: 2048 }).withMessage('Avatar URL is too long.')
-];
+        .isURL().withMessage('Avatar must be a valid URL.'),
 
-exports.editUserRules = [
-    body('username')
-        .isLength({ min: 4, max: 50 }).withMessage('Username must be between 4 and 50 characters.'),
-    body('email')
-        .isEmail().withMessage('A valid email is required.')
-        .normalizeEmail(),
-    body('password')
-        .optional({ checkFalsy: true })
-        .isLength({ min: 10, max: 25 }).withMessage('Password must be between 10 and 25 characters.'),
-    body('firstName')
-        .isLength({ max: 50 }).withMessage('First name must be less than 50 characters.'),
-    body('lastName')
-        .isLength({ max: 50 }).withMessage('Last name must be less than 50 characters.'),
-    body('avatar')
-        .optional({ checkFalsy: true })
-        .isURL().withMessage('Avatar must be a valid URL.')
-        .isLength({ max: 2048 }).withMessage('Avatar URL is too long.')
-];
-
-exports.updateSettingsRules = [
+    // Email
     body('email')
         .optional({ checkFalsy: true })
         .isEmail().withMessage('A valid email is required.')
         .normalizeEmail(),
+
     body('confirmEmail')
         .optional({ checkFalsy: true })
         .custom((value, { req }) => {
@@ -52,19 +41,31 @@ exports.updateSettingsRules = [
             }
             return true;
         }),
+
+    // Password
     body('password')
         .optional({ checkFalsy: true })
         .isLength({ min: 10, max: 25 }).withMessage('Password must be between 10 and 25 characters.')
         .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#^])[A-Za-z\d@$!%*?&#^]{10,25}$/)
         .withMessage('Password must include upper/lowercase, number, and symbol.'),
+
     body('confirmPassword')
-    .optional({ checkFalsy: true })
+        .optional({ checkFalsy: true })
         .custom((value, { req }) => {
             if (value !== req.body.password) {
                 throw new Error('Passwords do not match.');
             }
             return true;
         }),
+
+    // Current password required if email or password is changing
     body('currentPassword')
-        .notEmpty().withMessage('Current password is required.')
+        .custom((value, { req }) => {
+            if (req.body.password || (req.body.email && req.body.email !== req.user.email)) {
+                if (!value) {
+                    throw new Error('Current password is required to change email or password.');
+                }
+            }
+            return true;
+        })
 ];
