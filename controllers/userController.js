@@ -3,11 +3,12 @@ const { User } = require('../models');
 const argon2 = require('argon2')
 const { Op } = require('sequelize')
 const { renderServerError } = require('../utils/errorrUtil');
+const { sendVerificationEmail } = require('../utils/sendVerificationEmailUtil');
 const logger = require('../utils/loggerUtil');
 
 
 exports.getEditProfile = (req, res, next) => {
-    const user = res.locals.CurrentUser;
+    const user = res.locals.currentUser;
 
     if (!user) {
         return res.redirect('/auth/login');
@@ -55,7 +56,7 @@ exports.postEditProfile = async (req, res, next) => {
             }
         });
 
-        if (existingUser) {
+        if (existingUser && existingUser.uuid !== user.uuid) {
             let errorMsg = 'Username or email already in use';
 
             if (existingUser.email === trimmedEmail) {
@@ -63,14 +64,28 @@ exports.postEditProfile = async (req, res, next) => {
             } else if (existingUser.username === trimmedUsername) {
                 errorMsg = 'Username is already taken'
             }
+
+            return res.status(400).render('profiles/edit-profile', {
+                pageTitle: 'Edit Profile',
+                currentPage: 'profile',
+                errorMessage: errorMsg,
+                formData: req.body
+            });
+        }
+
+        if (email && email.toLowerCase() !== user.email.toLowerCase()) {
+            await sendVerificationEmail(email, verificationToken);
+        }
+
+        let newHashPassword = user.password;
+        if (password && password.trim().length > 0) {
+            newHashPassword = await argon2.hash(password.trim());
         }
 
         const updatedFields = {
             username: username?.trim().toLowerCase() || user.username,
             email: email?.trim().toLowerCase() || user.email,
-            password: password
-                ? await argon2.hash(password)
-                : user.password,
+            password: newHashPassword,
             firstName: firstName || user.firstName,
             lastName: lastName || user.lastName,
             style: style || user.style,
