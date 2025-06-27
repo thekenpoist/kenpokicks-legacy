@@ -33,13 +33,13 @@ block content
                 li.text-gray-600 Timezone: #{currentUser.timezone}
                 li.text-gray-600 Last Login: #{lastLoggedInFormatted}
                 li.mt-2
-                  a(href="/portal/profile/edit" class="text-blue-600 hover:underline") Edit Profile
+                  a(href="/profiles/edit-profile" class="text-blue-600 hover:underline") Edit Profile
     
     .text-left
         h1.text-3xl.font-bold.mb-1 Welcome back, #{currentUser.firstName}!
 
     a(
-      href="/portal/profile/edit"
+      href="/profiles/edit-profile"
       class="px-4 py-2 bg-red-800 text-white font-semibold rounded hover:bg-green-700 transition"
     ) Edit Profile
 
