@@ -11,7 +11,10 @@ exports.getSignup = (req, res, next) => {
         pageTitle: "Sign Up",
         currentPage: 'signup',
         errorMessage: null,
-        formData: {}
+        formData: {},
+        submitLabel: 'Sign Up',
+        formAction: '/auth/signup',
+        formMode: 'signup'
     });
 };
 
