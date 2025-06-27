@@ -30,7 +30,8 @@ exports.getEditProfile = (req, res, next) => {
                 timezone: user.timezone || ''
             },
             submitLabel: 'Update Profile',
-            formMode: 'edit'
+            formMode: 'edit',
+            formAction: '/profiles/edit-profile'
         });
 }
 
