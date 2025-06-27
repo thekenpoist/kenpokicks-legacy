@@ -2,6 +2,7 @@ const { validationResult } = require('express-validator');
 const { User } = require('../models');
 const argon2 = require('argon2')
 const { Op } = require('sequelize')
+const { v4: uuidv4 } = require('uuid');
 const { renderServerError } = require('../utils/errorrUtil');
 const { sendVerificationEmail } = require('../utils/sendVerificationEmailUtil');
 const logger = require('../utils/loggerUtil');
@@ -44,13 +45,24 @@ exports.postEditProfile = async (req, res, next) => {
     }
 
     try {
-        const { email, password, firstName, lastName, username, rank, style, timezone } = req.body;
+        const {
+            email,
+            password,
+            currentPassword,
+            firstName,
+            lastName,
+            username,
+            rank,
+            style,
+            timezone
+        } = req.body;
 
         const trimmedEmail = email.trim().toLowerCase();
         const trimmedUsername = username.trim().toLowerCase();
+        const emailChanged = trimmedEmail !== user.email.toLowerCase();
 
-        const existingUser = await User.findOne({ 
-            where: { 
+        const existingUser = await User.findOne({
+            where: {
                 [Op.or]: [
                     { email: trimmedEmail },
                     { username: trimmedUsername }
@@ -59,13 +71,13 @@ exports.postEditProfile = async (req, res, next) => {
             }
         });
 
-        if (existingUser && existingUser.uuid !== user.uuid) {
+        if (existingUser) {
             let errorMsg = 'Username or email already in use';
 
             if (existingUser.email === trimmedEmail) {
-                errorMsg = 'Email is already registered'
+                errorMsg = 'Email is already registered';
             } else if (existingUser.username === trimmedUsername) {
-                errorMsg = 'Username is already taken'
+                errorMsg = 'Username is already taken';
             }
 
             return res.status(400).render('profiles/edit-profile', {
@@ -76,9 +88,9 @@ exports.postEditProfile = async (req, res, next) => {
             });
         }
 
-        if (password || emailChanged) {
-            const isMatch = await argon2.verify(user.password, currentPassword);
-            if (!isMatch) {
+        // Require current password if sensitive info is changing
+        if ((password && password.trim()) || emailChanged) {
+            if (!currentPassword || !(await argon2.verify(user.password, currentPassword))) {
                 return res.status(403).render('profiles/edit-profile', {
                     pageTitle: 'Edit Profile',
                     currentPage: 'profile',
@@ -88,19 +100,14 @@ exports.postEditProfile = async (req, res, next) => {
             }
         }
 
-
-        if (email && email.toLowerCase() !== user.email.toLowerCase()) {
-            await sendVerificationEmail(email, verificationToken);
-        }
-
-        let newHashPassword = user.password;
-        if (password && password.trim().length > 0) {
-            newHashPassword = await argon2.hash(password.trim());
-        }
+        const newHashPassword =
+            password && password.trim().length > 0
+                ? await argon2.hash(password.trim())
+                : user.password;
 
         const updatedFields = {
-            username: username?.trim().toLowerCase() || user.username,
-            email: email?.trim().toLowerCase() || user.email,
+            username: trimmedUsername || user.username,
+            email: trimmedEmail || user.email,
             password: newHashPassword,
             firstName: firstName || user.firstName,
             lastName: lastName || user.lastName,
@@ -111,12 +118,23 @@ exports.postEditProfile = async (req, res, next) => {
             updatedAt: new Date()
         };
 
+        // Handle email change
+        if (emailChanged) {
+            const verificationToken = uuidv4();
+            updatedFields.email = trimmedEmail;
+            updatedFields.isVerified = false;
+            updatedFields.verificationToken = verificationToken;
+
+            await sendVerificationEmail(trimmedEmail, verificationToken);
+        }
+
         await User.update(updatedFields, { where: { uuid: user.uuid } });
 
         const updatedUser = await User.findOne({ where: { uuid: user.uuid } });
         res.locals.currentUser = updatedUser;
 
-        res.redirect(`/dashboard`);
+        res.redirect(`/portal/dashboard`);
+
     } catch (err) {
         logger.error(`Error updating user: ${err.message}`);
         if (err.stack) {
@@ -129,5 +147,4 @@ exports.postEditProfile = async (req, res, next) => {
             formData: req.body
         });
     }
-
 };
