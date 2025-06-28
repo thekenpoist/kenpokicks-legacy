@@ -6,7 +6,7 @@ const { v4: uuidv4 } = require('uuid');
 const { renderServerError } = require('../utils/errorrUtil');
 const { sendVerificationEmail } = require('../utils/sendVerificationEmailUtil');
 const logger = require('../utils/loggerUtil');
-
+const { logoutAndRedirect } = require('../utils/sessionUtil');
 
 exports.getEditProfile = (req, res, next) => {
     const user = res.locals.currentUser;
@@ -132,6 +132,10 @@ exports.postEditProfile = async (req, res, next) => {
 
         const updatedUser = await User.findOne({ where: { uuid: user.uuid } });
         res.locals.currentUser = updatedUser;
+
+        if (emailChanged) {
+            return logoutAndRedirect(req, res, '/auth/login', 'emailChange=1');
+        }
 
         res.redirect(`/portal/dashboard`);
 
