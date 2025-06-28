@@ -1,7 +1,7 @@
 const logger = require('../utils/loggerUtil');
 
 function logoutAndRedirect(req, res, redirectPath, queryParam = '') {
-    req,session.destroy(err => {
+    req.session.destroy(err => {
         if (err) {
             logger.error(`Error destroying session: ${err.message}`);
             if (err.stack) {
