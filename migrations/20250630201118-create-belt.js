@@ -14,23 +14,23 @@ module.exports = {
           unique: true
         },
         curriculum: {
-          type: Sequelize.JSONB,
+          type: Sequelize.JSON,
           allowNull: false,
         },
         basics: {
-          type: Sequelize.JSONB,
+          type: Sequelize.JSON,
           allowNull: true
         },
         techniques: {
-          type: Sequelize.JSONB,
+          type: Sequelize.JSON,
           allowNull: true
         },
         forms: {
-          type: Sequelize.JSONB,
+          type: Sequelize.JSON,
           allowNull: true
         },
         sets: {
-          type: Sequelize.JSONB,
+          type: Sequelize.JSON,
           allowNull: true,
         },
         createdAt: {
