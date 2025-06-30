@@ -131,7 +131,8 @@ exports.getLogin = async (req, res, next) => {
     res.render('auth/login', {
         pageTitle: 'Login',
         currentPage: 'login',
-        errorMessage: null
+        errorMessage: null,
+        emailChange: req.query.emailChange === '1'
     });
 };
 
