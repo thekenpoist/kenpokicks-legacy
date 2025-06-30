@@ -20,23 +20,23 @@ module.exports = (sequelize) => {
       unique: true
     },
     curriculum: {
-      type: DataTypes.JSONB,
+      type: DataTypes.JSON,
       allowNull: false,
     },
     basics: {
-      type: DataTypes.JSONB,
+      type: DataTypes.JSON,
       allowNull: true
     },
     techniques: {
-      type: DataTypes.JSONB,
+      type: DataTypes.JSON,
       allowNull: true
     },
     forms: {
-      type: DataTypes.JSONB,
+      type: DataTypes.JSON,
       allowNull: true
     },
     sets: {
-      type: DataTypes.JSONB,
+      type: DataTypes.JSON,
       allowNull: true,
     },
   }, {
