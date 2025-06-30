@@ -105,6 +105,8 @@ exports.postEditProfile = async (req, res, next) => {
                 ? await argon2.hash(password.trim())
                 : user.password;
 
+        const passwordChanged = !(await argon2.verify(user.password, newHashPassword));
+
         const updatedFields = {
             username: trimmedUsername || user.username,
             email: trimmedEmail || user.email,
@@ -135,6 +137,10 @@ exports.postEditProfile = async (req, res, next) => {
 
         if (emailChanged) {
             return logoutAndRedirect(req, res, '/auth/login', 'emailChange=1');
+        }
+
+        if (passwordChanged) {
+            return logoutAndRedirect(req, res, '/auth/login', 'passwordChanged=1');
         }
 
         res.redirect(`/portal/dashboard`);
