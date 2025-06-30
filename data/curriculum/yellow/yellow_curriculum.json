@@ -1,0 +1,73 @@
+{
+  "stances": [
+    "Horse",
+    "Neutral bow",
+    "Cat stance",
+    "Forward bow",
+    "Reverse bow",
+    "Aware (Yellow) position"
+  ],
+  "blocks": [
+    "Inward",
+    "upward",
+    "outward",
+    "extended outward",
+    "outside downward",
+    "inside downward",
+    "downward(press check)"
+  ],
+  "elbows": [
+    "Inward",
+    "outward",
+    "upward",
+    "back"
+  ],
+  "parries": [],
+  "strikes": [
+    "Heel palm",
+    "Inward sword hand",
+    "Outward sword hand",
+    "Horizontal punch",
+    "Vertical punch",
+    "Back knuckle"
+  ],
+  "kicks": [
+    "Front ball kick: front leg",
+    "Front ball kick: rear leg",
+    "Drag up front round kick",
+    "Rear leg side kick"
+  ],
+  "matWork": [
+    "Front roll",
+    "Back slam",
+    "Side Slam"
+  ],
+  "techniques": [
+    "Delayed Sword",
+    "(Right straight/roundhouse strike)",
+    "Alternating Mace",
+    "(Two handed push)",
+    "Sword of Destruction",
+    "(Left straight/roundhouse strike)",
+    "Deflecting Hammer",
+    "(Right front kick)",
+    "Captured Twigs",
+    "(Rear bear hug - arms pinned)",
+    "The Grasp Of Death",
+    "(Left flank headlock)",
+    "Checking The Storm",
+    "(Right step through overhead stick)",
+    "Mace Of Aggression",
+    "(Two hand shirt grab)",
+    "Attacking Mace",
+    "(Right straight punch)",
+    "10. Sword and Hammer",
+    "(Right flank shoulder grab)"
+  ],
+  "forms": [
+    "Star Block",
+    "1. From a horse stance",
+    "2. From a neutral bow stance",
+    "3. With a partner"
+  ]
+}
