@@ -1,4 +1,5 @@
 const { getFaqs } = require('../utils/faqUtil');
+const logger = require('../utils/loggerUtil');
 
 
 exports.getIndex = (req, res, next) => {
@@ -34,8 +35,10 @@ exports.getFaqs = (req, res, next) => {
             showHomeLink: true
         });
     } catch (err) {
-        console.error('Error reading faqs:', err);
-        next(err);
+        logger.error(`Error updating user: ${err.message}`);
+        if (err.stack) {
+            logger.error(err.stack);
+        }
     }
 };
 
