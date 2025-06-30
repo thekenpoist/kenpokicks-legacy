@@ -6,15 +6,11 @@ module.exports = (sequelize) => {
     static associate(models) {
       // define association here
     }
-
-    get fullName() {
-      return `${this.firstName} ${this.lastName}`.trim();
-    }
   }
 
   Belt.init({
     beltId: {
-      type: DataTypes.UUID,
+      type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true
     },
