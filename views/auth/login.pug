@@ -6,8 +6,8 @@ block content
   if emailChange
     p.text-blue-600 Your email was updated. Please verify your new email to continue.
 
-  if passwordChanged
-    p.text-green-600 Your password was changed successfully. Please log in again.
+  if passwordChange
+    p.text-blue-600 Your password was changed successfully. Please log in again.
 
   if errorMessage
     p(class="bg-red-100 text-red-700 px-4 py-2 mb-4 rounded-lg shadow") #{errorMessage}

@@ -140,7 +140,7 @@ exports.postEditProfile = async (req, res, next) => {
         }
 
         if (passwordChanged) {
-            return logoutAndRedirect(req, res, '/auth/login', 'passwordChanged=1');
+            return logoutAndRedirect(req, res, '/auth/login', 'passwordChange=1');
         }
 
         res.redirect(`/portal/dashboard`);
