@@ -52,17 +52,16 @@ block content
       h2.text-xl.font-bold.mb-4.text-red-800 Training Curriculum
 
       // Looping through belts
-      each belt in ['Yellow Belt', 'Orange Belt', 'Purple Belt', 'Blue Belt', 'Green Belt', 'Brown Belt', 'Red Belt', 'Black/Red Belt', 'Black Belt']
-        - const beltSlug = belt.toLowerCase().replace(/\W+/g, '');
+      each belt in belts
         .mb-2.border.border-gray-300.rounded
           details
-            summary.cursor-pointer.px-3.py-2.font-semibold #{belt}
+            summary.cursor-pointer.px-3.py-2.font-semibold #{belt.name}
             ul.pl-6.pt-2.pb-2.text-sm.text-gray-700
-              li: a(href=`/training/${beltSlug}/curriculum-template`) Curriculum
-              li: a(href=`/training/${beltSlug}/forms`) Forms
-              li: a(href=`/training/${beltSlug}/techniques`) Techniques
-              li: a(href=`/training/${beltSlug}/sets`) Sets
-              li: a(href=`/training/${beltSlug}/groundwork`) Groundwork
+              li: a(href=`/training/${belt.slug}/curriculum`) Curriculum
+              li: a(href=`/training/${belt.slug}/forms`) Forms
+              li: a(href=`/training/${belt.slug}/techniques`) Techniques
+              li: a(href=`/training/${belt.slug}/sets`) Sets
+              li: a(href=`/training/${belt.slug}/groundwork`) Groundwork
 
 
     // 🔹 Right: Training Diary Placeholder
