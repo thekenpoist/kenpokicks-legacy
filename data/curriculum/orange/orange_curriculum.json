@@ -1,0 +1,64 @@
+{
+  "stances": [
+    "Rear bow",
+    "Close kneel",
+    "Wide kneel",
+    "Prepared (Orange) position"
+  ],
+  "blocks": [
+    "Universal blocks"
+  ],
+  "elbows": [
+    "Overhead downward elbow",
+    "Obscure elbow"
+  ],
+  "strikes": [
+    "Finger thrust",
+    "Two finger eye strike",
+    "Reverse sword hand (ridge hand)",
+    "Overhead heel palm claw",
+    "Hammer fist: overhead & inward",
+    "Rear back fist",
+    "Overhead downward sword hand",
+    "Underhand punch"
+  ],
+  "kicks": [
+    "Rear leg round kick",
+    "Front drag up side kick",
+    "Fade away side kick",
+    "Rear crossover side kick",
+    "Spin back kick",
+    "Crossover sweep",
+    "Drag-up inward crescent sweep"
+  ],
+  "matWork": [
+    "Front & back roll",
+    "Front & back slam",
+    "Closing the distance",
+    "Front roll into side slam",
+    "Pop-up"
+  ],
+  "forms": [
+    "Short Form 1"
+  ],
+  "techniques": [
+    "Clutching Feathers", "(Left hand head grab)",
+    "Triggered Salute", "(Front right hand straight strike)",
+    "Dance Of Death", "(Straight right strike)",
+    "Gift Of Destruction", "(Right hand shake or grab)",
+    "Locking Horn", "(Right front headlock)",
+    "Lone Kimono", "(Front left hand shirt grab)",
+    "Glancing Salute", "(Front right hand cross strike)",
+    "Five Swords", "(Right roundhouse strike)",
+    "Felling Tree", "(Right attempted grab or strike)",
+    "Grip Of Death", "(Left flank headlock)",
+    "Crossing Talon", "(Right cross wrist grab)",
+    "Shielding Hammer", "(Left hook punch)",
+    "Thrusting Salute", "(Straight right kick)",
+    "Striking Serpents Head", "(Front bear hug - arms free)",
+    "Locked Wing", "(Right rear arm lock)",
+    "Obscure Wing", "(Right rear shoulder grab)",
+    "Reversing Mace", "(Left straight strike)",
+    "Buckling Branch", "(Left front ball kick)"
+  ]
+}

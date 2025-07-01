@@ -9,12 +9,14 @@
   ],
   "blocks": [
     "Inward",
-    "upward",
-    "outward",
-    "extended outward",
-    "outside downward",
-    "inside downward",
-    "downward(press check)"
+    "Upward",
+    "Outward",
+    "Extended outward",
+    "Outside downward",
+    "Inside downward",
+    "Downward(press check)",
+    "Inward parry",
+    "Outward parry"
   ],
   "elbows": [
     "Inward",
@@ -22,7 +24,6 @@
     "upward",
     "back"
   ],
-  "parries": [],
   "strikes": [
     "Heel palm",
     "Inward sword hand",
@@ -61,7 +62,7 @@
     "(Two hand shirt grab)",
     "Attacking Mace",
     "(Right straight punch)",
-    "10. Sword and Hammer",
+    "Sword and Hammer",
     "(Right flank shoulder grab)"
   ],
   "forms": [
