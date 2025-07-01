@@ -5,6 +5,6 @@ const { isAuthenticated } = require('../middleware/auth/authMiddleware');
 
 const router = express.Router();
 
-router.get('/:beltColor/curriculum', isAuthenticated, trainingController.getSection);
+router.get('/:beltColor/:section', isAuthenticated, trainingController.getSection);
 
 module.exports = router;
