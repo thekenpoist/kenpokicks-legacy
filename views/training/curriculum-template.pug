@@ -1,9 +1,9 @@
-extends ../layouts/main-layout
+extends ../layouts/dashboard-layout
 
 block content
   h2.text-2xl.font-bold.mb-4 #{beltColor} Belt Curriculum
 
-  each sectionName, sectionContent in curriculum
+  each sectionName, sectionContent in content
     if sectionContent.length
       .section.mb-6
         h3.text-xl.font-semibold.capitalize= sectionName
