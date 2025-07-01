@@ -9,6 +9,7 @@ const authRouter = require('./routes/authRoutes');
 const portalRouter = require('./routes/portalRoutes');
 const publicRouter = require('./routes/publicRoutes');
 const userRouter = require('./routes/userRoutes');
+const trainingRouter = require('./routes/trainingRoutes');
 
 const PORT = process.env.PORT || 3000;
 const app = express();
@@ -45,6 +46,7 @@ app.use(setCurrentUser);
 app.use('/auth', authRouter);
 app.use('/portal', portalRouter);
 app.use('/profiles', userRouter);
+app.use('/training', trainingRouter);
 app.use(publicRouter);
 
 app.use((err, req, res, next) => {
