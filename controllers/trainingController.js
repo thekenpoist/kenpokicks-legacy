@@ -5,7 +5,7 @@ const logger = require('../utils/loggerUtil');
 
 exports.getSection = async (req, res) => {
     const { beltColor, section } = req.params;
-
+    console.log(beltColor);
     const filePath = path.join(__dirname, '..', 'data', 'curriculum', beltColor, `${section}.json`);
 
     try {
