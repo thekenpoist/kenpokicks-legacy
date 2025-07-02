@@ -2,49 +2,54 @@
 const { Model, DataTypes, DATE } = require('sequelize');
 
 module.exports = (sequelize) => {
-  class Belt extends Model {
+  class Technique extends Model {
     static associate(models) {
       // define association here
     }
   }
 
-  Belt.init({
-    beltId: {
+  Technique.init({
+    techId: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true
     },
-    color: {
+    techTitle: {
+      type: DataTypes.JSON,
+      allowNull: false,
+      unique: true
+    },
+    techAttack: {
+      type: DataTypes.JSON,
+      allowNull: false
+    },
+    techDescription: {
+      type: DataTypes.JSON,
+      allowNull: false
+    },
+    techGroup: {
+      type: DataTypes.JSON,
+      allowNull: false
+    },
+    techAttackAngle: {
+      type: DataTypes.JSON,
+      allowNull: false
+    },
+    relatedForm: {
+      type: DataTypes.JSON,
+      allowNull: true,
+    },
+    beltColor: {
       type: DataTypes.STRING,
       allowNull: false,
       unique: true
     },
-    curriculum: {
-      type: DataTypes.JSON,
-      allowNull: false,
-    },
-    basics: {
-      type: DataTypes.JSON,
-      allowNull: true
-    },
-    techniques: {
-      type: DataTypes.JSON,
-      allowNull: true
-    },
-    forms: {
-      type: DataTypes.JSON,
-      allowNull: true
-    },
-    sets: {
-      type: DataTypes.JSON,
-      allowNull: true,
-    },
   }, {
     sequelize,
-    modelName: 'Belt',
-    tableName: 'belts',
+    modelName: 'Technique',
+    tableName: 'techniques',
     timestamps: true
   });
 
-  return Belt;
+  return Technique;
 };
