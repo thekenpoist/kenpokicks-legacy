@@ -15,12 +15,12 @@ module.exports = (sequelize) => {
       autoIncrement: true
     },
     techTitle: {
-      type: DataTypes.JSON,
+      type: DataTypes.STRING,
       allowNull: false,
       unique: true
     },
     techAttack: {
-      type: DataTypes.JSON,
+      type: DataTypes.STRING,
       allowNull: false
     },
     techDescription: {
@@ -28,21 +28,20 @@ module.exports = (sequelize) => {
       allowNull: false
     },
     techGroup: {
-      type: DataTypes.JSON,
+      type: DataTypes.STRING,
       allowNull: false
     },
     techAttackAngle: {
-      type: DataTypes.JSON,
+      type: DataTypes.STRING,
       allowNull: false
     },
     relatedForm: {
-      type: DataTypes.JSON,
+      type: DataTypes.STRING,
       allowNull: true,
     },
     beltColor: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique: true
     },
   }, {
     sequelize,
