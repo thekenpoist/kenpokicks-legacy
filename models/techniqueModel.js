@@ -19,6 +19,11 @@ module.exports = (sequelize) => {
       allowNull: false,
       unique: true
     },
+    techSlug: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true
+    },
     techAttack: {
       type: DataTypes.STRING,
       allowNull: false
@@ -35,6 +40,10 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false
     },
+    techNotes: {
+      type: DataTypes.TEXT,
+      allowNull: false
+    },
     relatedForm: {
       type: DataTypes.STRING,
       allowNull: true,
@@ -43,6 +52,14 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
+    videoUrl: {
+      type: DataTypes.STRING,
+      allowNull: true
+    },
+    lastUpdatedBy: {
+      type: DataTypes.STRING,
+      allowNull: true
+    }
   }, {
     sequelize,
     modelName: 'Technique',
