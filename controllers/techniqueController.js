@@ -1,0 +1,42 @@
+const Technique = require('../models');
+const { Op } = require('sequelize');
+const { renderServerError } = require('../utils/errorrUtil')
+const logger = require('../utils/loggerUtil');
+const { useLayoutEffect } = require('react');
+
+exports.getBeltTechniques = async (req, res, next) => {
+    const userUuid = req.session.userUuid;
+    const beltColor = req.params.beltColor;
+
+    if (!userUuid) {
+        return res.redirect('/auth/login');
+    }
+
+    try {
+        const techniques = await Technique.findAll({
+            where: { beltColor: beltColor }
+        });
+
+        if (!techniques) {
+            return res.status(404).render('404', { 
+                pageTitle: "Techniques not found",
+                currentPage: 'portal/dashboard'
+            });
+        }
+
+        res.render('training/techniques-template', {
+            pageTitle: 'Belt Techniques',
+            currentPage: 'techniques',
+            layout: 'layouts/dashboard-layout',
+            errorMessage: null,
+            formData: techniques
+        });
+    } catch (err) {
+        logger.error(`Error fetching techniques: ${err.message}`);
+        if (err.stack) {
+            logger.error(err.stack);
+        }
+
+        return renderServerError(res, err, 'portal/dashboard');
+    }
+};
