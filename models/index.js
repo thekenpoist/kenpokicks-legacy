@@ -19,6 +19,9 @@ if (config.use_env_variable) {
 const User = require('./userModel')(sequelize, Sequelize.DataTypes);
 db.User = User;
 
+const Technique = require('./techniqueModel')(sequelize, Sequelize.DataTypes);
+db.Technique = Technique;
+
 Object.keys(db).forEach(modelName => {
   if (db[modelName].associate) {
     db[modelName].associate(db);
