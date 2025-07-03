@@ -1,6 +1,5 @@
 const path = require('path');
 const fs = require('fs');
-const { Belt } = require('../models');
 const logger = require('../utils/loggerUtil');
 
 exports.getSection = async (req, res) => {
