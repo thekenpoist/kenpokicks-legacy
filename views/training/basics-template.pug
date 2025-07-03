@@ -2,7 +2,7 @@ extends ../layouts/dashboard-layout
 
 block content
   .container.mx-auto.p-6
-    h1.text-2xl.font-bold.mb-4.text-center #{beltColor.charAt(0).toUpperCase() + beltColor.slice(1)} Belt Curriculum
+    h1.text-2xl.font-bold.mb-4.text-center #{beltColor.charAt(0).toUpperCase() + beltColor.slice(1)} Belt Basics
 
     div(class="grid grid-cols-1 md:grid-cols-2 gap-8")
       // LEFT COLUMN — Fundamentals
@@ -31,6 +31,8 @@ block content
             each item in content.strikes
               li= item
 
+      // RIGHT COLUMN — Techniques, Forms
+      .space-y-1
         if content.kicks && content.kicks.length
           h2.text-lg.font-semibold.text-red-700.mt-4 Kicks
           ul.list-disc.pl-6
@@ -41,21 +43,4 @@ block content
           h2.text-lg.font-semibold.text-red-700.mt-4 Mat Work
           ul.list-disc.pl-6
             each item in content.matWork
-              li= item
-
-      // RIGHT COLUMN — Techniques, Forms
-      .space-y-1
-        if content.techniques && content.techniques.length
-          h2.text-lg.font-semibold.text-red-700.mt-4 Techniques
-          ol.list-decimal.pl-6
-            - for (let i = 0; i < content.techniques.length; i += 2)
-              li
-                strong #{content.techniques[i]}
-                if content.techniques[i + 1]
-                  |  — #{content.techniques[i + 1]}
-
-        if content.forms && content.forms.length
-          h2.text-lg.font-semibold.text-red-700.mt-4 Forms
-          ul.list-disc.pl-6
-            each item in content.forms
               li= item
