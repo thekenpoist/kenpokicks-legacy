@@ -1,8 +1,7 @@
-const Technique = require('../models');
+const { Technique } = require('../models');
 const { Op } = require('sequelize');
 const { renderServerError } = require('../utils/errorrUtil')
 const logger = require('../utils/loggerUtil');
-const { useLayoutEffect } = require('react');
 
 exports.getBeltTechniques = async (req, res, next) => {
     const userUuid = req.session.userUuid;
@@ -14,10 +13,10 @@ exports.getBeltTechniques = async (req, res, next) => {
 
     try {
         const techniques = await Technique.findAll({
-            where: { beltColor: beltColor }
+            where: { beltColor }
         });
 
-        if (!techniques) {
+        if (techniques.length === 0) {
             return res.status(404).render('404', { 
                 pageTitle: "Techniques not found",
                 currentPage: 'portal/dashboard'
@@ -25,11 +24,11 @@ exports.getBeltTechniques = async (req, res, next) => {
         }
 
         res.render('training/techniques-template', {
-            pageTitle: 'Belt Techniques',
+            pageTitle: `Techniques for ${beltColor}`,
             currentPage: 'techniques',
             layout: 'layouts/dashboard-layout',
             errorMessage: null,
-            formData: techniques
+            techniques
         });
     } catch (err) {
         logger.error(`Error fetching techniques: ${err.message}`);
