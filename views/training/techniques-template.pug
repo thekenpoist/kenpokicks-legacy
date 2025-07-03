@@ -1,0 +1,37 @@
+extends ../layouts/dashboard-layout
+
+block content
+  h1.kenpo-font.text-3xl.font-bold.mb-4= pageTitle
+
+  if errorMessage
+    p.text-red-500= errorMessage
+
+  ul.space-y-4
+    each technique in techniques
+      li.border.border-gray-300.rounded-lg.p-4.shadow-md
+        details
+          summary.cursor-pointer.font-semibold.text-lg.flex.justify-between.items-center
+            span= technique.techTitle
+            span.text-sm.text-gray-500 Attack: #{technique.techAttack}
+
+          div.mt-2
+            h3.text-md.font-semibold Description:
+            ol.list-decimal.ml-6
+              each step in technique.techDescription
+                li.mb-1= step
+
+            if technique.techNotes
+              h3.text-md.font-semibold.mt-4 Instructor Notes:
+              p.italic.text-sm.text-gray-600= technique.techNotes
+
+            if technique.relatedForm
+              h3.text-md.font-semibold.mt-4 Related Form:
+              p.text-sm= technique.relatedForm
+
+            if technique.techAttackAngle
+              h3.text-md.font-semibold.mt-4 Angle of Attack:
+              p.text-sm= technique.techAttackAngle
+
+            if technique.videoUrl
+              h3.text-md.font-semibold.mt-4 Video Demo:
+              video(controls, src=technique.videoUrl, class="mt-2 w-full max-w-md")
