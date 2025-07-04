@@ -1,5 +1,9 @@
-exports.getDashboard = (req, res, next) => {
+const { Belt } = require('../models')
+const { Sequelize } = require('sequelize');
+
+exports.getDashboard = async (req, res, next) => {
     const user = res.locals.currentUser;
+    
 
     const belts = [
       { name: 'Yellow Belt', slug: 'yellow' },
