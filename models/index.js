@@ -22,6 +22,9 @@ db.User = User;
 const Technique = require('./techniqueModel')(sequelize, Sequelize.DataTypes);
 db.Technique = Technique;
 
+const Belt = require('./beltModel')(sequelize, Sequelize.DataTypes);
+db.Belt = Belt;
+
 Object.keys(db).forEach(modelName => {
   if (db[modelName].associate) {
     db[modelName].associate(db);
