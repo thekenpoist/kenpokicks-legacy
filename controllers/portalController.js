@@ -6,7 +6,7 @@ exports.getDashboard = async (req, res, next) => {
     let belts;
 
     try {
-        const belts = await Belt.getAllOrdered();
+        belts = await Belt.getAllOrdered();
 
         if (!belts) {
             return res.status(404).render('404', {
@@ -15,7 +15,7 @@ exports.getDashboard = async (req, res, next) => {
             });
         }
     } catch (err) {
-        logger.error(`Error fetching goal: ${err.message}`);
+        logger.error(`Error fetching belts: ${err.message}`);
         if (err.stack) {
             logger.error(err.stack);
         }
@@ -32,7 +32,7 @@ exports.getDashboard = async (req, res, next) => {
         belts,
         pageTitle: 'Training Dashboard',
         currentPage: 'dashboard',
-        user: res.locals.currentUser,
+        user,
         lastLoggedInFormatted,
         showHomeLink: false
     });
