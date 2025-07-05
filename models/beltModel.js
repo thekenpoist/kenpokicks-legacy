@@ -4,7 +4,7 @@ const { Model, DataTypes, DATE } = require('sequelize');
 module.exports = (sequelize) => {
     class Belt extends Model {
         static associate(models) {
-        Belt.hasMany(models.Technique, { foreignKey: 'beltId' });
+
         }
 
         static async getAllOrdered() {
