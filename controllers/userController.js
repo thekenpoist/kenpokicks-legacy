@@ -16,12 +16,19 @@ exports.getShowProfile = async (req, res, next) => {
         return res.redirect('/auth/login');
     }
 
+    const memberSinceFormatted = user.createdAt.toLocaleDateString('en-us', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+    });
+
     res.render('profiles/show-profile', {
         pageTitle: 'Show Profile',
         currentPage: 'profile',
         layout: 'layouts/dashboard-layout',
         errorMessage: null,
-        user
+        user,
+        memberSinceFormatted
     });
 };
 
