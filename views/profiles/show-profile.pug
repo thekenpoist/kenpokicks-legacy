@@ -35,9 +35,7 @@ block content
         p.font-semibold Last Login:
           span.font-normal.text-gray-600.ml-2 #{lastLoggedInFormatted}
         p.font-semibold Member Since:
-          span.font-normal.text-gray-600.ml-2 #{user.createdAt.toLocaleDateString('en-US', {
-            year: 'numeric', month: 'long', day: 'numeric'
-          })}
+          span.font-normal.text-gray-600.ml-2 #{memberSinceFormatted}
 
     // 🛠️ Action button
     .text-right.mt-8
