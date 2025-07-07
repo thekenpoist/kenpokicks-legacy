@@ -1,0 +1,47 @@
+extends ../layouts/dashboard-layout
+
+block content
+  .bg-white.shadow-lg.rounded-xl.p-8.relative
+    // 🔴 Avatar in top-right corner
+    img(
+      src=user.avatar || '/images/default-avatar.jpg',
+      alt='User Avatar',
+      class='absolute top-6 right-6 w-28 h-28 rounded-full border-2 border-red-800 object-cover shadow-md'
+    )
+
+    h2.text-3xl.font-bold.text-red-800.mb-6 Profile Overview
+
+    // 🧾 Profile Info Grid
+    .grid.grid-cols-2.gap-6.text-gray-800
+      .space-y-2
+        p.font-semibold Username:
+          span.font-normal.text-gray-600.ml-2 @#{user.username}
+        p.font-semibold Full Name:
+          span.font-normal.text-gray-600.ml-2 #{user.fullName}
+        p.font-semibold Email:
+          span.font-normal.text-gray-600.ml-2 #{user.email}
+        p.font-semibold Style:
+          span.font-normal.text-gray-600.ml-2 #{user.style || 'N/A'}
+        p.font-semibold Rank:
+          span.font-normal.text-gray-600.ml-2 #{user.rank || 'N/A'}
+
+      .space-y-2
+        p.font-semibold Role:
+          span.font-normal.text-gray-600.ml-2 #{user.role}
+        p.font-semibold Timezone:
+          span.font-normal.text-gray-600.ml-2 #{user.timezone}
+        p.font-semibold Verified:
+          span.font-normal.text-gray-600.ml-2 #{user.isVerified ? 'Yes' : 'No'}
+        p.font-semibold Last Login:
+          span.font-normal.text-gray-600.ml-2 #{lastLoggedInFormatted}
+        p.font-semibold Member Since:
+          span.font-normal.text-gray-600.ml-2 #{user.createdAt.toLocaleDateString('en-US', {
+            year: 'numeric', month: 'long', day: 'numeric'
+          })}
+
+    // 🛠️ Action button
+    .text-right.mt-8
+      a(
+        href='/profiles/edit-profile',
+        class='inline-block px-4 py-2 bg-red-800 text-white font-semibold rounded hover:bg-green-700 transition'
+      ) Edit Profile
