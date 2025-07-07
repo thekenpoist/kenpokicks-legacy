@@ -22,13 +22,21 @@ exports.getShowProfile = async (req, res, next) => {
         day: 'numeric'
     });
 
+    const lastLoggedInFormatted = user.lastLoggedIn
+        ? new Date(user.lastLoggedIn).toLocaleString('en-US', {
+            dateStyle: 'medium',
+            timeStyle: 'short'
+            })
+        : 'N/A';
+
     res.render('profiles/show-profile', {
         pageTitle: 'Show Profile',
         currentPage: 'profile',
         layout: 'layouts/dashboard-layout',
         errorMessage: null,
         user,
-        memberSinceFormatted
+        memberSinceFormatted,
+        lastLoggedInFormatted
     });
 };
 
