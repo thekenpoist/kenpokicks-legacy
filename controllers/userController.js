@@ -16,30 +16,13 @@ exports.getShowProfile = async (req, res, next) => {
         return res.redirect('/auth/login');
     }
 
-    try {
-        const userProfile = await User.findOne({ where: user.uuid });
-        if (!userProfile) {
-            return res.status(404).render('404', {
-                pageTitle: 'User Not Found',
-                currentPage: 'profile',
-                layout: 'layouts/main-layout'
-            });
-        }
-
-        res.render('profiles/show-profile', {
-            pageTitle: 'Show Profile',
-            currentPage: 'profile',
-            layout: 'layouts/dashboard-layout',
-            errorMessage: null,
-            user
-        });
-    } catch (err) {
-        logger.error(`Error fetching user ${err.message}`);
-        if (err.stack) {
-            logger.error(err.stack);
-        }
-        return renderServerError(res, err, 'profile');
-    }
+    res.render('profiles/show-profile', {
+        pageTitle: 'Show Profile',
+        currentPage: 'profile',
+        layout: 'layouts/dashboard-layout',
+        errorMessage: null,
+        user
+    });
 };
 
 exports.getEditProfile = (req, res, next) => {
