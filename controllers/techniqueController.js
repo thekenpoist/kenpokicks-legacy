@@ -7,9 +7,6 @@ exports.getBeltTechniques = async (req, res, next) => {
     const userUuid = req.session.userUuid;
     const beltColor = req.params.beltColor;
 
-    console.log('🟡 Requested beltColor:', beltColor);
-
-
     if (!userUuid) {
         return res.redirect('/auth/login');
     }
@@ -18,9 +15,6 @@ exports.getBeltTechniques = async (req, res, next) => {
         const techniques = await Technique.findAll({
             where: { beltColor }
         });
-
-        console.log('📦 Techniques returned:', techniques.length);
-
 
         if (techniques.length === 0) {
             return res.status(404).render('404', { 
