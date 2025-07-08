@@ -47,14 +47,15 @@ block content
 
       // Looping through belts
       each belt in belts
-        .mb-2.border.border-gray-300.rounded
-          details
-            summary.cursor-pointer.px-3.py-2.font-semibold #{belt.beltName}
-            ul.pl-6.pt-2.pb-2.text-sm.text-gray-700
-              li: a(href=`/training/${belt.beltSlug}/basics`) Basics
-              li: a(href=`/training/belt/${belt.beltSlug}`) Techniques
-              li: a(href=`/training/${belt.beltSlug}/sets`) Sets
-              li: a(href=`/training/${belt.beltSlug}/forms`) Forms
+        if belt.beltslug !== 'white'
+          .mb-2.border.border-gray-300.rounded
+            details
+              summary.cursor-pointer.px-3.py-2.font-semibold #{belt.beltName}
+              ul.pl-6.pt-2.pb-2.text-sm.text-gray-700
+                li: a(href=`/training/${belt.beltSlug}/basics`) Basics
+                li: a(href=`/training/belt/${belt.beltSlug}`) Techniques
+                li: a(href=`/training/${belt.beltSlug}/sets`) Sets
+                li: a(href=`/training/${belt.beltSlug}/forms`) Forms
 
 
     // 🔹 Right: Training Diary Placeholder
