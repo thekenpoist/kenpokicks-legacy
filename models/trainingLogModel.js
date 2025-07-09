@@ -4,7 +4,7 @@ const { Model, DataTypes, DATE } = require('sequelize');
 module.exports = (sequelize) => {
   class TrainingLog extends Model {
     static associate(models) {
-      // define association here
+        TrainingLog.belongsTo(models.User, {foreignKey: 'userUuid' });
     }
   }
 
@@ -15,7 +15,7 @@ module.exports = (sequelize) => {
       autoIncrement: true
     },
     userUuid: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.UUID,
         allowNull: false
     },
     logCategory: {
@@ -23,7 +23,7 @@ module.exports = (sequelize) => {
         allowNull: false,
     },
     logTitle: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(50),
       allowNull: false,
     },
     logDescription: {
@@ -31,7 +31,7 @@ module.exports = (sequelize) => {
       allowNull: false,
     },
     logDuration: {
-      type: DataTypes.INTEGER  ,
+      type: DataTypes.INTEGER,
       allowNull: false
     },
     logRelatedBelt: {
@@ -48,8 +48,8 @@ module.exports = (sequelize) => {
       defaultValue: true
     },
     logIntensity: {
-      type: DataTypes.STRING,
-      allowNull: true
+      type: DataTypes.ENUM('Low', 'Moderate', 'High', 'Extreme'),
+      allowNull: false
     }
   }, {
     sequelize,
