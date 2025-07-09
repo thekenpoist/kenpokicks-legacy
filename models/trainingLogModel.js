@@ -19,7 +19,26 @@ module.exports = (sequelize) => {
         allowNull: false
     },
     logCategory: {
-        type: DataTypes.STRING,
+        type: DataTypes.ENUM(
+                'Bag/Pad Work',
+                'Basics',
+                'Cardio',
+                'Dry Fire',
+                'Field Training',
+                'Forms',
+                'Grappling',
+                'Instruction',
+                'Live Fire',
+                'Meditation',
+                'Recovery',
+                'Sets',
+                'Skill Drills',
+                'Sparring',
+                'Stretching',
+                'Techniques',
+                'Weightlifting',
+                'Weapons Practice'
+                ),
         allowNull: false,
     },
     logTitle: {
