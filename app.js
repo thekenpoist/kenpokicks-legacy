@@ -3,6 +3,7 @@ require('dotenv').config();
 const path = require('path');
 const express = require('express');
 const session = require('express-session');
+const flash = require('express-flash');
 const errorController = require('./controllers/errorController')
 const setCurrentUser = require('./middleware/auth/setCurrentUserMiddlware');
 const authRouter = require('./routes/authRoutes');
@@ -41,6 +42,8 @@ app.use(session({
         maxAge: 1000 * 60 * 60 * 24 * 7 // 7 days
     }
 }));
+
+app.use(flash());
 
 app.use(setCurrentUser);
 
