@@ -38,5 +38,4 @@ exports.get403 = (err, req, res, next) => {
             message: 'Invalid or expired CSRF token. Please try again.'
         });
     }
-    next(err);
 };
