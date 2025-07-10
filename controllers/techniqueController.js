@@ -4,10 +4,10 @@ const { renderServerError } = require('../utils/errorrUtil')
 const logger = require('../utils/loggerUtil');
 
 exports.getBeltTechniques = async (req, res, next) => {
-    const userUuid = req.session.userUuid;
     const beltColor = req.params.beltColor;
+    const user = res.locals.currentUser;
 
-    if (!userUuid) {
+    if (!user) {
         return res.redirect('/auth/login');
     }
 
