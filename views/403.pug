@@ -1,0 +1,7 @@
+extends layouts/main-layout
+
+block content
+  .text-center.mt-20
+    h1.text-3xl.font-bold.text-red-700 403 – Forbidden
+    p.text-gray-700.mt-4 #{message || 'You do not have permission to access this page.'}
+    a(class="mt-6 inline-block text-blue-700 hover:underline" href='/') Return Home
