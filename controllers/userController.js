@@ -190,3 +190,36 @@ exports.postEditProfile = async (req, res, next) => {
         });
     }
 };
+
+exports.deleteProfile = async (req, res, next) => {
+    const user = res.locals.currentUser;
+
+    if (!user) {
+        return res.redirect('/auth/login');
+    }
+
+    try {
+        const deleted = await User.destroy({ where: { uuid: user.uuid }});
+
+        if (!deleted) {
+            return res.status(404).render('404', {
+                pageTitle: 'User Not Found',
+                currentPage: 'profile'
+            });
+        }
+
+        req.session.destroy(err => {
+            if (err) {
+                console.error('Session destroy error', err);
+                return res.redirect('/');
+            }
+            res.redirect('/');
+        });
+    } catch (err) {
+        logger.error(`Error deleting user ${err.message}`);
+        if (err.stack) {
+            logger.error(err.stack);
+        }
+        return renderServerError(res, err, '/');
+    }
+};
