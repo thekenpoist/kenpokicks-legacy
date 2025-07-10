@@ -210,10 +210,16 @@ exports.deleteProfile = async (req, res, next) => {
 
         req.session.destroy(err => {
             if (err) {
-                console.error('Session destroy error', err);
+                logger.error(`Error deleting user ${err.message}`);
+                if (err.stack) {
+                    logger.error(err.stack);
+                }
                 return res.redirect('/');
             }
+
+            req.flash('info', 'Your account as been deleted.');
             res.redirect('/');
+            
         });
     } catch (err) {
         logger.error(`Error deleting user ${err.message}`);
