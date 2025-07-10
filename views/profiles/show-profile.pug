@@ -1,6 +1,12 @@
 extends ../layouts/dashboard-layout
 
 block content
+  // flash messages
+  if messages.info
+  .mb-4.p-3.rounded.bg-blue-100.text-blue-800.border.border-blue-300
+    each msg in messages.info
+      p= msg
+
   .bg-white.shadow-lg.rounded-xl.p-8.relative
     // 🔴 Avatar in top-right corner
     img(
@@ -37,9 +43,17 @@ block content
         p.font-semibold Member Since:
           span.font-normal.text-gray-600.ml-2 #{memberSinceFormatted}
 
-    // 🛠️ Action button
+    // 🛠️ Action buttons
     .text-right.mt-8
+      // Edit profile button
       a(
         href='/profiles/edit-profile',
         class='inline-block px-4 py-2 bg-red-800 text-white font-semibold rounded hover:bg-green-700 transition'
       ) Edit Profile
+
+      // delete profile button
+      form(action="/profiles/delete-profile" method="POST").inline-block.ml-4
+        button(
+          type="submit",
+          class="text-sm text-red-600 hover:underline hover:text-red-800"
+        ) Delete Profile
