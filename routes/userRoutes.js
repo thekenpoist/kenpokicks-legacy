@@ -11,6 +11,8 @@ const router = express.Router();
 router.get('/edit-profile', isAuthenticated, userController.getEditProfile);
 router.post('/edit-profile', isAuthenticated, processAvatar, validateProfileUpdate, userController.postEditProfile);
 
+router.post('/delete-profile', isAuthenticated, userController.deleteProfile);
+
 router.get('/me', userController.getShowProfile);
 
 module.exports = router;
