@@ -4,6 +4,7 @@ const path = require('path');
 const express = require('express');
 const session = require('express-session');
 const flash = require('express-flash');
+const csrf = require('csurf');
 const errorController = require('./controllers/errorController')
 const setCurrentUser = require('./middleware/auth/setCurrentUserMiddlware');
 const authRouter = require('./routes/authRoutes');
@@ -12,6 +13,7 @@ const publicRouter = require('./routes/publicRoutes');
 const techniqueRouter = require('./routes/techniqueRoutes');
 const trainingRouter = require('./routes/trainingRoutes');
 const userRouter = require('./routes/userRoutes');
+const { ppid } = require('process');
 
 const PORT = process.env.PORT || 3000;
 const app = express();
@@ -42,6 +44,14 @@ app.use(session({
         maxAge: 1000 * 60 * 60 * 24 * 7 // 7 days
     }
 }));
+
+// Add csrf token protection for global usage
+app.use(csrf());
+
+app.use((req, res, next) => {
+    res.locals.csrfToken = req.csrfToken();
+    next();
+});
 
 app.use(flash());
 
