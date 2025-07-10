@@ -64,9 +64,18 @@ app.use('/training/belt', techniqueRouter);
 app.use('/training', trainingRouter);
 app.use(publicRouter);
 
+// CSRF error handler
+app.use((err, req, res, next) => {
+    errorController.get403(err, req, res, next);
+    next(err);
+});
+
+// Generic 500 error handler
 app.use((err, req, res, next) => {
     errorController.get500(err, req, res, next);
 });
+
+// 404 error fallback
 app.use(errorController.get404);
 
 // Start server
