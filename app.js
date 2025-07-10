@@ -66,7 +66,9 @@ app.use(publicRouter);
 
 // CSRF error handler
 app.use((err, req, res, next) => {
-    errorController.get403(err, req, res, next);
+    if (err.code === 'EBADCSRFTOKEN') {
+        errorController.get403(err, req, res, next);
+    }
     next(err);
 });
 

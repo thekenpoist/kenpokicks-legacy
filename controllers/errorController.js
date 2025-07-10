@@ -31,11 +31,9 @@ exports.get500 = (err, req, res, next) => {
 
 // Controller for handling csrf errors
 exports.get403 = (err, req, res, next) => {
-    if (err.code === 'EBADCSRFTOKEN') {
-        return res.status(403).render('403', {
-            pageTitle: 'Security Error',
-            currentPage: '',
-            message: 'Invalid or expired CSRF token. Please try again.'
-        });
-    }
+    return res.status(403).render('403', {
+        pageTitle: 'Security Error',
+        currentPage: '',
+        message: 'Invalid or expired CSRF token. Please try again.'
+    });
 };
