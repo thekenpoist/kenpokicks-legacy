@@ -4,6 +4,7 @@ const path = require('path');
 const express = require('express');
 const session = require('express-session');
 const flash = require('express-flash');
+const attachFlashMessages = require('./middleware/attachFlashMessagesMiddleware');
 const errorController = require('./controllers/errorController')
 const setCurrentUser = require('./middleware/auth/setCurrentUserMiddlware');
 const authRouter = require('./routes/authRoutes');
@@ -45,6 +46,7 @@ app.use(session({
 }));
 
 app.use(flash());
+app.use(attachFlashMessages);
 
 app.use(setCurrentUser);
 
