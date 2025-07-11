@@ -156,7 +156,8 @@ exports.postLogin = async (req, res, next) => {
             return res.status(401).render('auth/login', {
                 pageTitle: 'Login',
                 currentPage: 'login',
-                errorMessage: 'Invalid credential'
+                errorMessage: 'Invalid credential',
+                csrfToken: req.csrfToken()
             });
         }
 
@@ -165,7 +166,8 @@ exports.postLogin = async (req, res, next) => {
             return res.status(401).render('auth/login', {
                 pageTitle: 'Login',
                 currentPage: 'login',
-                errorMessage: `Account locked. Try again in ${minutesLeft} minutes`
+                errorMessage: `Account locked. Try again in ${minutesLeft} minutes`,
+                csrfToken: req.csrfToken()
             });
 
         }
@@ -174,7 +176,8 @@ exports.postLogin = async (req, res, next) => {
             return res.status(401).render('auth/login', {
                 pageTitle: 'Login',
                 currentPage: 'login',
-                errorMessage: 'Please verify your account before logging in.'
+                errorMessage: 'Please verify your account before logging in.',
+                csrfToken: req.csrfToken()
             });
         }
 
@@ -189,7 +192,8 @@ exports.postLogin = async (req, res, next) => {
                 currentPage: 'login',
                 errorMessage: user.failedLoginAttempts >= 5
                     ? '5 incorrect password attempts. Please wait 15 minutes before trying again.'
-                    : 'Invalid credentials!'
+                    : 'Invalid credentials!',
+                csrfToken: req.csrfToken()
             });
         }
         
