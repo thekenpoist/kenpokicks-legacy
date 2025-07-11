@@ -13,6 +13,7 @@ module.exports = async function setCurrentUser(req, res, next) {
             const user = await User.findOne({ where: { uuid } });
             if (user) {
                 res.locals.currentUser = user;
+                req.currentUser = user;
                 res.locals.layout = 'layouts/dashboard-layout';
             }
         } catch (err) {

@@ -71,10 +71,29 @@ exports.getEditProfile = (req, res, next) => {
 
 exports.postEditProfile = async (req, res, next) => {
     const user = res.locals.currentUser;
-    const errors = validationResult(req);
 
     if (!user) {
         return res.redirect('/auth/login');
+    }
+    
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+        const userEmail = res?.locals?.currentUser?.email || 'unknown';
+
+        logger.warn(`Validation failed during profile update for user: ${userEmail}`);
+        errors.array().forEach(err => {
+            const field = err.param || 'unknown';
+            logger.warn(`• ${field}: ${err.msg}`);
+        });
+
+        return res.status(422).render('profiles/edit-profile', {
+            pageTitle: 'Edit Profile',
+            currentPage: 'profile',
+            errorMessage: errors.array().map(e => e.msg).join(', '),
+            formData: req.body,
+            csrfToken: req.csrfToken()
+        });
     }
 
     try {
@@ -129,7 +148,8 @@ exports.postEditProfile = async (req, res, next) => {
                     pageTitle: 'Edit Profile',
                     currentPage: 'profile',
                     errorMessage: 'Current password is incorrect.',
-                    formData: req.body
+                    formData: req.body,
+                    csrfToken: req.csrfToken()
                 });
             }
         }

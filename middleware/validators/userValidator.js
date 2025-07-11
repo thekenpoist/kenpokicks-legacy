@@ -60,7 +60,7 @@ exports.validateProfileUpdate = [
     // Current password required if email or password is changing
     body('currentPassword')
         .custom((value, { req, res }) => {
-            const currentEmail = res.locals.currentUser?.email;
+            const currentEmail = req.currentUser?.email;
 
             if (
                 req.body.password ||
