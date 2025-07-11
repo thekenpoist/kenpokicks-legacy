@@ -14,7 +14,8 @@ exports.getSignup = (req, res, next) => {
         formData: {},
         submitLabel: 'Sign Up',
         formAction: '/auth/signup',
-        formMode: 'signup'
+        formMode: 'signup',
+        csrfToken: res.locals.csrfToken
     });
 };
 
