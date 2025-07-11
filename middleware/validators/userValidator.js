@@ -50,9 +50,8 @@ exports.validateProfileUpdate = [
         .withMessage('Password must include upper/lowercase, number, and symbol.'),
 
     body('confirmPassword')
-        .optional({ checkFalsy: true })
         .custom((value, { req }) => {
-            if (value !== req.body.password) {
+            if (req.body.password && value !== req.body.password) {
                 throw new Error('Passwords do not match.');
             }
             return true;
