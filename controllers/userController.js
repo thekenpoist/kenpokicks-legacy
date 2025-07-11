@@ -64,7 +64,8 @@ exports.getEditProfile = (req, res, next) => {
             },
             submitLabel: 'Update Profile',
             formMode: 'edit',
-            formAction: '/profiles/edit-profile'
+            formAction: '/profiles/edit-profile',
+            csrfToken: res.locals.csrfToken
         });
 }
 

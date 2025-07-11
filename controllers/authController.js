@@ -134,7 +134,8 @@ exports.getLogin = async (req, res, next) => {
         currentPage: 'login',
         errorMessage: null,
         emailChange: req.query.emailChange === '1',
-        passwordChange: req.query.passwordChange === '1'
+        passwordChange: req.query.passwordChange === '1',
+        csrfToken: res.locals.csrfToken
     });
 };
 
