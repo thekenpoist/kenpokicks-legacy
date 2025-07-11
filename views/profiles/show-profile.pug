@@ -1,12 +1,6 @@
 extends ../layouts/dashboard-layout
 
 block content
-  // flash messages
-  if messages.info
-  .mb-4.p-3.rounded.bg-blue-100.text-blue-800.border.border-blue-300
-    each msg in messages.info
-      p= msg
-
   .bg-white.shadow-lg.rounded-xl.p-8.relative
     // 🔴 Avatar in top-right corner
     img(

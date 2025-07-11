@@ -24,6 +24,19 @@ html(lang="en")
 
   body(class="bg-gray-100 flex")
 
+    // Flash Messages
+    if messages.info.length
+      each msg in messages.info
+        p.bg-blue-100.text-blue-800.p-3.rounded.border.border-blue-300= msg
+
+    if messages.success.length
+      each msg in messages.success
+        p.bg-green-100.text-green-800.p-3.rounded.border.border-green-300= msg
+
+    if messages.error.length
+      each msg in messages.error
+        p.bg-red-100.text-red-800.p-3.rounded.border.border-red-300= msg
+
     // Sidebar
     aside(class="w-64 bg-red-800 text-white h-screen p-6 flex flex-col space-y-6")
       img(src="/images/AMTSPatch.jpg" alt="Kenpo Kicks Logo" class="mx-auto w-full max-w-lg")
