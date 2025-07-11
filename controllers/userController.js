@@ -92,7 +92,9 @@ exports.postEditProfile = async (req, res, next) => {
 
         const trimmedEmail = email.trim().toLowerCase();
         const trimmedUsername = username.trim().toLowerCase();
+
         const emailChanged = trimmedEmail !== user.email.toLowerCase();
+        const passwordChanged = password && password.trim().length > 0;
 
         const existingUser = await User.findOne({
             where: {
@@ -106,7 +108,6 @@ exports.postEditProfile = async (req, res, next) => {
 
         if (existingUser) {
             let errorMsg = 'Username or email already in use';
-
             if (existingUser.email === trimmedEmail) {
                 errorMsg = 'Email is already registered';
             } else if (existingUser.username === trimmedUsername) {
@@ -122,7 +123,7 @@ exports.postEditProfile = async (req, res, next) => {
         }
 
         // Require current password if sensitive info is changing
-        if ((password && password.trim()) || emailChanged) {
+        if ((passwordChanged || emailChanged)) {
             if (!currentPassword || !(await argon2.verify(user.password, currentPassword))) {
                 return res.status(403).render('profiles/edit-profile', {
                     pageTitle: 'Edit Profile',
@@ -133,17 +134,10 @@ exports.postEditProfile = async (req, res, next) => {
             }
         }
 
-        const newHashPassword =
-            password && password.trim().length > 0
-                ? await argon2.hash(password.trim())
-                : user.password;
-
-        const passwordChanged = !(await argon2.verify(user.password, newHashPassword));
-
         const updatedFields = {
             username: trimmedUsername || user.username,
-            email: trimmedEmail || user.email,
-            password: newHashPassword,
+            email: user.email,
+            password: user.password,
             firstName: firstName || user.firstName,
             lastName: lastName || user.lastName,
             style: style || user.style,
@@ -153,18 +147,21 @@ exports.postEditProfile = async (req, res, next) => {
             updatedAt: new Date()
         };
 
-        // Handle email change
+        // Handle password update
+        if (passwordChanged) {
+            updatedFields.password = await argon2.hash(password.trim());
+        }
+
+        // Handle email update and re-verification
         if (emailChanged) {
             const verificationToken = uuidv4();
             updatedFields.email = trimmedEmail;
             updatedFields.isVerified = false;
             updatedFields.verificationToken = verificationToken;
-
             await sendVerificationEmail(trimmedEmail, verificationToken);
         }
 
         await User.update(updatedFields, { where: { uuid: user.uuid } });
-
         const updatedUser = await User.findOne({ where: { uuid: user.uuid } });
         res.locals.currentUser = updatedUser;
 
@@ -176,6 +173,7 @@ exports.postEditProfile = async (req, res, next) => {
             return logoutAndRedirect(req, res, '/auth/login', 'passwordChange=1');
         }
 
+        req.flash('success', 'Profile updated successfully.');
         res.redirect(`/portal/dashboard`);
 
     } catch (err) {
@@ -218,7 +216,7 @@ exports.deleteProfile = async (req, res, next) => {
                 return res.redirect('/');
             }
 
-            req.flash('info', 'Your account as been deleted.');
+            req.flash('info', 'Your account has been deleted.');
             res.redirect('/');
             
         });
