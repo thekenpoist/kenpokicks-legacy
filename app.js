@@ -4,7 +4,6 @@ const path = require('path');
 const express = require('express');
 const session = require('express-session');
 const flash = require('express-flash');
-const csrf = require('csurf');
 const errorController = require('./controllers/errorController')
 const setCurrentUser = require('./middleware/auth/setCurrentUserMiddlware');
 const authRouter = require('./routes/authRoutes');
@@ -45,14 +44,6 @@ app.use(session({
     }
 }));
 
-// Add csrf token protection for global usage
-app.use(csrf());
-
-app.use((req, res, next) => {
-    res.locals.csrfToken = req.csrfToken();
-    next();
-});
-
 app.use(flash());
 
 app.use(setCurrentUser);
@@ -64,10 +55,11 @@ app.use('/training/belt', techniqueRouter);
 app.use('/training', trainingRouter);
 app.use(publicRouter);
 
+
 // CSRF error handler
 app.use((err, req, res, next) => {
     if (err.code === 'EBADCSRFTOKEN') {
-        errorController.get403(err, req, res, next);
+        return errorController.get403(err, req, res, next);
     }
     next(err);
 });
