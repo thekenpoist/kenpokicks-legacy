@@ -25,15 +25,15 @@ html(lang="en")
   body(class="bg-gray-100 flex")
 
     // Flash Messages
-    if messages.info.length
+    if typeof messages !== 'undefined' && messages.info && messages.info.length
       each msg in messages.info
         p.bg-blue-100.text-blue-800.p-3.rounded.border.border-blue-300= msg
 
-    if messages.success.length
+    if typeof messages !== 'undefined' && messages.success && messages.success.length
       each msg in messages.success
         p.bg-green-100.text-green-800.p-3.rounded.border.border-green-300= msg
 
-    if messages.error.length
+    if typeof messages !== 'undefined' && messages.error && messages.error.length
       each msg in messages.error
         p.bg-red-100.text-red-800.p-3.rounded.border.border-red-300= msg
 
