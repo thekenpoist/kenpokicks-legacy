@@ -1,4 +1,5 @@
 const csrf = require('csurf');
+const logger = require('winston');
 
 const csrfProtection = csrf();
 
@@ -7,7 +8,10 @@ const attachToken = (req, res, next) => {
     res.locals.csrfToken = req.csrfToken();
   } catch (err) {
     // In case csrf() wasn't initialized or token couldn't be generated
-    console.error("⚠️ Failed to attach CSRF token:", err.message);
+    logger.error(`Failed to attach CSRF token: ${err.message}`);
+        if (err.stack) {
+            logger.error(err.stack);
+        }
   }
   next();
 };
