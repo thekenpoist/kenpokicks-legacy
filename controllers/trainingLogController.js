@@ -13,9 +13,9 @@ exports.getCreateTrainingLog = (req, res, next) => {
         formAction: '/logs',
         submitButtonText: 'Create Entry',
         errorMessage: null,
-        crsfToken: req.crsfToken,
+        csrfToken: req.csrfToken(),
         formData: {
-            user: req.locals.currentUser || ''
+            user: res.locals.currentUser || ''
         }
     });
 };
