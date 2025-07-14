@@ -6,7 +6,8 @@ module.exports = (sequelize) => {
     static associate(models) {
         TrainingLog.belongsTo(models.User, {
           foreignKey: 'userUuid',
-        onDelete: 'CASCADE' });
+          onDelete: 'CASCADE',
+          onUpdate: 'CASCADE' });
     }
   }
 
