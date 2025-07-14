@@ -4,7 +4,9 @@ const { Model, DataTypes, DATE } = require('sequelize');
 module.exports = (sequelize) => {
   class TrainingLog extends Model {
     static associate(models) {
-        TrainingLog.belongsTo(models.User, {foreignKey: 'userUuid' });
+        TrainingLog.belongsTo(models.User, {
+          foreignKey: 'userUuid',
+        onDelete: 'CASCADE' });
     }
   }
 
