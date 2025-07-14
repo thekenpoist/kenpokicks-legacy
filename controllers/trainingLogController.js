@@ -30,7 +30,7 @@ exports.getEditTrainingLog = async (req, res, next) => {
 
 }
 
-exports.postEcitTrainingLog = async (req, RegExp, next) => {
+exports.postEditTrainingLog = async (req, res, next) => {
 
 }
 
