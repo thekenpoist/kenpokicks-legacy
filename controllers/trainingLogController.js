@@ -21,6 +21,46 @@ exports.getCreateTrainingLog = (req, res, next) => {
 };
 
 exports.postCreateTrainingLog = async (req, res, next) => {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty) {
+        return res.status(422).render('logs/new-log', {
+            pageTitle: 'Create Entry',
+            currentPage: 'logs',
+            errorMessage: errors.array().map(e => e.msg).join(', '),
+            formData: req.body
+        });
+    }
+
+    const user = res.locals.currentUser;
+    if (!user) {
+        return res.redirect('/auth/login');
+    }
+
+    const {
+        logCategory,
+        logTitle,
+        logDescription,
+        logDuration,
+        logRelatedBelt,
+        logDate,
+        logIsPrivate,
+        logIntensity
+    } = req.body;
+
+    try {
+        const newLog = await TrainingLog.create({
+            user: userUuid,
+            logCategory,
+            logTitle,
+            logDescription,
+            logDuration,
+            logRelatedBelt,
+            logDate,
+            logIsPrivate,
+            logIntensity
+        })
+    }
 
 }
 
