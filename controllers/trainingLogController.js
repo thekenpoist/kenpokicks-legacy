@@ -23,8 +23,8 @@ exports.getCreateTrainingLog = (req, res, next) => {
 exports.postCreateTrainingLog = async (req, res, next) => {
     const errors = validationResult(req);
 
-    if (!errors.isEmpty) {
-        return res.status(422).render('logs/new-log', {
+    if (!errors.isEmpty()) {
+        return res.status(422).render('logs/log-form', {
             pageTitle: 'Create Entry',
             currentPage: 'logs',
             errorMessage: errors.array().map(e => e.msg).join(', '),
@@ -50,7 +50,7 @@ exports.postCreateTrainingLog = async (req, res, next) => {
 
     try {
         const newLog = await TrainingLog.create({
-            user: userUuid,
+            user: uuid,
             logCategory,
             logTitle,
             logDescription,
@@ -60,13 +60,16 @@ exports.postCreateTrainingLog = async (req, res, next) => {
             logIsPrivate,
             logIntensity
         });
+
+        req.flash('success', 'Training log entry created successfully.');
         res.redirect('/dashboard');
     } catch (err) {
         logger.error(`Error creating Log: ${err.message}`);
             if (err.stack) {
                 logger.error(err.stack);
             }
-        res.status(500).render('logs/new-log', {
+        req.flash('error', 'There was a problem creating your training log entry.')
+        res.status(500).render('logs/log-form', {
             pageTitle: 'Create New Training Log',
             currentPage: 'logs',
             formAction: '/logs',
@@ -74,14 +77,8 @@ exports.postCreateTrainingLog = async (req, res, next) => {
             errorMessage: 'Failed to create log',
             formData: req.body
         });
-
     }
-
 }
-
-
-
-
 
 exports.getShowTrainingLogs = async (req, res, next) => {
     const user = res.locals.currentUser;
