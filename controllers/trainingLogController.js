@@ -59,7 +59,22 @@ exports.postCreateTrainingLog = async (req, res, next) => {
             logDate,
             logIsPrivate,
             logIntensity
-        })
+        });
+        res.redirect('/dashboard');
+    } catch (err) {
+        logger.error(`Error creating Log: ${err.message}`);
+            if (err.stack) {
+                logger.error(err.stack);
+            }
+        res.status(500).render('logs/new-log', {
+            pageTitle: 'Create New Training Log',
+            currentPage: 'logs',
+            formAction: '/logs',
+            submitButtonText: 'Create Entry',
+            errorMessage: 'Failed to create log',
+            formData: req.body
+        });
+
     }
 
 }
