@@ -4,6 +4,7 @@ const { DATE } = require('sequelize');
 const { renderServerError } = require('../utils/errorrUtil');
 const { formatInTimeZone } = require('date-fns-tz');
 const logger = require('../utils/loggerUtil');
+const { lazy } = require('react');
 
 
 exports.getCreateTrainingLog = (req, res, next) => {
@@ -80,18 +81,43 @@ exports.postCreateTrainingLog = async (req, res, next) => {
     }
 }
 
-exports.getShowTrainingLogs = async (req, res, next) => {
+exports.getOneTrainingLog = async (req, res, next) => {
     const user = res.locals.currentUser;
+    const trainingLogId = req.params.logId;
 
     if (!user) {
         return res.redirect('/auth/login');
     }
-}
 
+    try {
+        const trainingLog = await TrainingLog.findOne({
+            where: {
+                userUuid: user.uuid,
+                logId: trainingLogId
+            }
+        });
 
-exports.getTrainingLog = async (req, res, next) => {
+        if (!trainingLog) {
+            return res.status(404).render('404', {
+                pageTitle: 'Training log not found',
+                currentPage: 'dashboard'
+            });
+        }
+        res.render('logs/show-log', {
+            pageTitle: 'View Log',
+            currentPage: 'log',
+            errorMessage: null,
+            trainingLog
+        });
+    } catch (err) {
+        logger.error(`Error fetching training log: ${err.message}`);
+        if (err.stack) {
+            logger.error(err.stack);
+        }
 
-}
+        return renderServerError(res, err, 'dashboard');
+    }
+};
 
 exports.getAllTrainingLogs = async (req, res, next) => {
 
