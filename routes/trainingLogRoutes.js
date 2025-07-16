@@ -12,6 +12,9 @@ const router = express.Router();
 router.get('/new', isAuthenticated, csrfProtection, attachToken, trainingLogController.getCreateTrainingLog);
 router.post('/', isAuthenticated, csrfProtection, createTrainingLogRules, trainingLogController.postCreateTrainingLog);
 
+// Read
+router.get('/logs/:logId', isAuthenticated, trainingLogController.getOneTrainingLog);
 
+// Update
 
 module.exports = router;
