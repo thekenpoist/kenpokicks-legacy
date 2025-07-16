@@ -29,7 +29,8 @@ exports.createTrainingLogRules = [
         .trim()
         .isLength({ max: 1000 }).withMessage('Description must be less than 1000 characters.'),
     body('logDuration')
-            .isInt(),
+            .isInt({ min: 1, max: 1440})
+            .withMessage('Duration must be a number between 1 and 1440 (in minutes).'),
     body('logRelatedBelt')
         .isIn([
             'Yellow', 
@@ -46,7 +47,10 @@ exports.createTrainingLogRules = [
     body('logDate')
         .isISO8601().withMessage('Log date must be a valid date.')
         .toDate(),
-    body('logIsPrivate'),
+    body('logIsPrivate')
+        .optional()
+        .isBoolean().withMessage('Invalid value for privacy setting')
+        .toBoolean,
     body('logIntensity')
         .isIn([
             'Low', 
@@ -54,4 +58,5 @@ exports.createTrainingLogRules = [
             'High', 
             'Extreme'
         ])
+        .withMessage('Invalid intensity level.')
 ];
