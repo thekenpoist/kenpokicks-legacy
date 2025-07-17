@@ -151,10 +151,44 @@ exports.getAllTrainingLogs = async (req, res, next) => {
 
 };
 
-
-
 exports.getEditTrainingLog = async (req, res, next) => {
+    const user = res.locals.currentUser;
+    const trainingLogId = req.params.logId;
 
+    if (!user) {
+        return res.redirect('/auth/login');
+    }
+
+    try {
+        const trainingLog = await TrainingLog.finoOne({
+            where: {
+                userUuid: user.uuid,
+                logId: trainingLogId
+            }
+        });
+
+        if (!trainingLog) {
+            return res.status(404).render('404', {
+                pageTitle: 'Training log not found',
+                currentPage: 'dashboard'
+            });
+        }
+
+        res.render('logs/log-form', {
+            pageTitle: 'Edit Training Log',
+            currentPage: 'logs',
+            formAction: `/logs/edit/${trainingLogId}`,
+            submitButtonText: 'Save Changes',
+            errorMessage: null,
+            formData: trainingLog
+        });
+    } catch (err) {
+        logger.error(`Error fetching training log: ${err.message}`);
+            if (err.stack) {
+                logger.error(err.stack);
+            }
+        return renderServerError(res, err, 'dashboard');
+    }
 }
 
 exports.postEditTrainingLog = async (req, res, next) => {
