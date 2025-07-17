@@ -20,6 +20,7 @@ router.get('/logs', isAuthenticated, trainingLogController.getAllTrainingLogs)
 router.get('/edit/:logId', isAuthenticated, csrfProtection, attachToken, trainingLogController.getEditTrainingLog);
 router.post('/edit/:logId', isAuthenticated, csrfProtection, createTrainingLogRules, trainingLogController.postEditTrainingLog);
 
-
+// Delete
+router.post('/delete/:logId', isAuthenticated, trainingLogController.deleteTrainingLog);
 
 module.exports = router;
