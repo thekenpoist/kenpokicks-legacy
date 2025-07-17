@@ -62,8 +62,9 @@ exports.postCreateTrainingLog = async (req, res, next) => {
             logIntensity
         });
 
-        req.flash('success', 'Training log entry created successfully.');
-        res.redirect('/dashboard');
+        req.flash('success', 'Training log created successfully.');
+        res.redirect(`/logs/${newLog.logId}`);
+
     } catch (err) {
         logger.error(`Error creating Log: ${err.message}`);
             if (err.stack) {
@@ -199,13 +200,13 @@ exports.postEditTrainingLog = async (req, res, next) => {
     const errors = validationResult(req);
 
     if(!errors.isEmpty()) {
-        return res.status(422).render('logs/form-log', {
+        return res.status(422).render('logs/log-form', {
             pageTitle: 'Edit Training Log',
             currentPage: 'logs',
             formAction: `/logs/edit/${trainingLogId}`,
             submitButtonText: 'Save Changes',
             formData: req.body,
-            errorMessage: errors.array().map(e => e.msg).joing(', '),
+            errorMessage: errors.array().map(e => e.msg).join(', '),
             csrfToken: req.csrfToken()
         });
     }
@@ -252,7 +253,9 @@ exports.postEditTrainingLog = async (req, res, next) => {
             }
         });
 
-        res.redirect('/dashboard');
+        req.flash('success', 'Training log edited successfully.');
+        res.redirect(`/logs/${trainingLogId}`);
+
     } catch (err) {
         logger.error(`Error creating Log: ${err.message}`);
             if (err.stack) {
