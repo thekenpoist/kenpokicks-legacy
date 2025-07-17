@@ -120,25 +120,20 @@ exports.getOneTrainingLog = async (req, res, next) => {
 };
 
 exports.getAllTrainingLogs = async (req, res, next) => {
-    const user = res.local.currentUser;
+    const user = res.locals.currentUser;
 
     if (!user) {
-        return res.redirect('/augh/login');
+        return res.redirect('/auth/login');
     }
 
     try {
         const allLogs = await TrainingLog.findAll({
             where: {
                 userUuid: user.uuid,
+                order: [['logDate', 'DESC']]
             }
         });
 
-        if (!allLogs) {
-            return res.status(404).render('404', {
-                pageTitle: 'No training logs found',
-                currentPage: 'dashboard'
-            });
-        }
         res.render('logs/all-logs', {
             pageTitle: 'View Logs',
             currentPage: 'logs',
