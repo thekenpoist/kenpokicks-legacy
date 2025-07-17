@@ -14,6 +14,7 @@ router.post('/', isAuthenticated, csrfProtection, createTrainingLogRules, traini
 
 // Read
 router.get('/logs/:logId', isAuthenticated, trainingLogController.getOneTrainingLog);
+router.get('/logs', isAuthenticated, trainingLogController.getAllTrainingLogs)
 
 // Update
 
