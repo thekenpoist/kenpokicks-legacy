@@ -267,6 +267,38 @@ exports.postEditTrainingLog = async (req, res, next) => {
 };
 
 exports.deleteTrainingLog = async (req, res, next) => {
+    const user = res.locals.currentUser;
+    const trainingLogId = req.params.logId;
 
-}
+    if (!user) {
+        return res.redirect('/auth/login')
+    }
+
+    try {
+        const deleted = await TrainingLog.destroy({
+            where: {
+                userUuid: user.uuid,
+                logId: trainingLogId
+            }
+        });
+
+        if (!deleted) {
+            return res.status(404).render('404', {
+                pageTitle: 'Training Log Not Found',
+                currentPage: 'dashboard'
+            });
+        }
+
+        req.flash('success', 'Training log deleted successfully')
+        res.redirect('/dashboard');
+    } catch (err) {
+        logger.error(`Error Deleting Log: ${err.message}`);
+        if (err.stack) {
+            logger.error(err.stack);
+        }
+
+        return renderServerError(res, err, 'dashboard');
+
+    }
+};
 
