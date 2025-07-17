@@ -160,7 +160,7 @@ exports.getEditTrainingLog = async (req, res, next) => {
     }
 
     try {
-        const trainingLog = await TrainingLog.finoOne({
+        const trainingLog = await TrainingLog.findOne({
             where: {
                 userUuid: user.uuid,
                 logId: trainingLogId
@@ -180,7 +180,9 @@ exports.getEditTrainingLog = async (req, res, next) => {
             formAction: `/logs/edit/${trainingLogId}`,
             submitButtonText: 'Save Changes',
             errorMessage: null,
-            formData: trainingLog
+            formData: trainingLog,
+            csrfToken: req.csrfToken()
+
         });
     } catch (err) {
         logger.error(`Error fetching training log: ${err.message}`);
