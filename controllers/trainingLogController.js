@@ -4,7 +4,7 @@ const { DATE } = require('sequelize');
 const { renderServerError } = require('../utils/errorrUtil');
 const { formatInTimeZone } = require('date-fns-tz');
 const logger = require('../utils/loggerUtil');
-const { lazy } = require('react');
+const { lazy, use } = require('react');
 
 
 exports.getCreateTrainingLog = (req, res, next) => {
@@ -194,8 +194,74 @@ exports.getEditTrainingLog = async (req, res, next) => {
 }
 
 exports.postEditTrainingLog = async (req, res, next) => {
+    const user = res.locals.currentUser;
+    const trainingLogId = req.params.logId;
+    const errors = validationResult(req);
 
-}
+    if(!errors.isEmpty()) {
+        return res.status(422).render('logs/form-log', {
+            pageTitle: 'Edit Training Log',
+            currentPage: 'logs',
+            formAction: `/logs/edit/${trainingLogId}`,
+            submitButtonText: 'Save Changes',
+            formData: req.body,
+            errorMessage: errors.array().map(e => e.msg).joing(', '),
+            csrfToken: req.csrfToken()
+        });
+    }
+
+    try {
+        const trainingLog = await TrainingLog.findOne({
+            where: {
+                userUuid: user.uuid,
+                logId: trainingLogId
+            }
+        });
+
+        if (!trainingLog) {
+            return res.status(404).render('404', {
+                pageTitle: 'Training Log Not Found',
+                currentPage: 'dashboard'
+            });
+        }
+
+        const {
+            logCategory,
+            logTitle,
+            logDescription,
+            logDuration,
+            logRelatedBelt,
+            logDate,
+            logIsPrivate,
+            logIntensity
+        } = req.body;
+
+        await TrainingLog.update({
+            logCategory,
+            logTitle,
+            logDescription,
+            logDuration,
+            logRelatedBelt,
+            logDate,
+            logIsPrivate,
+            logIntensity
+        }, {
+            where: {
+                userUuid: user.uuid,
+                logId: trainingLogId
+            }
+        });
+
+        res.redirect('/dashboard');
+    } catch (err) {
+        logger.error(`Error creating Log: ${err.message}`);
+            if (err.stack) {
+                logger.error(err.stack);
+            }
+        return renderServerError(res, err, 'dashboard');
+    }
+
+};
 
 exports.deleteTrainingLog = async (req, res, next) => {
 

@@ -17,5 +17,6 @@ router.get('/logs/:logId', isAuthenticated, trainingLogController.getOneTraining
 router.get('/logs', isAuthenticated, trainingLogController.getAllTrainingLogs)
 
 // Update
+router.get('/edit/:logId', isAuthenticated, csrfProtection, attachToken, trainingLogController.getEditTrainingLog);
 
 module.exports = router;
