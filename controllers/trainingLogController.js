@@ -120,8 +120,41 @@ exports.getOneTrainingLog = async (req, res, next) => {
 };
 
 exports.getAllTrainingLogs = async (req, res, next) => {
+    const user = res.local.currentUser;
 
-}
+    if (!user) {
+        return res.redirect('/augh/login');
+    }
+
+    try {
+        const allLogs = await TrainingLog.findAll({
+            where: {
+                userUuid: user.uuid,
+            }
+        });
+
+        if (!allLogs) {
+            return res.status(404).render('404', {
+                pageTitle: 'No training logs found',
+                currentPage: 'dashboard'
+            });
+        }
+        res.render('logs/all-logs', {
+            pageTitle: 'View Logs',
+            currentPage: 'logs',
+            errorMessage: null,
+            allLogs
+        });
+    } catch (err) {
+        logger.error(`Error fetching training log: ${err.message}`);
+        if (err.stack) {
+            logger.error(err.stack);
+        }
+
+        return renderServerError(res, err, 'dashboard');
+    }
+
+};
 
 
 
