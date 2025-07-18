@@ -4,8 +4,6 @@ const { DATE } = require('sequelize');
 const { renderServerError } = require('../utils/errorrUtil');
 const { formatInTimeZone } = require('date-fns-tz');
 const logger = require('../utils/loggerUtil');
-const { lazy, use } = require('react');
-
 
 exports.getCreateTrainingLog = (req, res, next) => {
     res.render('logs/log-form', {
