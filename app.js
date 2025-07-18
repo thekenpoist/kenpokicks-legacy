@@ -12,6 +12,7 @@ const portalRouter = require('./routes/portalRoutes');
 const publicRouter = require('./routes/publicRoutes');
 const techniqueRouter = require('./routes/techniqueRoutes');
 const trainingRouter = require('./routes/trainingRoutes');
+const trainingLogRouter = require('./routes/trainingLogRoutes');
 const userRouter = require('./routes/userRoutes');
 const { ppid } = require('process');
 
@@ -52,11 +53,11 @@ app.use(setCurrentUser);
 
 app.use('/auth', authRouter);
 app.use('/portal', portalRouter);
-app.use('/profiles', userRouter);
+app.use(publicRouter);
 app.use('/training/belt', techniqueRouter);
 app.use('/training', trainingRouter);
-app.use(publicRouter);
-
+app.use('/logs', trainingLogRouter);
+app.use('/profiles', userRouter);
 
 // CSRF error handler
 app.use((err, req, res, next) => {
