@@ -34,7 +34,7 @@ block content
                 li.text-gray-600 Last Login: #{lastLoggedInFormatted}
                 li.mt-2
                   a(href="/profiles/me" class="text-blue-600 hover:underline") My Profile 
-    
+
     .w-full.text-center
         h1.text-3xl.font-bold.mb-1 Welcome back, #{currentUser.firstName}!
 
@@ -57,14 +57,14 @@ block content
                 li: a(href=`/training/${belt.beltSlug}/sets`) Sets
                 li: a(href=`/training/${belt.beltSlug}/forms`) Forms
 
-
-    // 🔹 Right: Training Diary Placeholder
+    // 🔹 Right: Training Diary
     div(class="md:col-span-2 bg-white shadow-md rounded-lg p-4")
       .flex.justify-between.items-center.mb-4
         h2.text-xl.font-bold.text-red-800 Training Diary
-        a(
-          href="/portal/training-log/add", 
-          class="text-sm px-3 py-1 bg-red-800 text-white rounded hover:bg-green-700 transition"
+        button(
+          type="button",
+          class="text-sm px-3 py-1 bg-red-800 text-white rounded hover:bg-green-700 transition",
+          id="openEntryModal"
         ) Add Entry
 
       // Table headers
@@ -73,27 +73,58 @@ block content
         div Category
         div Description
 
-      // Placeholder entries
-      each log in [1,2,3]
-        .grid.grid-cols-3.text-sm.text-gray-800.border-b.border-gray-100.py-2
-          div 2025-06-2#{log}
-          div Forms
-          div Practiced Long Form 1 in the garage dojo
+      if trainingLogs && trainingLogs.length
+        each log in trainingLogs
+          .grid.grid-cols-3.text-sm.text-gray-800.border-b.border-gray-100.py-2
+            div= log.logDate
+            div= log.logCategory
+            div= log.logDescription
+      else
+        .text-gray-500.text-sm No training entries yet.
 
+  // 🔶 Add Entry Modal
+  div#entryModal.hidden.fixed.inset-0.bg-gray-900.bg-opacity-50.flex.items-center.justify-center.z-50
+    div(class="bg-white rounded-lg shadow-lg w-full max-w-md p-6 relative")
+      button(
+        type="button",
+        class="absolute top-2 right-2 text-gray-500 hover:text-red-800",
+        id="closeEntryModal"
+      ) ✕
+      div#entryFormContainer.text-center.text-gray-500 Loading form...
 
-
+  // 🔷 Scripts
   script.
     document.addEventListener('DOMContentLoaded', function () {
+      // Profile dropdown
       const btn = document.getElementById('profileDropdownBtn');
       const dropdown = document.getElementById('profileDropdown');
-
       btn.addEventListener('click', function (e) {
         e.stopPropagation();
         dropdown.classList.toggle('hidden');
       });
-
-      // Close dropdown if clicked outside
       document.addEventListener('click', function () {
         dropdown.classList.add('hidden');
+      });
+
+      // Modal logic
+      const openModalBtn = document.getElementById('openEntryModal');
+      const closeModalBtn = document.getElementById('closeEntryModal');
+      const modal = document.getElementById('entryModal');
+      const formContainer = document.getElementById('entryFormContainer');
+
+      openModalBtn.addEventListener('click', async () => {
+        modal.classList.remove('hidden');
+        try {
+          const res = await fetch('/logs/new'); // Route handled by getCreateTrainingLog
+          const html = await res.text();
+          formContainer.innerHTML = html;
+        } catch (err) {
+          formContainer.innerHTML = '<p class="text-red-600">Failed to load form.</p>';
+        }
+      });
+
+      closeModalBtn.addEventListener('click', () => modal.classList.add('hidden'));
+      window.addEventListener('click', (e) => {
+        if (e.target === modal) modal.classList.add('hidden');
       });
     });
