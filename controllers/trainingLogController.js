@@ -13,6 +13,7 @@ exports.getCreateTrainingLog = (req, res, next) => {
         submitButtonText: 'Create Entry',
         errorMessage: null,
         csrfToken: req.csrfToken(),
+        layout: false,
         formData: {
             user: res.locals.currentUser || ''
         }
