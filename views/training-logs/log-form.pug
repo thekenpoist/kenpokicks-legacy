@@ -1,0 +1,102 @@
+//- views/logs/log-form.pug
+form(action=formAction method="POST" class="space-y-4")
+  input(type="hidden", name="_csrf", value=csrfToken)
+
+  if errorMessage
+    p.text-red-600.text-sm.bg-red-50.border.border-red-200.rounded.p-2 #{errorMessage}
+
+  // Date
+  div
+    label.block.text-sm.font-medium.text-gray-700(for="logDate") Date
+    input#logDate(
+      type="date",
+      name="logDate",
+      required,
+      class="w-full border border-gray-300 rounded px-3 py-2 mt-1 focus:outline-none focus:ring-2 focus:ring-red-800",
+      value=formData.logDate || ''
+    )
+
+  // Category
+  div
+    label.block.text-sm.font-medium.text-gray-700(for="logCategory") Category
+    select#logCategory(
+      name="logCategory",
+      required,
+      class="w-full border border-gray-300 rounded px-3 py-2 mt-1 focus:outline-none focus:ring-2 focus:ring-red-800"
+    )
+      option(value="" disabled selected=!(formData.logCategory)) Select a category
+      option(value="Forms" selected=formData.logCategory==='Forms') Forms
+      option(value="Techniques" selected=formData.logCategory==='Techniques') Techniques
+      option(value="Basics" selected=formData.logCategory==='Basics') Basics
+      option(value="Sets" selected=formData.logCategory==='Sets') Sets
+
+  // Title
+  div
+    label.block.text-sm.font-medium.text-gray-700(for="logTitle") Title
+    input#logTitle(
+      type="text",
+      name="logTitle",
+      placeholder="e.g., Long Form 1 Practice",
+      class="w-full border border-gray-300 rounded px-3 py-2 mt-1 focus:outline-none focus:ring-2 focus:ring-red-800",
+      value=formData.logTitle || ''
+    )
+
+  // Description
+  div
+    label.block.text-sm.font-medium.text-gray-700(for="logDescription") Description
+    textarea#logDescription(
+      name="logDescription",
+      rows="3",
+      placeholder="Describe your training session...",
+      class="w-full border border-gray-300 rounded px-3 py-2 mt-1 focus:outline-none focus:ring-2 focus:ring-red-800"
+    )= formData.logDescription || ''
+
+  // Duration
+  div
+    label.block.text-sm.font-medium.text-gray-700(for="logDuration") Duration (minutes)
+    input#logDuration(
+      type="number",
+      name="logDuration",
+      min="1",
+      class="w-full border border-gray-300 rounded px-3 py-2 mt-1 focus:outline-none focus:ring-2 focus:ring-red-800",
+      value=formData.logDuration || ''
+    )
+
+  // Related Belt
+  div
+    label.block.text-sm.font-medium.text-gray-700(for="logRelatedBelt") Related Belt
+    select#logRelatedBelt(
+      name="logRelatedBelt",
+      class="w-full border border-gray-300 rounded px-3 py-2 mt-1 focus:outline-none focus:ring-2 focus:ring-red-800"
+    )
+      option(value="" disabled selected=!(formData.logRelatedBelt)) Select a belt
+      option(value="Yellow" selected=formData.logRelatedBelt==='Yellow') Yellow
+      option(value="Orange" selected=formData.logRelatedBelt==='Orange') Orange
+      option(value="Purple" selected=formData.logRelatedBelt==='Purple') Purple
+      option(value="Blue" selected=formData.logRelatedBelt==='Blue') Blue
+      option(value="Green" selected=formData.logRelatedBelt==='Green') Green
+      option(value="Red" selected=formData.logRelatedBelt==='Red') Red
+      option(value="Black" selected=formData.logRelatedBelt==='Black') Black
+
+  // Intensity
+  div
+    label.block.text-sm.font-medium.text-gray-700(for="logIntensity") Intensity
+    select#logIntensity(
+      name="logIntensity",
+      class="w-full border border-gray-300 rounded px-3 py-2 mt-1 focus:outline-none focus:ring-2 focus:ring-red-800"
+    )
+      option(value="" disabled selected=!(formData.logIntensity)) Select intensity
+      option(value="Low" selected=formData.logIntensity==='Low') Low
+      option(value="Medium" selected=formData.logIntensity==='Medium') Medium
+      option(value="High" selected=formData.logIntensity==='High') High
+
+  // Private Entry
+  div.flex.items-center.space-x-2
+    input#logIsPrivate(type="checkbox" name="logIsPrivate" checked=formData.logIsPrivate)
+    label.text-sm.text-gray-700(for="logIsPrivate") Private Entry
+
+  // Submit Button
+  button(
+    type="submit",
+    class="w-full bg-red-800 text-white py-2 rounded hover:bg-green-700 transition"
+  ) #{submitButtonText}
