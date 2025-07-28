@@ -8,8 +8,8 @@ const logger = require('../utils/loggerUtil');
 exports.getCreateTrainingLog = (req, res, next) => {
     res.render('training-logs/log-form', {
         pageTitle: 'Create New Training Log',
-        currentPage: 'training-logs',
-        formAction: '/training-logs',
+        currentPage: 'logs',
+        formAction: '/logs',
         submitButtonText: 'Create Entry',
         errorMessage: null,
         csrfToken: req.csrfToken(),
@@ -24,17 +24,28 @@ exports.postCreateTrainingLog = async (req, res, next) => {
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
+        if (req.xhr) {
+            return res.status(422).json({
+                success: false,
+                errors: errors.array()
+            });
+        }
         return res.status(422).render('training-logs/log-form', {
             pageTitle: 'Create Entry',
-            currentPage: 'training-logs',
+            currentPage: 'logs',
+            formAction: '/logs',
+            submitButtonText: 'Create Entry',
             errorMessage: errors.array().map(e => e.msg).join(', '),
+            csrfToken: req.csrfToken(),
             formData: req.body
         });
     }
 
     const user = res.locals.currentUser;
     if (!user) {
-        return res.redirect('/auth/login');
+        return req.xhr
+            ? res.status(401).json({ success: false, error: 'Unauthorized' })
+            : res.redirect('/auth/login');
     }
 
     const {
@@ -61,25 +72,33 @@ exports.postCreateTrainingLog = async (req, res, next) => {
             logIntensity
         });
 
+        if (req.xhr) {
+            return res.status(201).json({
+                success: true,
+                log: newLog
+            });
+        }
+
         req.flash('success', 'Training log created successfully.');
-        res.redirect(`/training-logs/${newLog.logId}`);
+        res.redirect(`/logs/${newLog.logId}`);
 
     } catch (err) {
         logger.error(`Error creating Log: ${err.message}`);
-            if (err.stack) {
-                logger.error(err.stack);
+            if (req.xhr) {
+                return res.status(500).json({ success: false, error: 'Server Error'});
             }
         req.flash('error', 'There was a problem creating your training log entry.')
         res.status(500).render('training-logs/log-form', {
             pageTitle: 'Create New Training Log',
-            currentPage: 'training-logs',
-            formAction: '/training-logs',
+            currentPage: 'logs',
+            formAction: '/logs',
             submitButtonText: 'Create Entry',
             errorMessage: 'Failed to create log',
+            csrfToken: req.csrfToken(),
             formData: req.body
         });
     }
-}
+};
 
 exports.getOneTrainingLog = async (req, res, next) => {
     const user = res.locals.currentUser;
@@ -127,7 +146,7 @@ exports.getAllTrainingtraining-logs = async (req, res, next) => {
     }
 
     try {
-        const alltraining-logs = await TrainingLog.findAll({
+        const alltrainingLogs = await TrainingLog.findAll({
             where: {
                 userUuid: user.uuid,
                 order: [['logDate', 'DESC']]
@@ -136,9 +155,9 @@ exports.getAllTrainingtraining-logs = async (req, res, next) => {
 
         res.render('training-logs/all-training-logs', {
             pageTitle: 'View training-logs',
-            currentPage: 'training-logs',
+            currentPage: 'logs',
             errorMessage: null,
-            alltraining-logs
+            alltrainingLogs
         });
     } catch (err) {
         logger.error(`Error fetching training log: ${err.message}`);
@@ -176,8 +195,8 @@ exports.getEditTrainingLog = async (req, res, next) => {
 
         res.render('training-logs/log-form', {
             pageTitle: 'Edit Training Log',
-            currentPage: 'training-logs',
-            formAction: `/training-logs/edit/${trainingLogId}`,
+            currentPage: 'logs',
+            formAction: `/logs/edit/${trainingLogId}`,
             submitButtonText: 'Save Changes',
             errorMessage: null,
             formData: trainingLog,
@@ -201,8 +220,8 @@ exports.postEditTrainingLog = async (req, res, next) => {
     if(!errors.isEmpty()) {
         return res.status(422).render('training-logs/log-form', {
             pageTitle: 'Edit Training Log',
-            currentPage: 'training-logs',
-            formAction: `/training-logs/edit/${trainingLogId}`,
+            currentPage: 'logs',
+            formAction: `/logs/edit/${trainingLogId}`,
             submitButtonText: 'Save Changes',
             formData: req.body,
             errorMessage: errors.array().map(e => e.msg).join(', '),
@@ -253,7 +272,7 @@ exports.postEditTrainingLog = async (req, res, next) => {
         });
 
         req.flash('success', 'Training log edited successfully.');
-        res.redirect(`/training-logs/${trainingLogId}`);
+        res.redirect(`/logs/${trainingLogId}`);
 
     } catch (err) {
         logger.error(`Error creating Log: ${err.message}`);
