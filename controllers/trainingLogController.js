@@ -138,7 +138,7 @@ exports.getOneTrainingLog = async (req, res, next) => {
     }
 };
 
-exports.getAllTrainingtraining-logs = async (req, res, next) => {
+exports.getAllTrainingLogs = async (req, res, next) => {
     const user = res.locals.currentUser;
 
     if (!user) {
