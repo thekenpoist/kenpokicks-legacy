@@ -1,4 +1,4 @@
-//- views/logs/log-form.pug
+//- views/training-logs/log-form.pug
 form(action=formAction method="POST" class="space-y-4")
   input(type="hidden", name="_csrf", value=csrfToken)
 
@@ -25,10 +25,24 @@ form(action=formAction method="POST" class="space-y-4")
       class="w-full border border-gray-300 rounded px-3 py-2 mt-1 focus:outline-none focus:ring-2 focus:ring-red-800"
     )
       option(value="" disabled selected=!(formData.logCategory)) Select a category
-      option(value="Forms" selected=formData.logCategory==='Forms') Forms
-      option(value="Techniques" selected=formData.logCategory==='Techniques') Techniques
+      option(value="Bag/Pad Work" selected=formData.logCategory==='Bag/Pad Work') Bag/Pad Work
       option(value="Basics" selected=formData.logCategory==='Basics') Basics
+      option(value="Cardio" selected=formData.logCategory==='Cardio') Cardio
+      option(value="Dry Fire" selected=formData.logCategory==='Dry Fire') Dry Fire
+      option(value="Field Training" selected=formData.logCategory==='Field Training') Field Training
+      option(value="Forms" selected=formData.logCategory==='Forms') Forms
+      option(value="Grappling" selected=formData.logCategory==='Grappling') Grappling
+      option(value="Instruction" selected=formData.logCategory==='Instruction') Instruction
+      option(value="Live Fire" selected=formData.logCategory==='Live Fire') Live Fire
+      option(value="Meditation" selected=formData.logCategory==='Meditation') Meditation
+      option(value="Recovery" selected=formData.logCategory==='Recovery') Recovery
       option(value="Sets" selected=formData.logCategory==='Sets') Sets
+      option(value="Skill Drills" selected=formData.logCategory==='Skill Drills') Skill Drills
+      option(value="Sparring" selected=formData.logCategory==='Sparring') Sparring
+      option(value="Stretching" selected=formData.logCategory==='Stretching') Stretching
+      option(value="Techniques" selected=formData.logCategory==='Techniques') Techniques
+      option(value="Weightlifting" selected=formData.logCategory==='Weightlifting') Weightlifting
+      option(value="Weapons Practice" selected=formData.logCategory==='Weapons Practice') Weapons Practice
 
   // Title
   div
@@ -37,6 +51,8 @@ form(action=formAction method="POST" class="space-y-4")
       type="text",
       name="logTitle",
       placeholder="e.g., Long Form 1 Practice",
+      required,
+      maxlength="50",
       class="w-full border border-gray-300 rounded px-3 py-2 mt-1 focus:outline-none focus:ring-2 focus:ring-red-800",
       value=formData.logTitle || ''
     )
@@ -47,6 +63,7 @@ form(action=formAction method="POST" class="space-y-4")
     textarea#logDescription(
       name="logDescription",
       rows="3",
+      required,
       placeholder="Describe your training session...",
       class="w-full border border-gray-300 rounded px-3 py-2 mt-1 focus:outline-none focus:ring-2 focus:ring-red-800"
     )= formData.logDescription || ''
@@ -58,37 +75,35 @@ form(action=formAction method="POST" class="space-y-4")
       type="number",
       name="logDuration",
       min="1",
+      required,
       class="w-full border border-gray-300 rounded px-3 py-2 mt-1 focus:outline-none focus:ring-2 focus:ring-red-800",
       value=formData.logDuration || ''
     )
 
-  // Related Belt
+  // Related Belt (optional)
   div
     label.block.text-sm.font-medium.text-gray-700(for="logRelatedBelt") Related Belt
-    select#logRelatedBelt(
+    input#logRelatedBelt(
+      type="text",
       name="logRelatedBelt",
-      class="w-full border border-gray-300 rounded px-3 py-2 mt-1 focus:outline-none focus:ring-2 focus:ring-red-800"
+      placeholder="e.g., Purple Belt",
+      class="w-full border border-gray-300 rounded px-3 py-2 mt-1 focus:outline-none focus:ring-2 focus:ring-red-800",
+      value=formData.logRelatedBelt || ''
     )
-      option(value="" disabled selected=!(formData.logRelatedBelt)) Select a belt
-      option(value="Yellow" selected=formData.logRelatedBelt==='Yellow') Yellow
-      option(value="Orange" selected=formData.logRelatedBelt==='Orange') Orange
-      option(value="Purple" selected=formData.logRelatedBelt==='Purple') Purple
-      option(value="Blue" selected=formData.logRelatedBelt==='Blue') Blue
-      option(value="Green" selected=formData.logRelatedBelt==='Green') Green
-      option(value="Red" selected=formData.logRelatedBelt==='Red') Red
-      option(value="Black" selected=formData.logRelatedBelt==='Black') Black
 
   // Intensity
   div
     label.block.text-sm.font-medium.text-gray-700(for="logIntensity") Intensity
     select#logIntensity(
       name="logIntensity",
+      required,
       class="w-full border border-gray-300 rounded px-3 py-2 mt-1 focus:outline-none focus:ring-2 focus:ring-red-800"
     )
       option(value="" disabled selected=!(formData.logIntensity)) Select intensity
       option(value="Low" selected=formData.logIntensity==='Low') Low
-      option(value="Medium" selected=formData.logIntensity==='Medium') Medium
+      option(value="Moderate" selected=formData.logIntensity==='Moderate') Moderate
       option(value="High" selected=formData.logIntensity==='High') High
+      option(value="Extreme" selected=formData.logIntensity==='Extreme') Extreme
 
   // Private Entry
   div.flex.items-center.space-x-2
