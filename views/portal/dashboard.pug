@@ -105,13 +105,15 @@ block content
       // Profile dropdown
       const btn = document.getElementById('profileDropdownBtn');
       const dropdown = document.getElementById('profileDropdown');
-      btn.addEventListener('click', function (e) {
-        e.stopPropagation();
-        dropdown.classList.toggle('hidden');
-      });
-      document.addEventListener('click', function () {
-        dropdown.classList.add('hidden');
-      });
+      if (btn && dropdown) {
+        btn.addEventListener('click', function (e) {
+          e.stopPropagation();
+          dropdown.classList.toggle('hidden');
+        });
+        document.addEventListener('click', function () {
+          dropdown.classList.add('hidden');
+        });
+      }
 
       // Modal logic
       const openModalBtn = document.getElementById('openEntryModal');
@@ -120,21 +122,25 @@ block content
       const formContainer = document.getElementById('entryFormContainer');
       const diary = document.querySelector('.training-diary-entries');
 
-      openModalBtn.addEventListener('click', async () => {
-        modal.classList.remove('hidden');
-        try {
-          const res = await fetch('/logs/new');
-          const html = await res.text();
-          formContainer.innerHTML = html;
-        } catch (err) {
-          formContainer.innerHTML = '<p class="text-red-600">Failed to load form.</p>';
-        }
-      });
+      if (openModalBtn && modal) {
+        openModalBtn.addEventListener('click', async () => {
+          modal.classList.remove('hidden');
+          try {
+            const res = await fetch('/logs/new');
+            const html = await res.text();
+            formContainer.innerHTML = html;
+          } catch (err) {
+            formContainer.innerHTML = '<p class="text-red-600">Failed to load form.</p>';
+          }
+        });
+      }
 
-      closeModalBtn.addEventListener('click', () => modal.classList.add('hidden'));
-      window.addEventListener('click', (e) => {
-        if (e.target === modal) modal.classList.add('hidden');
-      });
+      if (closeModalBtn && modal) {
+        closeModalBtn.addEventListener('click', () => modal.classList.add('hidden'));
+        window.addEventListener('click', (e) => {
+          if (e.target === modal) modal.classList.add('hidden');
+        });
+      }
 
       // AJAX form submission
       document.addEventListener('submit', function (e) {
@@ -157,7 +163,7 @@ block content
                   <div>${data.log.logCategory}</div>
                   <div>${data.log.logTitle || '(No Title)'}</div>
                 </div>`;
-              diary.insertAdjacentHTML('afterbegin', newEntry); // add at top
+              diary.insertAdjacentHTML('afterbegin', newEntry);
             } else {
               alert('Error: ' + (data.error || data.errors.map(e => e.msg).join(', ')));
             }
@@ -165,3 +171,4 @@ block content
           .catch(err => console.error(err));
         }
       });
+    });
