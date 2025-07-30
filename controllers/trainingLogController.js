@@ -59,9 +59,15 @@ exports.postCreateTrainingLog = async (req, res, next) => {
         logIntensity
     } = req.body;
 
+    console.log("Creating log for user:", {
+        uuid: user.uuid,
+        title: logTitle,
+        category: logCategory
+    });
+
     try {
         const newLog = await TrainingLog.create({
-            user: uuid,
+            userUuid: user.uuid,
             logCategory,
             logTitle,
             logDescription,
