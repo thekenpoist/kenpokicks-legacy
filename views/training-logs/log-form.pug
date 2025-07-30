@@ -80,16 +80,23 @@ form(action=formAction method="POST" class="space-y-4")
       value=formData.logDuration || ''
     )
 
-  // Related Belt (optional)
+  // Related Belt (optional dropdown)
   div
     label.block.text-sm.font-medium.text-gray-700(for="logRelatedBelt") Related Belt
-    input#logRelatedBelt(
-      type="text",
+    select#logRelatedBelt(
       name="logRelatedBelt",
-      placeholder="e.g., Purple Belt",
-      class="w-full border border-gray-300 rounded px-3 py-2 mt-1 focus:outline-none focus:ring-2 focus:ring-red-800",
-      value=formData.logRelatedBelt || ''
+      class="w-full border border-gray-300 rounded px-3 py-2 mt-1 focus:outline-none focus:ring-2 focus:ring-red-800"
     )
+      option(value="N/A" selected=formData.logRelatedBelt==='N/A' || !formData.logRelatedBelt) N/A
+      option(value="Yellow" selected=formData.logRelatedBelt==='Yellow') Yellow
+      option(value="Orange" selected=formData.logRelatedBelt==='Orange') Orange
+      option(value="Purple" selected=formData.logRelatedBelt==='Purple') Purple
+      option(value="Blue" selected=formData.logRelatedBelt==='Blue') Blue
+      option(value="Green" selected=formData.logRelatedBelt==='Green') Green
+      option(value="Brown" selected=formData.logRelatedBelt==='Brown') Brown
+      option(value="Red" selected=formData.logRelatedBelt==='Red') Red
+      option(value="Black/Red" selected=formData.logRelatedBelt==='Black/Red') Black/Red
+      option(value="Black" selected=formData.logRelatedBelt==='Black') Black
 
   // Intensity
   div
