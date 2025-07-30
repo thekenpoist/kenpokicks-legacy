@@ -20,13 +20,16 @@ exports.createTrainingLogRules = [
             'Stretching',
             'Techniques',
             'Weightlifting',
-            'Weapons Practice'])
+            'Weapons Practice'
+        ])
         .withMessage('Invalid category selected.'),
     body('logTitle')
         .trim()
+        .notEmpty().withMessage('A title is required')
         .isLength({ max: 50 }).withMessage('Title must be less than 50 characters.'),
     body('logDescription')
         .trim()
+        .notEmpty().withMessage('A description is require')
         .isLength({ max: 1000 }).withMessage('Description must be less than 1000 characters.'),
     body('logDuration')
             .isInt({ min: 1, max: 1440})
@@ -42,7 +45,8 @@ exports.createTrainingLogRules = [
             'Red',
             'Black/Red',
             'Black',
-            'N/A'])
+            'N/A'
+        ])
         .withMessage('Invalid belt selected'),
     body('logDate')
         .isISO8601().withMessage('Log date must be a valid date.')
@@ -50,7 +54,7 @@ exports.createTrainingLogRules = [
     body('logIsPrivate')
         .optional()
         .isBoolean().withMessage('Invalid value for privacy setting')
-        .toBoolean,
+        .toBoolean(),
     body('logIntensity')
         .isIn([
             'Low', 
