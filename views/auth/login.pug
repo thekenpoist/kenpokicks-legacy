@@ -13,7 +13,6 @@ block content
     p(class="bg-red-100 text-red-700 px-4 py-2 mb-4 rounded-lg shadow") #{errorMessage}
 
   form(action="/auth/login" method="POST" class="flex flex-col space-y-4 max-w-md mx-auto text-left")
-    input(type="hidden" name="_csrf" value=csrfToken)
     label(for="login" class="block font-semibold") Email or Username
     input(type="text" name="login" id="login" required class="w-full border border-gray-300 px-3 py-2 rounded")
 
