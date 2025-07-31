@@ -6,15 +6,12 @@ const { formatInTimeZone } = require('date-fns-tz');
 const logger = require('../utils/loggerUtil');
 
 exports.getCreateTrainingLog = (req, res, next) => {
-    console.log("CSRF token at render:", req.csrfToken());
-
     res.render('training-logs/log-form', {
         pageTitle: 'Create New Training Log',
         currentPage: 'logs',
         formAction: '/logs',
         submitButtonText: 'Create Entry',
         errorMessage: null,
-        csrfToken: req.csrfToken(),
         layout: false,
         formData: {
             user: res.locals.currentUser || ''
@@ -24,15 +21,6 @@ exports.getCreateTrainingLog = (req, res, next) => {
 
 exports.postCreateTrainingLog = async (req, res, next) => {
     console.log("Is it making it here?")
-
-    if (typeof req.csrfToken === 'function') {
-        console.log('🧪 req.csrfToken():', req.csrfToken());
-    } else {
-        console.log('🧪 req.csrfToken is NOT a function');
-    }
-
-    console.log('🧪 req.body._csrf:', req.body._csrf); // delete
-    console.log('🧪 req.csrfToken():', req.csrfToken());    //delete
 
     const errors = validationResult(req);
 
@@ -49,7 +37,6 @@ exports.postCreateTrainingLog = async (req, res, next) => {
             formAction: '/logs',
             submitButtonText: 'Create Entry',
             errorMessage: errors.array().map(e => e.msg).join(', '),
-            csrfToken: req.csrfToken(),
             formData: req.body
         });
     }
@@ -113,7 +100,6 @@ exports.postCreateTrainingLog = async (req, res, next) => {
             formAction: '/logs',
             submitButtonText: 'Create Entry',
             errorMessage: 'Failed to create log',
-            csrfToken: req.csrfToken(),
             formData: req.body
         });
     }
@@ -218,9 +204,7 @@ exports.getEditTrainingLog = async (req, res, next) => {
             formAction: `/logs/edit/${trainingLogId}`,
             submitButtonText: 'Save Changes',
             errorMessage: null,
-            formData: trainingLog,
-            csrfToken: req.csrfToken()
-
+            formData: trainingLog
         });
     } catch (err) {
         logger.error(`Error fetching training log: ${err.message}`);
@@ -243,8 +227,7 @@ exports.postEditTrainingLog = async (req, res, next) => {
             formAction: `/logs/edit/${trainingLogId}`,
             submitButtonText: 'Save Changes',
             formData: req.body,
-            errorMessage: errors.array().map(e => e.msg).join(', '),
-            csrfToken: req.csrfToken()
+            errorMessage: errors.array().map(e => e.msg).join(', ')
         });
     }
 

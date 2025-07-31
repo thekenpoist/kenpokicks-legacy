@@ -64,8 +64,7 @@ exports.getEditProfile = (req, res, next) => {
             },
             submitLabel: 'Update Profile',
             formMode: 'edit',
-            formAction: '/profiles/edit-profile',
-            csrfToken: res.locals.csrfToken
+            formAction: '/profiles/edit-profile'
         });
 }
 
@@ -91,8 +90,7 @@ exports.postEditProfile = async (req, res, next) => {
             pageTitle: 'Edit Profile',
             currentPage: 'profile',
             errorMessage: errors.array().map(e => e.msg).join(', '),
-            formData: req.body,
-            csrfToken: req.csrfToken()
+            formData: req.body
         });
     }
 
@@ -148,8 +146,7 @@ exports.postEditProfile = async (req, res, next) => {
                     pageTitle: 'Edit Profile',
                     currentPage: 'profile',
                     errorMessage: 'Current password is incorrect.',
-                    formData: req.body,
-                    csrfToken: req.csrfToken()
+                    formData: req.body
                 });
             }
         }
