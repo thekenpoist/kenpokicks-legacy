@@ -46,9 +46,6 @@ app.use(session({
     }
 }));
 
-const { csrfProtection } = require('./middleware/csrfMiddleware');
-app.use(csrfProtection);
-
 app.use(flash());
 app.use(attachFlashMessages);
 
@@ -61,14 +58,6 @@ app.use('/training/belt', techniqueRouter);
 app.use('/training', trainingRouter);
 app.use('/logs', trainingLogRouter);
 app.use('/profiles', userRouter);
-
-// CSRF error handler
-app.use((err, req, res, next) => {
-    if (err.code === 'EBADCSRFTOKEN') {
-        return errorController.get403(err, req, res, next);
-    }
-    next(err);
-});
 
 // Generic 500 error handler
 app.use((err, req, res, next) => {
