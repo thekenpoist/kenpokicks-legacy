@@ -28,12 +28,3 @@ exports.get500 = (err, req, res, next) => {
         showstack: process.env.NODE_ENV !== 'production',
     });
 };
-
-// Controller for handling csrf errors
-exports.get403 = (err, req, res, next) => {
-    return res.status(403).render('403', {
-        pageTitle: 'Security Error',
-        currentPage: '',
-        message: 'Invalid or expired CSRF token. Please try again.'
-    });
-};
