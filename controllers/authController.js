@@ -14,8 +14,7 @@ exports.getSignup = (req, res, next) => {
         formData: {},
         submitLabel: 'Sign Up',
         formAction: '/auth/signup',
-        formMode: 'signup',
-        csrfToken: res.locals.csrfToken
+        formMode: 'signup'
     });
 };
 
@@ -134,8 +133,7 @@ exports.getLogin = async (req, res, next) => {
         currentPage: 'login',
         errorMessage: null,
         emailChange: req.query.emailChange === '1',
-        passwordChange: req.query.passwordChange === '1',
-        csrfToken: res.locals.csrfToken
+        passwordChange: req.query.passwordChange === '1'
     });
 };
 
@@ -156,8 +154,7 @@ exports.postLogin = async (req, res, next) => {
             return res.status(401).render('auth/login', {
                 pageTitle: 'Login',
                 currentPage: 'login',
-                errorMessage: 'Invalid credential',
-                csrfToken: req.csrfToken()
+                errorMessage: 'Invalid credential'
             });
         }
 
@@ -166,8 +163,7 @@ exports.postLogin = async (req, res, next) => {
             return res.status(401).render('auth/login', {
                 pageTitle: 'Login',
                 currentPage: 'login',
-                errorMessage: `Account locked. Try again in ${minutesLeft} minutes`,
-                csrfToken: req.csrfToken()
+                errorMessage: `Account locked. Try again in ${minutesLeft} minutes`
             });
 
         }
@@ -176,8 +172,7 @@ exports.postLogin = async (req, res, next) => {
             return res.status(401).render('auth/login', {
                 pageTitle: 'Login',
                 currentPage: 'login',
-                errorMessage: 'Please verify your account before logging in.',
-                csrfToken: req.csrfToken()
+                errorMessage: 'Please verify your account before logging in.'
             });
         }
 
@@ -192,8 +187,7 @@ exports.postLogin = async (req, res, next) => {
                 currentPage: 'login',
                 errorMessage: user.failedLoginAttempts >= 5
                     ? '5 incorrect password attempts. Please wait 15 minutes before trying again.'
-                    : 'Invalid credentials!',
-                csrfToken: req.csrfToken()
+                    : 'Invalid credentials!'
             });
         }
         
