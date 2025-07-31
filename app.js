@@ -46,6 +46,9 @@ app.use(session({
     }
 }));
 
+const { csrfProtection } = require('./middleware/csrfMiddleware');
+app.use(csrfProtection);
+
 app.use(flash());
 app.use(attachFlashMessages);
 

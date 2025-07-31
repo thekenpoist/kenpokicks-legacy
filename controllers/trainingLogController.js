@@ -6,6 +6,8 @@ const { formatInTimeZone } = require('date-fns-tz');
 const logger = require('../utils/loggerUtil');
 
 exports.getCreateTrainingLog = (req, res, next) => {
+    console.log("CSRF token at render:", req.csrfToken());
+
     res.render('training-logs/log-form', {
         pageTitle: 'Create New Training Log',
         currentPage: 'logs',
@@ -21,6 +23,17 @@ exports.getCreateTrainingLog = (req, res, next) => {
 };
 
 exports.postCreateTrainingLog = async (req, res, next) => {
+    console.log("Is it making it here?")
+
+    if (typeof req.csrfToken === 'function') {
+        console.log('🧪 req.csrfToken():', req.csrfToken());
+    } else {
+        console.log('🧪 req.csrfToken is NOT a function');
+    }
+
+    console.log('🧪 req.body._csrf:', req.body._csrf); // delete
+    console.log('🧪 req.csrfToken():', req.csrfToken());    //delete
+
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {

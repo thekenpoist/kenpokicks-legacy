@@ -9,8 +9,8 @@ const trainingLogController = require('../controllers/trainingLogController');
 const router = express.Router();
 
 // Create
-router.get('/new', isAuthenticated, csrfProtection, attachToken, trainingLogController.getCreateTrainingLog);
-router.post('/', isAuthenticated, csrfProtection, createTrainingLogRules, trainingLogController.postCreateTrainingLog);
+router.get('/new', isAuthenticated, /*csrfProtection, attachToken,*/ trainingLogController.getCreateTrainingLog);
+router.post('/', isAuthenticated, /*csrfProtection, attachToken,*/ createTrainingLogRules, trainingLogController.postCreateTrainingLog);
 
 // Read
 router.get('/logs/:logId', isAuthenticated, trainingLogController.getOneTrainingLog);

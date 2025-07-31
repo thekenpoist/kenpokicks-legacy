@@ -4,6 +4,8 @@ const logger = require('winston');
 const csrfProtection = csrf();
 
 const attachToken = (req, res, next) => {
+  console.log('🔒 attachToken running');
+
   try {
     res.locals.csrfToken = req.csrfToken();
   } catch (err) {
