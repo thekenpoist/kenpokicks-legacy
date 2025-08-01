@@ -1,15 +1,16 @@
 const path = require('path');
 const express = require('express');
+const multer = require('multer');
 const { isAuthenticated } = require('../middleware/auth/authMiddleware');
 const { body } = require('express-validator');
 const { createTrainingLogRules } = require('../middleware/validators/trainingLogvalidator');
 const trainingLogController = require('../controllers/trainingLogController');
-
+const upload = multer();
 const router = express.Router();
 
 // Create
 router.get('/new', isAuthenticated, trainingLogController.getCreateTrainingLog);
-router.post('/', isAuthenticated, createTrainingLogRules, trainingLogController.postCreateTrainingLog);
+router.post('/', isAuthenticated, upload.none(), createTrainingLogRules, trainingLogController.postCreateTrainingLog);
 
 // Read
 router.get('/logs/:logId', isAuthenticated, trainingLogController.getOneTrainingLog);
