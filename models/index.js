@@ -25,6 +25,9 @@ db.Technique = Technique;
 const Belt = require('./beltModel')(sequelize, Sequelize.DataTypes);
 db.Belt = Belt;
 
+const TrainingLog = require('./trainingLogModel')(sequelize, Sequelize.DataTypes);
+db.TrainingLog = TrainingLog;
+
 Object.keys(db).forEach(modelName => {
   if (db[modelName].associate) {
     db[modelName].associate(db);
