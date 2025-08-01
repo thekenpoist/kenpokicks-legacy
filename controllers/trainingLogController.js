@@ -20,10 +20,7 @@ exports.getCreateTrainingLog = (req, res, next) => {
 };
 
 exports.postCreateTrainingLog = async (req, res, next) => {
-    console.log("Is it making it here?")
-
     const errors = validationResult(req);
-
     const isAjax = req.headers['x-requested-with'] === 'XMLHttpRequest';
 
     if (!errors.isEmpty()) {
@@ -92,9 +89,12 @@ exports.postCreateTrainingLog = async (req, res, next) => {
 
     } catch (err) {
         logger.error(`Error creating Log: ${err.message}`);
-            if (req.xhr) {
-                return res.status(500).json({ success: false, error: 'Server Error'});
-            }
+        if (err.stack) {
+            logger.error(err.stack);
+        }
+        if (req.xhr) {
+            return res.status(500).json({ success: false, error: 'Server Error'});
+        }
         req.flash('error', 'There was a problem creating your training log entry.')
         res.status(500).render('training-logs/log-form', {
             pageTitle: 'Create New Training Log',
