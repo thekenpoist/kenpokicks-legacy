@@ -24,8 +24,10 @@ exports.postCreateTrainingLog = async (req, res, next) => {
 
     const errors = validationResult(req);
 
+    const isAjax = req.headers['x-requested-with'] === 'XMLHttpRequest';
+
     if (!errors.isEmpty()) {
-        if (req.xhr) {
+        if (isAjax) {
             return res.status(422).json({
                 success: false,
                 errors: errors.array()
