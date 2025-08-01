@@ -1,9 +1,13 @@
-const { Belt } = require('../models')
+const { Belt, TrainingLog } = require('../models')
 const { Sequelize } = require('sequelize');
 
 exports.getDashboard = async (req, res, next) => {
     const user = res.locals.currentUser;
     let belts;
+
+    const trainingLogs = await TrainingLog.findAll({
+        where: { userUuid: user.uuid }
+    });
 
     try {
         belts = await Belt.getAllOrdered();
@@ -29,6 +33,7 @@ exports.getDashboard = async (req, res, next) => {
         : 'N/A';
 
     res.render('portal/dashboard', { 
+        trainingLogs,
         belts,
         pageTitle: 'Training Dashboard',
         currentPage: 'dashboard',
