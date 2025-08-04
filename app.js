@@ -15,7 +15,6 @@ const trainingRouter = require('./routes/trainingRoutes');
 const trainingLogRouter = require('./routes/trainingLogRoutes');
 const userRouter = require('./routes/userRoutes');
 const { ppid } = require('process');
-
 const PORT = process.env.PORT || 3000;
 const app = express();
 
