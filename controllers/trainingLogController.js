@@ -108,12 +108,14 @@ exports.postCreateTrainingLog = async (req, res, next) => {
 };
 
 exports.getOneTrainingLog = async (req, res, next) => {
+    console.log('foo');
     const user = res.locals.currentUser;
     const trainingLogId = req.params.logId;
 
     if (!user) {
         return res.redirect('/auth/login');
     }
+    console.log(`🧭 Looking for log ${trainingLogId} for user ${user.uuid}`); //delete
 
     try {
         const trainingLog = await TrainingLog.findOne({
@@ -133,7 +135,7 @@ exports.getOneTrainingLog = async (req, res, next) => {
             pageTitle: 'View Log',
             currentPage: 'log',
             errorMessage: null,
-            trainingLog
+            log: trainingLog
         });
     } catch (err) {
         logger.error(`Error fetching training log: ${err.message}`);
