@@ -14,7 +14,8 @@ exports.getCreateTrainingLog = (req, res, next) => {
         errorMessage: null,
         layout: false,
         formData: {
-            user: res.locals.currentUser || ''
+            user: res.locals.currentUser || '',
+            logIsPrivate: true
         }
     });
 };
@@ -58,10 +59,13 @@ exports.postCreateTrainingLog = async (req, res, next) => {
         logIntensity
     } = req.body;
 
+    console.log('🔐 Private setting:', req.body.logIsPrivate, typeof req.body.logIsPrivate);
+
     console.log("Creating log for user:", {
         uuid: user.uuid,
         title: logTitle,
-        category: logCategory
+        category: logCategory,
+        private: logIsPrivate
     });
 
     try {
@@ -73,7 +77,7 @@ exports.postCreateTrainingLog = async (req, res, next) => {
             logDuration,
             logRelatedBelt,
             logDate,
-            logIsPrivate,
+            logIsPrivate: req.body.logIsPrivate,
             logIntensity
         });
 
