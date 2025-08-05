@@ -13,8 +13,8 @@ router.get('/new', isAuthenticated, trainingLogController.getCreateTrainingLog);
 router.post('/', isAuthenticated, upload.none(), createTrainingLogRules, trainingLogController.postCreateTrainingLog);
 
 // Read
-router.get('/all', isAuthenticated, trainingLogController.getAllTrainingLogs)
 router.get('/:logId', isAuthenticated, trainingLogController.getOneTrainingLog);
+router.get('/all', isAuthenticated, trainingLogController.getAllTrainingLogs)
 
 // Update
 router.get('/edit/:logId', isAuthenticated, trainingLogController.getEditTrainingLog);
