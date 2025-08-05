@@ -113,7 +113,12 @@ form(action=formAction method="POST" class="space-y-4")
 
   // Private Entry
   div.flex.items-center.space-x-2
-    input#logIsPrivate(type="checkbox" name="logIsPrivate" checked=formData.logIsPrivate)
+    input#logIsPrivate(
+      type="checkbox"
+      name="logIsPrivate"
+      checked=formData.logIsPrivate
+    )
+
     label.text-sm.text-gray-700(for="logIsPrivate") Private Entry
 
   // Submit Button
