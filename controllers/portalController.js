@@ -6,7 +6,9 @@ exports.getDashboard = async (req, res, next) => {
     let belts;
 
     const trainingLogs = await TrainingLog.findAll({
-        where: { userUuid: user.uuid }
+        where: { userUuid: user.uuid },
+        order: [['logDate', 'DESC']],
+        limit: 10
     });
 
     try {
