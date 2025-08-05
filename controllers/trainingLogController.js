@@ -59,15 +59,6 @@ exports.postCreateTrainingLog = async (req, res, next) => {
         logIntensity
     } = req.body;
 
-    console.log('🔐 Private setting:', req.body.logIsPrivate, typeof req.body.logIsPrivate);
-
-    console.log("Creating log for user:", {
-        uuid: user.uuid,
-        title: logTitle,
-        category: logCategory,
-        private: logIsPrivate
-    });
-
     try {
         const newLog = await TrainingLog.create({
             userUuid: user.uuid,
@@ -112,14 +103,12 @@ exports.postCreateTrainingLog = async (req, res, next) => {
 };
 
 exports.getOneTrainingLog = async (req, res, next) => {
-    console.log('foo');
     const user = res.locals.currentUser;
     const trainingLogId = req.params.logId;
 
     if (!user) {
         return res.redirect('/auth/login');
     }
-    console.log(`🧭 Looking for log ${trainingLogId} for user ${user.uuid}`); //delete
 
     try {
         const trainingLog = await TrainingLog.findOne({
