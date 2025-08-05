@@ -76,16 +76,15 @@ block content
       // Entries container
       div.training-diary-entries
         if trainingLogs && trainingLogs.length
-          each log, index in trainingLogs
-            if index < 5
-              .grid.grid-cols-3.text-sm.text-gray-800.border-b.border-gray-100.py-2(class="cursor-pointer hover:bg-gray-50" onclick=`window.location='/logs/${log.logId}'`)
-                div= new Date(log.logDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
-                div= log.logCategory
-                div.truncate= log.logTitle || '(No Title)'
+          each log in trainingLogs
+            .grid.grid-cols-3.text-sm.text-gray-800.border-b.border-gray-100.py-2(class="cursor-pointer hover:bg-gray-50" onclick=`window.location='/logs/${log.logId}'`)
+              div= new Date(log.logDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
+              div= log.logCategory
+              div.truncate= log.logTitle || '(No Title)'
         else
           .text-gray-500.text-sm No training entries yet.
 
-      if trainingLogs && trainingLogs.length > 5
+      if trainingLogs.length >= 10
         div.text-right.mt-3
           a(href="/logs" class="text-sm text-blue-600 hover:underline") View All Logs →
 
