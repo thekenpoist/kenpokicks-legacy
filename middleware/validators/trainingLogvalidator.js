@@ -52,9 +52,9 @@ exports.createTrainingLogRules = [
         .isISO8601().withMessage('Log date must be a valid date.')
         .toDate(),
     body('logIsPrivate')
-        .optional()
-        .isBoolean().withMessage('Invalid value for privacy setting')
-        .toBoolean(),
+        .customSanitizer(value => value === 'on')
+        .default(false)
+        .isBoolean().withMessage('Invalid value for privacy setting'),
     body('logIntensity')
         .isIn([
             'Low', 
