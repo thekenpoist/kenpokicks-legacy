@@ -80,7 +80,7 @@ exports.postCreateTrainingLog = async (req, res, next) => {
         }
 
         req.flash('success', 'Training log created successfully.');
-        res.redirect(`/logs/${newLog.logId}`);
+        res.redirect('/portal/dashboard');
 
     } catch (err) {
         logger.error(`Error creating Log: ${err.message}`);
