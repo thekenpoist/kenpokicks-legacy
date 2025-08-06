@@ -329,7 +329,7 @@ exports.deleteTrainingLog = async (req, res, next) => {
         }
 
         req.flash('success', 'Training log deleted successfully')
-        res.redirect('/dashboard');
+        res.redirect('/portal/dashboard');
     } catch (err) {
         logger.error(`Error Deleting Log: ${err.message}`);
         if (err.stack) {
