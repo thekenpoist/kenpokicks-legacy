@@ -15,6 +15,7 @@ router.post('/', isAuthenticated, upload.none(), createTrainingLogRules, trainin
 // Read
 router.get('/:logId', isAuthenticated, trainingLogController.getOneTrainingLog);
 router.get('/all', isAuthenticated, trainingLogController.getAllTrainingLogs)
+router.get('/recent', isAuthenticated, trainingLogController.getRecentTrainingLogs);
 
 // Update
 router.get('/edit/:logId', isAuthenticated, trainingLogController.getEditTrainingLog);
