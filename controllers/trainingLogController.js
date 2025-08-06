@@ -43,7 +43,7 @@ exports.postCreateTrainingLog = async (req, res, next) => {
 
     const user = res.locals.currentUser;
     if (!user) {
-        return req.xhr
+        return isAjax
             ? res.status(401).json({ success: false, error: 'Unauthorized' })
             : res.redirect('/auth/login');
     }
@@ -78,21 +78,17 @@ exports.postCreateTrainingLog = async (req, res, next) => {
                 log: newLog
             });
         }
-
-        req.flash('success', 'Training log created successfully.');
-        res.redirect('/portal/dashboard');
-
     } catch (err) {
         logger.error(`Error creating Log: ${err.message}`);
         if (err.stack) {
             logger.error(err.stack);
         }
-        if (req.xhr) {
+        if (isAjax) {
             return res.status(500).json({ success: false, error: 'Server Error'});
         }
-        req.flash('error', 'There was a problem creating your training log entry.')
+
         res.status(500).render('training-logs/log-form', {
-            pageTitle: 'Create New Training Log',
+            pageTitle: 'Create Entry',
             currentPage: 'logs',
             formAction: '/logs',
             submitButtonText: 'Create Entry',
