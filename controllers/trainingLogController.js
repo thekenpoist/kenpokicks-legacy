@@ -136,6 +136,32 @@ exports.getOneTrainingLog = async (req, res, next) => {
     }
 };
 
+exports.getRecentTrainingLogs = async (req, res, next) => {
+    try {
+        const trainingLogs = await TrainingLog.findAll({
+        where: { userUuid: res.locals.currentUser.uuid },
+        order: [['logDate', 'DESC']],
+        limit: 10
+    });
+
+    const html = logs.map(log => `
+      <div class="grid grid-cols-3 text-sm text-gray-800 border-b border-gray-100 py-2 cursor-pointer hover:bg-gray-50"
+           onclick="window.location='/logs/${log.logId}'">
+        <div>${new Date(log.logDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</div>
+        <div>${log.logCategory}</div>
+        <div>${log.logTitle || '(No Title)'}</div>
+      </div>`).join('');
+
+    res.send(html);
+    } catch (err) {
+        logger.error(`Error fetching training log: ${err.message}`);
+        if (err.stack) {
+            logger.error(err.stack);
+        }
+        res.status(500).send('Failed to fetch recent logs');
+    }
+};
+
 exports.getAllTrainingLogs = async (req, res, next) => {
     const user = res.locals.currentUser;
 
@@ -201,9 +227,9 @@ exports.getEditTrainingLog = async (req, res, next) => {
         });
     } catch (err) {
         logger.error(`Error fetching training log: ${err.message}`);
-            if (err.stack) {
-                logger.error(err.stack);
-            }
+        if (err.stack) {
+            logger.error(err.stack);
+        }
         return renderServerError(res, err, 'dashboard');
     }
 }
@@ -271,9 +297,9 @@ exports.postEditTrainingLog = async (req, res, next) => {
 
     } catch (err) {
         logger.error(`Error creating Log: ${err.message}`);
-            if (err.stack) {
-                logger.error(err.stack);
-            }
+        if (err.stack) {
+            logger.error(err.stack);
+        }
         return renderServerError(res, err, 'dashboard');
     }
 
