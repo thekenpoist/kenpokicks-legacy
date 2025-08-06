@@ -144,7 +144,7 @@ exports.getRecentTrainingLogs = async (req, res, next) => {
         limit: 10
     });
 
-    const html = logs.map(log => `
+    const html = trainingLogs.map(log => `
       <div class="grid grid-cols-3 text-sm text-gray-800 border-b border-gray-100 py-2 cursor-pointer hover:bg-gray-50"
            onclick="window.location='/logs/${log.logId}'">
         <div>${new Date(log.logDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</div>
