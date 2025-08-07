@@ -1,0 +1,24 @@
+extends ../layouts/dashboard-layout.pug
+
+block content
+  h1.text-2xl.font-bold.text-red-800.mb-4 View All Training Logs
+
+  if errorMessage
+    .text-red-600.text-sm.mb-4 #{errorMessage}
+
+  if alltrainingLogs.length
+    .grid.grid-cols-3.font-semibold.text-gray-600.border-b.border-gray-300.pb-2.mb-2.text-sm
+      div Date
+      div Category
+      div Title
+
+    each log in alltrainingLogs
+      div(class="grid grid-cols-3 text-sm text-gray-800 border-b border-gray-100 py-2 cursor-pointer hover:bg-gray-50"
+        onclick=`window.location='/logs/${log.logId}'`)
+        div= new Date(log.logDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
+        div= log.logCategory
+        div.truncate= log.logTitle || '(No Title)'
+  else
+    .text-gray-500 No training logs found.
+
+  a(class="inline-block mt-6 text-blue-600 hover underline text-sm" href="/portal/dashboard") ← Back to Dashboard
