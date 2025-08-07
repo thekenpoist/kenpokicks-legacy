@@ -171,10 +171,8 @@ exports.getAllTrainingLogs = async (req, res, next) => {
 
     try {
         const alltrainingLogs = await TrainingLog.findAll({
-            where: {
-                userUuid: user.uuid,
-                order: [['logDate', 'DESC']]
-            }
+            where: { userUuid: user.uuid },
+            order: [['logDate', 'DESC']]
         });
 
         res.render('training-logs/all-training-logs', {
