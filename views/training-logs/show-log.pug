@@ -1,35 +1,43 @@
 extends ../layouts/dashboard-layout.pug
 
 block content
-  .bg-white.shadow-lg.rounded-xl.p-6.max-w-3xl.mx-auto
-    h1.text-2xl.font-bold.text-red-800.mb-4 #{log.logTitle}
+  .max-w-2xl.mx-auto
+    div(class="bg-white rounded-2xl shadow-xl p-8 md:p-10")
+      // Title
+      h1(class="font-serif text-3xl md:text-4xl font-bold text-red-900 mb-3") #{log.logTitle || 'Training Log'}
 
-    .text-sm.text-gray-500.mb-6
-      | Date: 
-      span.text-gray-700.ml-1 #{new Date(log.logDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
-      |  • Category: 
-      span.text-gray-700.ml-1 #{log.logCategory}
-      |  • Intensity: 
-      span.text-gray-700.ml-1 #{log.logIntensity}
-      if log.logRelatedBelt && log.logRelatedBelt !== 'N/A'
-        |  • Related Belt: 
-        span.text-gray-700.ml-1 #{log.logRelatedBelt}
-      |  • Duration: 
-      span.text-gray-700.ml-1 #{log.logDuration} min
+      // Meta as soft "chips"
+      .flex.flex-wrap.gap-2.mb-6.text-sm
+        span.inline-flex.items-center.rounded-full.bg-gray-100.px-3.py-1.font-medium.text-gray-700
+          | #{new Date(log.logDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+        span.inline-flex.items-center.rounded-full.bg-gray-100.px-3.py-1.font-medium.text-gray-700
+          | #{log.logCategory}
+        span.inline-flex.items-center.rounded-full.bg-gray-100.px-3.py-1.font-medium.text-gray-700
+          | #{log.logIntensity}
+        span.inline-flex.items-center.rounded-full.bg-gray-100.px-3.py-1.font-medium.text-gray-700
+          | #{log.logDuration} min
+        if log.logRelatedBelt && log.logRelatedBelt !== 'N/A'
+          span.inline-flex.items-center.rounded-full.bg-gray-100.px-3.py-1.font-medium.text-gray-700
+            | Belt: #{log.logRelatedBelt}
+        if log.logIsPrivate
+          span.inline-flex.items-center.rounded-full.bg-yellow-100.px-3.py-1.font-medium.text-yellow-800
+            | Private
 
-    if log.logIsPrivate
-      .text-sm.text-red-600.mt-1 (Private Entry)
+      hr.border-gray-200.mb-6
 
-    hr.my-4
+      // Body
+      h2.font-serif.text-xl.font-semibold.text-gray-800.mb-2 Description
+      p.text-gray-800.leading-relaxed.whitespace-pre-line.mb-8 #{log.logDescription}
 
-    h2.text-lg.font-semibold.text-gray-800.mb-2 Description
-    p.text-gray-700.whitespace-pre-line.mb-6 #{log.logDescription}
+      // Actions
+      .flex.items-center.justify-between
+        a(href=`/logs/edit/${log.logId}` class="inline-flex items-center rounded-md bg-red-800 px-4 py-2 text-sm font-medium text-white hover:bg-green-700 transition")
+          | Edit Entry
+        form(action=`/logs/delete/${log.logId}`, method="POST", onsubmit="return confirm('Delete this entry?');")
+          button(type="submit" class="inline-flex items-center rounded-md border border-gray-300 bg-white px-3 py-1.5 text-sm text-gray-700 hover:border-red-500 hover:text-red-700 transition")
+            | Delete Entry
 
-    .flex.justify-between.mt-6
-      a(href=`/logs/edit/${log.logId}`, class="bg-red-800 hover:bg-green-700 text-white px-4 py-2 rounded text-sm transition") Edit Entry
-
-      form(action=`/logs/delete/${log.logId}`, method="POST", onsubmit="return confirm('Are you sure you want to delete this log?');")
-        button(type="submit", class="bg-gray-300 hover:bg-red-600 text-black hover:text-white px-4 py-2 rounded text-sm transition") Delete Entry
-
-    .mt-8.text-center
-      a(href="/logs", class="text-blue-600 hover:underline text-sm") ← Back to All Logs
+      // Footer nav
+      .mt-10.flex.justify-center.gap-6.text-sm
+        a(href="/portal/dashboard" class="text-blue-600 hover:underline") ← Back to Dashboard
+        a(href="/logs/all" class="text-blue-600 hover:underline") ← Back to All Logs
