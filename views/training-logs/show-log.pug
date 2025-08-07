@@ -2,35 +2,51 @@ extends ../layouts/dashboard-layout.pug
 
 block content
   .max-w-2xl.mx-auto
+    // Card
     div(class="bg-white rounded-2xl shadow-xl p-8 md:p-10")
       // Title
-      h1(class="font-serif text-3xl md:text-4xl font-bold text-red-900 mb-3") #{log.logTitle || 'Training Log'}
+      h1(class="font-serif text-3xl md:text-4xl font-bold text-red-900 mb-4")
+        | #{log.logTitle || 'Training Log'}
 
-      // Meta as soft "chips"
-      .flex.flex-wrap.gap-2.mb-6.text-sm
-        span.inline-flex.items-center.rounded-full.bg-gray-100.px-3.py-1.font-medium.text-gray-700
-          | #{new Date(log.logDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
-        span.inline-flex.items-center.rounded-full.bg-gray-100.px-3.py-1.font-medium.text-gray-700
-          | #{log.logCategory}
-        span.inline-flex.items-center.rounded-full.bg-gray-100.px-3.py-1.font-medium.text-gray-700
-          | #{log.logIntensity}
-        span.inline-flex.items-center.rounded-full.bg-gray-100.px-3.py-1.font-medium.text-gray-700
-          | #{log.logDuration} min
+      // Details stack — Duration big, others smaller
+      div(class="space-y-1.5 mb-6")
+        // Duration (largest of the details)
+        div(class="text-xl font-semibold text-gray-900")
+          | Duration: 
+          span(class="font-bold") #{log.logDuration} min
+
+        // The rest (slightly smaller)
+        div(class="text-sm text-gray-700")
+          | Date: 
+          span(class="ml-1 text-gray-800")
+            = new Date(log.logDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
+
+        div(class="text-sm text-gray-700")
+          | Category: 
+          span(class="ml-1 text-gray-800") #{log.logCategory}
+
         if log.logRelatedBelt && log.logRelatedBelt !== 'N/A'
-          span.inline-flex.items-center.rounded-full.bg-gray-100.px-3.py-1.font-medium.text-gray-700
-            | Belt: #{log.logRelatedBelt}
+          div(class="text-sm text-gray-700")
+            | Belt: 
+            span(class="ml-1 text-gray-800") #{log.logRelatedBelt}
+
+        div(class="text-sm text-gray-700")
+          | Intensity: 
+          span(class="ml-1 text-gray-800") #{log.logIntensity}
+
         if log.logIsPrivate
-          span.inline-flex.items-center.rounded-full.bg-yellow-100.px-3.py-1.font-medium.text-yellow-800
-            | Private
+          div(class="text-xs text-yellow-800")
+            | (Private Entry)
 
-      hr.border-gray-200.mb-6
+      hr(class="border-gray-200 my-6")
 
-      // Body
-      h2.font-serif.text-xl.font-semibold.text-gray-800.mb-2 Description
-      p.text-gray-800.leading-relaxed.whitespace-pre-line.mb-8 #{log.logDescription}
+      // Description
+      h2(class="font-serif text-lg font-semibold text-gray-800 mb-2") Description
+      p(class="text-gray-800 leading-relaxed whitespace-pre-line mb-8")
+        | #{log.logDescription}
 
       // Actions
-      .flex.items-center.justify-between
+      div(class="flex items-center justify-between")
         a(href=`/logs/edit/${log.logId}` class="inline-flex items-center rounded-md bg-red-800 px-4 py-2 text-sm font-medium text-white hover:bg-green-700 transition")
           | Edit Entry
         form(action=`/logs/delete/${log.logId}`, method="POST", onsubmit="return confirm('Delete this entry?');")
@@ -38,6 +54,6 @@ block content
             | Delete Entry
 
       // Footer nav
-      .mt-10.flex.justify-center.gap-6.text-sm
+      div(class="mt-10 flex justify-center gap-6 text-sm")
         a(href="/portal/dashboard" class="text-blue-600 hover:underline") ← Back to Dashboard
         a(href="/logs/all" class="text-blue-600 hover:underline") ← Back to All Logs
