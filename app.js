@@ -7,6 +7,7 @@ const flash = require('express-flash');
 const attachFlashMessages = require('./middleware/attachFlashMessagesMiddleware');
 const errorController = require('./controllers/errorController')
 const setCurrentUser = require('./middleware/auth/setCurrentUserMiddlware');
+const timezoneConversion = require('./middleware/timezoneConversionMiddleware');
 const authRouter = require('./routes/authRoutes');
 const portalRouter = require('./routes/portalRoutes');
 const publicRouter = require('./routes/publicRoutes');
@@ -47,8 +48,8 @@ app.use(session({
 
 app.use(flash());
 app.use(attachFlashMessages);
-
 app.use(setCurrentUser);
+app.use(timezoneConversion);
 
 app.use('/auth', authRouter);
 app.use('/portal', portalRouter);
