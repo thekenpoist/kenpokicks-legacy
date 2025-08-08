@@ -15,7 +15,6 @@ router.post('/', isAuthenticated, upload.none(), createTrainingLogRules, trainin
 // Read
 router.get('/all', isAuthenticated, trainingLogController.getAllTrainingLogs)
 router.get('/recent', isAuthenticated, trainingLogController.getRecentTrainingLogs);
-router.get('/:logId', isAuthenticated, trainingLogController.getOneTrainingLog);
 
 // Update
 router.get('/edit/:logId', isAuthenticated, trainingLogController.getEditTrainingLog);
@@ -23,5 +22,9 @@ router.post('/edit/:logId', isAuthenticated, createTrainingLogRules, trainingLog
 
 // Delete
 router.post('/delete/:logId', isAuthenticated, trainingLogController.deleteTrainingLog);
+
+// Read one log
+router.get('/:logId', isAuthenticated, trainingLogController.getOneTrainingLog);
+
 
 module.exports = router;
