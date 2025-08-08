@@ -2,7 +2,7 @@ const { validationResult } = require('express-validator');
 const { User, TrainingLog } = require('../models');
 const { DATE } = require('sequelize');
 const { renderServerError } = require('../utils/errorrUtil');
-const { formatInTimeZone } = require('date-fns-tz');
+const { formatInTimeZone, zonedTimeToUtc, utcToZonedTime } = require('date-fns-tz');
 const logger = require('../utils/loggerUtil');
 
 exports.getCreateTrainingLog = (req, res, next) => {
@@ -59,6 +59,9 @@ exports.postCreateTrainingLog = async (req, res, next) => {
         logIntensity
     } = req.body;
 
+    const userTimezone = (res.locals.currentUser?.timezone) || 'UTC';
+    const logDateUtc = zonedTimeToUtc(`${req.body.logDate}T00:00:00`, userTimezone)
+
     try {
         const newLog = await TrainingLog.create({
             userUuid: user.uuid,
@@ -67,7 +70,7 @@ exports.postCreateTrainingLog = async (req, res, next) => {
             logDescription,
             logDuration,
             logRelatedBelt,
-            logDate,
+            logDate: logDateUtc,
             logIsPrivate: req.body.logIsPrivate,
             logIntensity
         });
