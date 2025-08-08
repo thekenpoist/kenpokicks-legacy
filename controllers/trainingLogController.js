@@ -289,6 +289,9 @@ exports.postEditTrainingLog = async (req, res, next) => {
             logIntensity
         } = req.body;
 
+    const userTimezone = (res.locals.currentUser?.timezone) || 'UTC';
+    const logDateUtc = zonedTimeToUtc(`${req.body.logDate}T00:00:00`, userTimezone)
+
     try {
         const trainingLog = await TrainingLog.findOne({
             where: {
@@ -314,7 +317,7 @@ exports.postEditTrainingLog = async (req, res, next) => {
             logDescription,
             logDuration,
             logRelatedBelt,
-            logDate,
+            logDate: logDateUtc,
             logIsPrivate: normalizedIsPrivate,
             logIntensity
         }, {
