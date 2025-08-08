@@ -239,46 +239,71 @@ exports.getEditTrainingLog = async (req, res, next) => {
 }
 
 exports.postEditTrainingLog = async (req, res, next) => {
-    const user = res.locals.currentUser;
-    const trainingLogId = req.params.logId;
     const errors = validationResult(req);
+    const isAjax = req.headers['x-requested-with'] === 'XMLHttpRequest';
+    const { logId } = req.params;
 
     if(!errors.isEmpty()) {
-        return res.status(422).render('training-logs/log-form', {
-            pageTitle: 'Edit Training Log',
-            currentPage: 'logs',
-            formAction: `/logs/edit/${trainingLogId}`,
-            submitButtonText: 'Save Changes',
-            formData: req.body,
-            errorMessage: errors.array().map(e => e.msg).join(', ')
-        });
-    }
-
-    try {
-        const trainingLog = await TrainingLog.findOne({
-            where: {
-                userUuid: user.uuid,
-                logId: trainingLogId
-            }
-        });
-
-        if (!trainingLog) {
-            return res.status(404).render('404', {
-                pageTitle: 'Training Log Not Found',
-                currentPage: 'dashboard'
+        if (isAjax) {
+            return res.status(422).json({
+                success: false,
+                errors: errors.array()
             });
         }
 
-        const {
+        const formData = { ...req.body };
+        if (formData.logDate) {
+            try { formData.logDate = new Date(formData.logDate).toISOString().slice(0, 10); } catch {}
+        }
+
+        return res.status(422).render('training-logs/log-form', {
+            pageTitle: 'Edit Training Log',
+            currentPage: 'logs',
+            formAction: `/logs/edit/${logId}`,
+            submitButtonText: 'Save Changes',
+            formData,
+            errorMessage: errors.array().map(e => e.msg).join(', '),
+            layout: isAjax ? false : undefined
+        });
+    }
+
+    const user = res.locals.currentUser;
+    if (!user) {
+        return isAjax
+            ? res.status(401).json({ success: false, error: 'Unauthorized' })
+            : res.redirect('/auth/login');
+    }
+
+    const normalizedIsPrivate = req.body.logIsPrivate === 'on' || req.body.logIsPrivate === true || req.body.logIsPrivate === 'true';
+
+    const {
             logCategory,
             logTitle,
             logDescription,
             logDuration,
             logRelatedBelt,
             logDate,
-            logIsPrivate,
             logIntensity
         } = req.body;
+
+    try {
+        const trainingLog = await TrainingLog.findOne({
+            where: {
+                userUuid: user.uuid,
+                logId
+            }
+        });
+
+        if (!trainingLog) {
+            if (isAjax) return res.status(404).json({
+                success: false, 
+                error: 'Not found'
+            });
+            return res.status(404).render('404', {
+                pageTitle: 'Training Log Not Found',
+                currentPage: 'dashboard'
+            });
+        }
 
         await TrainingLog.update({
             logCategory,
@@ -287,24 +312,40 @@ exports.postEditTrainingLog = async (req, res, next) => {
             logDuration,
             logRelatedBelt,
             logDate,
-            logIsPrivate,
+            logIsPrivate: normalizedIsPrivate,
             logIntensity
         }, {
-            where: {
-                userUuid: user.uuid,
-                logId: trainingLogId
-            }
+            where: { userUuid: user.uuid, logId }
         });
 
-        req.flash('success', 'Training log edited successfully.');
-        res.redirect(`/logs/${trainingLogId}`);
-
+        if (isAjax) {
+            return res.status(200).json({
+                success: true,
+                log: trainingLog.toJSON()
+            });
+        }
     } catch (err) {
         logger.error(`Error creating Log: ${err.message}`);
         if (err.stack) {
             logger.error(err.stack);
         }
-        return renderServerError(res, err, 'dashboard');
+        if (isAjax) {
+            return res.status(500).json({ success: false, error: 'Server Error'});
+        }
+
+        const formData = { ...req.body };
+        if (formData.logDate) {
+            try { formData.logDate = new Date(formData.logDate).toISOString().slice(0, 10); } catch {}
+        }
+
+         res.status(500).render('training-logs/log-form', {
+            pageTitle: 'Edit Training Log',
+            currentPage: 'logs',
+            formAction: '/logs',
+            submitButtonText: 'Save Changes',
+            errorMessage: 'Failed to edit log',
+            formData
+        });
     }
 
 };
