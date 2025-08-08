@@ -59,8 +59,7 @@ exports.postCreateTrainingLog = async (req, res, next) => {
         logIntensity
     } = req.body;
 
-    const userTimezone = (res.locals.currentUser?.timezone) || 'UTC';
-    const logDateUtc = zonedTimeToUtc(`${req.body.logDate}T00:00:00`, userTimezone)
+    const logDateUtc = res.locals.localToUtc(req.body.logDate);
 
     try {
         const newLog = await TrainingLog.create({
@@ -289,8 +288,7 @@ exports.postEditTrainingLog = async (req, res, next) => {
             logIntensity
         } = req.body;
 
-    const userTimezone = (res.locals.currentUser?.timezone) || 'UTC';
-    const logDateUtc = zonedTimeToUtc(`${req.body.logDate}T00:00:00`, userTimezone)
+    const logDateUtc = res.locals.localToUtc(req.body.logDate);
 
     try {
         const trainingLog = await TrainingLog.findOne({
