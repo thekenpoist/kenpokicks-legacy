@@ -215,13 +215,19 @@ exports.getEditTrainingLog = async (req, res, next) => {
             });
         }
 
+        const trainingLogData = trainingLog.toJSON();
+        if (trainingLogData.logDate) {
+            trainingLogData.logDate = new Date(trainingLogData.logDate).toISOString().slice(0,10);
+        }
+
         res.render('training-logs/log-form', {
             pageTitle: 'Edit Training Log',
             currentPage: 'logs',
             formAction: `/logs/edit/${trainingLogId}`,
             submitButtonText: 'Save Changes',
             errorMessage: null,
-            formData: trainingLog
+            layout: false,
+            formData: trainingLogData
         });
     } catch (err) {
         logger.error(`Error fetching training log: ${err.message}`);
