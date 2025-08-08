@@ -18,7 +18,7 @@ router.get('/recent', isAuthenticated, trainingLogController.getRecentTrainingLo
 
 // Update
 router.get('/edit/:logId', isAuthenticated, trainingLogController.getEditTrainingLog);
-router.post('/edit/:logId', isAuthenticated, createTrainingLogRules, trainingLogController.postEditTrainingLog);
+router.post('/edit/:logId', isAuthenticated, upload.none(), createTrainingLogRules, trainingLogController.postEditTrainingLog);
 
 // Delete
 router.post('/delete/:logId', isAuthenticated, trainingLogController.deleteTrainingLog);
