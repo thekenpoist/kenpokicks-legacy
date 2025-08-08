@@ -1,49 +1,70 @@
-const { formatInTimeZone, zonedTimeToUtc } = require('date-fns-tz');
-const DEFAULT_TZ = 'UTC';
+// middleware/timezoneConversionMiddleware.js
+const { formatInTimeZone, fromZonedTime } = require('date-fns-tz');
 
+/**
+ * Attaches timezone conversion helpers to res.locals.
+ * Default timezone is UTC if none is provided.
+ */
 function timezoneConversion(req, res, next) {
-    // Grab user's stored timezone if possible, otehrwise default to UTC
-    const userTimezone =
-        res.locals?.currentUser?.timezone ||
-        req.body?.timezone ||
-        DEFAULT_TZ;
-    
-    res.locals.tz = userTimezone;
+  // Use user's stored timezone if available; otherwise default to UTC
+  const userTimezone =
+    res.locals?.currentUser?.timezone ||
+    req.body?.timezone ||
+    'UTC';
 
-    /**
-     *  Format the Date for display in user's timezone
-     *  @param {Date|string} date
-     * @param {string} pattern - date-fns format string
-     */
-     res.locals.fmt = (date, pattern = 'MMM d, yyyy') => {
-        if (!date) return '';
-        return formatInTimeZone(date, userTimezone, pattern);
-     };
+  res.locals.tz = userTimezone;
 
-     /**
-      * Convert YYYY-MM-DD and time (if provided) from local time to UTC for storage
-      * @param {string} localDateTime - 'YYYY-MM-DD' or 'YYYY-MM-DDTHH:mm'
-      */
-     res.locals.localToUtc = (localDateTime) => {
-        if (!localDateTime) return null;
-        // Append ":00" if only hours and minutes are provided
-        const dateString = localDateTime.includes('T') ? localDateTime : `${localDateTime}T00:00`;
-        return zonedTimeToUtc(dateString, userTimezone);
-     };
+  /**
+   * Format a Date for display in the user's timezone.
+   * @param {Date|string} date
+   * @param {string} pattern - date-fns format string (e.g., 'MMM d, yyyy')
+   */
+  res.locals.fmt = (date, pattern = 'MMM d, yyyy') => {
+    if (!date) return '';
+    return formatInTimeZone(date, userTimezone, pattern);
+  };
 
-     // Convert UTC date to YYYY-MM-DD for <input type="date">
-     res.locals.toInputDate = (date) => {
-        if (!date) return '';
-        return formatInTimeZone(date, userTimezone, 'yyyy-MM-dd');
-     };
+  /**
+   * Convert a local date/time (string or Date) in the user's timezone
+   * to a UTC Date object for storage.
+   * Accepts 'YYYY-MM-DD' or 'YYYY-MM-DDTHH:mm' (and Date objects).
+   */
+  res.locals.localToUtc = (localDateTime) => {
+    if (!localDateTime) return null;
 
-     // Convert UTC date to YYYY-MM-DDTHH:mm for <input type="datetime-local">
-     res.locals.toInputDateTime = (date) => {
-        if (!date) return '';
-        return formatInTimeZone(date, userTimezone, "yyyy-MM-dd'T'HH:mm");
-     };
+    let dateString;
 
-     next();
+    // If a Date object was passed, represent it as local clock time in the user's timezone
+    if (localDateTime instanceof Date) {
+      dateString = formatInTimeZone(localDateTime, userTimezone, "yyyy-MM-dd'T'HH:mm");
+    } else {
+      dateString = String(localDateTime).trim();
+    }
+
+    // If only a date was provided, add midnight so it's a valid local datetime
+    if (!dateString.includes('T')) {
+      dateString = `${dateString}T00:00`;
+    }
+
+    // New API: fromZonedTime converts local time in a zone → UTC Date
+    return fromZonedTime(dateString, userTimezone);
+  };
+
+  /**
+   * Convert a UTC date to 'yyyy-MM-dd' for <input type="date">.
+   */
+  res.locals.toInputDate = (date) => {
+    return date ? formatInTimeZone(date, userTimezone, 'yyyy-MM-dd') : '';
+  };
+
+  /**
+   * Convert a UTC date to 'yyyy-MM-ddTHH:mm' for <input type="datetime-local">.
+   */
+  res.locals.toInputDateTime = (date) => {
+    return date ? formatInTimeZone(date, userTimezone, "yyyy-MM-dd'T'HH:mm") : '';
+  };
+
+  next();
 }
 
 module.exports = timezoneConversion;
