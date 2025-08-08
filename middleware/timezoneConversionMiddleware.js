@@ -1,7 +1,7 @@
 const { formatInTimeZone, zonedTimeToUtc } = require('date-fns-tz');
 const DEFAULT_TZ = 'UTC';
 
-function timezoneMiddleware(req, res, next) {
+function timezoneConversion(req, res, next) {
     // Grab user's stored timezone if possible, otehrwise default to UTC
     const userTimezone =
         res.locals?.currentUser?.timezone ||
@@ -46,4 +46,4 @@ function timezoneMiddleware(req, res, next) {
      next();
 }
 
-module.exports = timezoneMiddleware;
+module.exports = timezoneConversion;
