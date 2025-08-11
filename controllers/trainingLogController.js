@@ -74,6 +74,10 @@ exports.postCreateTrainingLog = async (req, res, next) => {
             logIntensity
         });
 
+        console.log('[create] tz:', res.locals.tz,
+            'raw:', req.body.logDate,
+            'utc:', res.locals.localToUtc(req.body.logDate));
+
         if (req.xhr) {
             return res.status(201).json({
                 success: true,
@@ -140,6 +144,8 @@ exports.getOneTrainingLog = async (req, res, next) => {
 
 exports.getRecentTrainingLogs = async (req, res, next) => {
     try {
+        const { fmt } = res.locals;
+
         const trainingLogs = await TrainingLog.findAll({
         where: { userUuid: res.locals.currentUser.uuid },
         order: [['logDate', 'DESC']],
@@ -149,7 +155,7 @@ exports.getRecentTrainingLogs = async (req, res, next) => {
     const html = trainingLogs.map(log => `
       <div class="grid grid-cols-3 text-sm text-gray-800 border-b border-gray-100 py-2 cursor-pointer hover:bg-gray-50"
            onclick="window.location='/logs/${log.logId}'">
-        <div>${fmt(log.logDate, 'MMM d, yyyy')}</div>
+        <div>${fmt ? fmt(log.logDate, 'MMM d, yyyy') : new Date(log.logDate).toISOString().slice(0,10)}</div>
         <div>${log.logCategory}</div>
         <div>${log.logTitle || '(No Title)'}</div>
       </div>`).join('');
