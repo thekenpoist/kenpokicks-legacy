@@ -43,7 +43,7 @@ function timezoneConversion(req, res, next) {
 
     // If only a date was provided, add midnight so it's a valid local datetime
     if (!dateString.includes('T')) {
-      dateString = `${dateString}T00:00`;
+      dateString = `${dateString}T12:00`; // Was 00:00, changed to 12:00 for testing
     }
 
     // New API: fromZonedTime converts local time in a zone → UTC Date
