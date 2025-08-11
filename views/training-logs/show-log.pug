@@ -19,7 +19,7 @@ block content
         div(class="text-sm text-gray-700")
           | Date: 
           span(class="ml-1 text-gray-800")
-            = new Date(log.logDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
+            = fmt(log.logDate, 'MMM d, yyyy')
 
         div(class="text-sm text-gray-700")
           | Category: 
