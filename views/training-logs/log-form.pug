@@ -4,16 +4,19 @@ form(action=formAction method="POST" class="space-y-4")
   if errorMessage
     p.text-red-600.text-sm.bg-red-50.border.border-red-200.rounded.p-2 #{errorMessage}
 
-  // Date
+  // Date & Time
   div
-    label.block.text-sm.font-medium.text-gray-700(for="logDate") Date
-    input#logDate(
-      type="date",
-      name="logDate",
+    label.block.text-sm.font-medium.text-gray-700(for="logDateTime") Date & Time
+    input#logDateTime(
+      type="datetime-local",
+      name="logDateTime",
       required,
+      step="60", // minutes precision
       class="w-full border border-gray-300 rounded px-3 py-2 mt-1 focus:outline-none focus:ring-2 focus:ring-red-800",
-      value=formData && formData.logDate ? toInputDate(formData.logDate) : ''
+      value=formData && formData.logDate ? toInputLocalDateTime(formData.logDate) : ''
     )
+    p.text-xs.text-gray-500.mt-1 Enter the local time you trained (we’ll store it consistently).
+
 
   // Category
   div
