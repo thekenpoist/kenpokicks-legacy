@@ -48,7 +48,7 @@ exports.createTrainingLogRules = [
             'N/A'
         ])
         .withMessage('Invalid belt selected'),
-    body('logDate')
+    body('logDateTime')
         .isISO8601().withMessage('Log date must be a valid date.')
         .toDate(),
     body('logIsPrivate')
