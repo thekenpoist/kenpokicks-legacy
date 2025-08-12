@@ -226,9 +226,7 @@ exports.getEditTrainingLog = async (req, res, next) => {
         }
 
         const trainingLogData = trainingLog.toJSON();
-        if (trainingLogData.logDate) {
-            trainingLogData.logDate = new Date(trainingLogData.logDate).toISOString().slice(0,10);
-        }
+        trainingLogData.logDateTime = trainingLogData.logDate ? res.locals.toInputDateTime(trainingLogData.logDate) : '';
 
         res.render('training-logs/log-form', {
             pageTitle: 'Edit Training Log',
