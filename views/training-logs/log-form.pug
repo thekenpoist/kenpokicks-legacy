@@ -13,7 +13,7 @@ form(action=formAction method="POST" class="space-y-4")
       required,
       step="60", // minutes precision
       class="w-full border border-gray-300 rounded px-3 py-2 mt-1 focus:outline-none focus:ring-2 focus:ring-red-800",
-      value=formData && formData.logDate ? toInputLocalDateTime(formData.logDate) : ''
+      value=formData && formData.logDateTime ? formData.logDateTime : ''
     )
     p.text-xs.text-gray-500.mt-1 Enter the local time you trained (we’ll store it consistently).
 
