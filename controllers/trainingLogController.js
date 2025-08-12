@@ -6,6 +6,8 @@ const { formatInTimeZone, zonedTimeToUtc, utcToZonedTime } = require('date-fns-t
 const logger = require('../utils/loggerUtil');
 
 exports.getCreateTrainingLog = (req, res, next) => {
+    const now = new Date();
+
     res.render('training-logs/log-form', {
         pageTitle: 'Create New Training Log',
         currentPage: 'logs',
@@ -15,7 +17,8 @@ exports.getCreateTrainingLog = (req, res, next) => {
         layout: false,
         formData: {
             user: res.locals.currentUser || '',
-            logIsPrivate: true
+            logIsPrivate: true,
+            logDateTime: res.locals.toInputDateTime(now)
         }
     });
 };
