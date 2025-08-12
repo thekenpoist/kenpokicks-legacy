@@ -15,7 +15,7 @@ block content
     each log in alltrainingLogs
       div(class="grid grid-cols-3 text-sm text-gray-800 border-b border-gray-100 py-2 cursor-pointer hover:bg-gray-50"
         onclick=`window.location='/logs/${log.logId}'`)
-        div= fmt(log.logDate, 'MMM d, yyyy')
+        div= fmt(log.logDate, 'MMM d, yyyy, h:mm a')
         div= log.logCategory
         div.truncate= log.logTitle || '(No Title)'
   else
