@@ -259,8 +259,8 @@ exports.postEditTrainingLog = async (req, res, next) => {
         }
 
         const formData = { ...req.body };
-        if (formData.logDate) {
-            try { formData.logDate = new Date(formData.logDate).toISOString().slice(0, 10); } catch {}
+        if (formData.logDateTime) {
+            formData.logDateTime = res.locals.toInputDateTime(formData.logDateTime);
         }
 
         return res.status(422).render('training-logs/log-form', {
@@ -293,8 +293,6 @@ exports.postEditTrainingLog = async (req, res, next) => {
             logIntensity
         } = req.body;
 
-    const logDateUtc = res.locals.localToUtc(req.body.logDateTime);
-
     try {
         const trainingLog = await TrainingLog.findOne({
             where: {
@@ -313,6 +311,8 @@ exports.postEditTrainingLog = async (req, res, next) => {
                 currentPage: 'dashboard'
             });
         }
+
+        const logDateUtc = res.locals.localToUtc(req.body.logDateTime);
 
         await TrainingLog.update({
             logCategory,
