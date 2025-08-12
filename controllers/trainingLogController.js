@@ -59,7 +59,7 @@ exports.postCreateTrainingLog = async (req, res, next) => {
         logIntensity
     } = req.body;
 
-    const logDateUtc = res.locals.localToUtc(req.body.logDate);
+    const logDateUtc = res.locals.localToUtc(req.body.logDateTime);
 
     try {
         const newLog = await TrainingLog.create({
@@ -294,7 +294,7 @@ exports.postEditTrainingLog = async (req, res, next) => {
             logIntensity
         } = req.body;
 
-    const logDateUtc = res.locals.localToUtc(req.body.logDate);
+    const logDateUtc = res.locals.localToUtc(req.body.logDateTime);
 
     try {
         const trainingLog = await TrainingLog.findOne({
