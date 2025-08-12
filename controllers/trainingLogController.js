@@ -54,7 +54,6 @@ exports.postCreateTrainingLog = async (req, res, next) => {
         logDescription,
         logDuration,
         logRelatedBelt,
-        logDate,
         logIsPrivate,
         logIntensity
     } = req.body;
@@ -75,7 +74,7 @@ exports.postCreateTrainingLog = async (req, res, next) => {
         });
 
         console.log('[create] tz:', res.locals.tz,
-            'raw:', req.body.logDate,
+            'raw:', req.body.logDateTime,
             'utc:', res.locals.localToUtc(req.body.logDate));
 
         if (req.xhr) {
