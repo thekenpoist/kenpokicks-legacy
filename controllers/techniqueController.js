@@ -48,7 +48,7 @@ exports.getAllTechniques = async (req, res, next) => {
     }
 
     try {
-        const techniques = await Technique.findAll;
+        const techniques = await Technique.findAll();
 
         if (techniques.length === 0) {
             return res.status(404).render('404', { 
