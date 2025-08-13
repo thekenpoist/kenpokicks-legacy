@@ -57,7 +57,7 @@ exports.getAllTechniques = async (req, res, next) => {
                 });
         }
 
-        res.render('techniques', {
+        res.render('all-techniques', {
             pageTitle: 'All Techniques',
             currentPage: 'techniques',
             layout: 'layouts/dashboard-layout',
