@@ -54,7 +54,7 @@ app.use(timezoneConversion);
 app.use('/auth', authRouter);
 app.use('/portal', portalRouter);
 app.use(publicRouter);
-app.use('/training/belt', techniqueRouter);
+app.use('/techniques', techniqueRouter);
 app.use('/training', trainingRouter);
 app.use('/logs', trainingLogRouter);
 app.use('/profiles', userRouter);
