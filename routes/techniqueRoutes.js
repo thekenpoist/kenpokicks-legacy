@@ -5,8 +5,6 @@ const { isAuthenticated } = require('../middleware/auth/authMiddleware');
 
 const router = express.Router();
 
-router.get('/:beltColor', isAuthenticated, techniqueController.getBeltTechniques);
-
 router.get('/all', isAuthenticated, techniqueController.getAllTechniques)
 
 module.exports = router;
