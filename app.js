@@ -8,6 +8,7 @@ const attachFlashMessages = require('./middleware/attachFlashMessagesMiddleware'
 const errorController = require('./controllers/errorController')
 const setCurrentUser = require('./middleware/auth/setCurrentUserMiddlware');
 const timezoneConversion = require('./middleware/timezoneConversionMiddleware');
+const adminRouter = require('./routes/adminRoutes');
 const authRouter = require('./routes/authRoutes');
 const portalRouter = require('./routes/portalRoutes');
 const publicRouter = require('./routes/publicRoutes');
@@ -51,6 +52,7 @@ app.use(attachFlashMessages);
 app.use(setCurrentUser);
 app.use(timezoneConversion);
 
+app.use('/admin', adminRouter);
 app.use('/auth', authRouter);
 app.use('/portal', portalRouter);
 app.use(publicRouter);
