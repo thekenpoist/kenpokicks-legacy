@@ -13,42 +13,57 @@ html(lang="en")
         font-weight: normal;
         font-style: normal;
       }
-
-      body {
-        font-family: "Lora", serif;
-      }
-
-      .kenpo-font {
-        font-family: "Karate", sans-serif;
-      }
+      body { font-family: "Lora", serif; }
+      .kenpo-font { font-family: "Karate", sans-serif; }
 
   body(class="bg-gray-100 flex")
 
-    // Flash Messages
-    if typeof messages !== 'undefined' && messages.info && messages.info.length
-      each msg in messages.info
-        p.bg-blue-100.text-blue-800.p-3.rounded.border.border-blue-300= msg
+    // Flash Messages (top of content area style)
+    if typeof messages !== 'undefined' && (messages.info || messages.success || messages.error)
+      // container spans full width above layout; tweak as you like
+      .fixed.top-0.left-0.right-0.z-40.px-6.pt-4.space-y-2
+        if messages.info && messages.info.length
+          each msg in messages.info
+            p(class="bg-blue-50 text-blue-800 px-4 py-2 rounded border border-blue-200 shadow-sm")= msg
+        if messages.success && messages.success.length
+          each msg in messages.success
+            p(class="bg-green-50 text-green-800 px-4 py-2 rounded border border-green-200 shadow-sm")= msg
+        if messages.error && messages.error.length
+          each msg in messages.error
+            p(class="bg-red-50 text-red-800 px-4 py-2 rounded border border-red-200 shadow-sm")= msg
 
-    if typeof messages !== 'undefined' && messages.success && messages.success.length
-      each msg in messages.success
-        p.bg-green-100.text-green-800.p-3.rounded.border.border-green-300= msg
+    // Sidebar (dark, admin-only vibe)
+    aside(class="w-64 bg-gray-900 text-gray-100 h-screen p-6 flex flex-col space-y-6 border-r border-gray-800")
+      // logo
+      img(src="/images/AMTSPatch.jpg" alt="Kenpo Kicks Logo" class="mx-auto w-full max-w-lg rounded shadow")
 
-    if typeof messages !== 'undefined' && messages.error && messages.error.length
-      each msg in messages.error
-        p.bg-red-100.text-red-800.p-3.rounded.border.border-red-300= msg
+      // title / badge
+      .px-2
+        h2(class="text-xl font-bold tracking-wide flex items-center gap-2")
+          | Admin Console
+          span(class="text-xxs uppercase tracking-wider bg-black bg-opacity-20 text-gray-200 px-2 py-0.5 rounded") admin
 
-    // Sidebar
-    aside(class="w-64 bg-red-800 text-white h-screen p-6 flex flex-col space-y-6")
-      img(src="/images/AMTSPatch.jpg" alt="Kenpo Kicks Logo" class="mx-auto w-full max-w-lg")
-
-      nav.flex.flex-col.text-lg.pl-4.pr-2
-        a(href="/portal/dashboard" class="hover:text-green-700 transition") Dashboard
+      // nav
+      nav.flex.flex-col.text-base.pl-2.pr-1.mt-4.space-y-2
+        a(href="/portal/dashboard" class="px-2 py-1 rounded hover:text-amber-300 transition flex items-center")
+          span Dashboard
 
         if currentUser && currentUser.role === 'admin'
-          a(href="/techniques/all", class="hover:text-green-700 transition mt-6") Admin
+          a(href="/techniques/all" class="px-2 py-1 rounded hover:text-amber-300 transition flex items-center")
+            span Techniques
 
-        a(href="/auth/logout" class="hover:text-green-700 transition mt-auto text-sm") Logout
+        // future: add more admin links here
+        // a(href="/admin/users" class="px-2 py-1 rounded hover:text-amber-300 transition") Users
+        // a(href="/admin/settings" class="px-2 py-1 rounded hover:text-amber-300 transition") Settings
 
-    // Main Content
+        a(href="/auth/logout" class="mt-auto text-sm px-2 py-1 rounded hover:text-amber-300 transition") Logout
+
+    // Main Content (light surface with subtle header cue)
     main(class="flex-1 p-10")
+      // optional admin header cue
+      .mb-6
+        h1(class="text-2xl font-bold text-gray-900 flex items-center gap-3")
+          span #{pageTitle || 'Admin'}
+          span(class="text-xxs uppercase tracking-wider bg-yellow-100 text-yellow-800 px-2 py-0.5 rounded") admin
+
       block content
