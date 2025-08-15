@@ -41,7 +41,6 @@ html(lang="en")
       .px-2
         h2(class="text-xl font-bold tracking-wide flex items-center gap-2")
           | Admin Console
-          span(class="text-xxs uppercase tracking-wider bg-black bg-opacity-20 text-gray-200 px-2 py-0.5 rounded") admin
 
       // nav
       nav.flex.flex-col.text-base.pl-2.pr-1.mt-4.space-y-2
@@ -49,7 +48,7 @@ html(lang="en")
           span Dashboard
 
         if currentUser && currentUser.role === 'admin'
-          a(href="/techniques/all" class="px-2 py-1 rounded hover:text-amber-300 transition flex items-center")
+          a(href="/techniques/all-techniques" class="px-2 py-1 rounded hover:text-amber-300 transition flex items-center")
             span Techniques
 
         // future: add more admin links here
