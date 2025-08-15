@@ -1,0 +1,54 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title #{pageTitle}
+    link(rel="stylesheet", href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css")
+
+    style.
+      @font-face {
+        font-family: "Karate";
+        src: url("/fonts/Karate.ttf") format("truetype");
+        font-weight: normal;
+        font-style: normal;
+      }
+
+      body {
+        font-family: "Lora", serif;
+      }
+
+      .kenpo-font {
+        font-family: "Karate", sans-serif;
+      }
+
+  body(class="bg-gray-100 flex")
+
+    // Flash Messages
+    if typeof messages !== 'undefined' && messages.info && messages.info.length
+      each msg in messages.info
+        p.bg-blue-100.text-blue-800.p-3.rounded.border.border-blue-300= msg
+
+    if typeof messages !== 'undefined' && messages.success && messages.success.length
+      each msg in messages.success
+        p.bg-green-100.text-green-800.p-3.rounded.border.border-green-300= msg
+
+    if typeof messages !== 'undefined' && messages.error && messages.error.length
+      each msg in messages.error
+        p.bg-red-100.text-red-800.p-3.rounded.border.border-red-300= msg
+
+    // Sidebar
+    aside(class="w-64 bg-red-800 text-white h-screen p-6 flex flex-col space-y-6")
+      img(src="/images/AMTSPatch.jpg" alt="Kenpo Kicks Logo" class="mx-auto w-full max-w-lg")
+
+      nav.flex.flex-col.text-lg.pl-4.pr-2
+        a(href="/portal/dashboard" class="hover:text-green-700 transition") Dashboard
+
+        if currentUser && currentUser.role === 'admin'
+          a(href="/techniques/all", class="hover:text-green-700 transition mt-6") Admin
+
+        a(href="/auth/logout" class="hover:text-green-700 transition mt-auto text-sm") Logout
+
+    // Main Content
+    main(class="flex-1 p-10")
+      block content
