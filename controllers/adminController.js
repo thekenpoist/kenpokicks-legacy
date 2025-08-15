@@ -13,7 +13,7 @@ exports.getAdminConsole = (req, res, next) => {
         });
     }
     
-    res.render('admin', {
+    res.render('admin/admin', {
         pageTitle: `Admin Console`,
         currentPage: 'admin',
         layout: 'layouts/admin-layout',
