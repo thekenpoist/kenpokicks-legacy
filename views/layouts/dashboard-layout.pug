@@ -43,8 +43,8 @@ html(lang="en")
 
       nav.flex.flex-col.text-lg.pl-4.pr-2
         a(href="/portal/dashboard" class="hover:text-green-700 transition") Dashboard
-        a(href="/portal/training" class="hover:text-green-700 transition") Training
-        a(href="/portal/logs" class="hover:text-green-700 transition") Training Log
+
+        a(href="/logs/all" class="hover:text-green-700 transition") Training Logs
 
         a(href="/philosophy" class="hover:text-green-700 transition mt-6") Philosophy
         a(href="/history" class="hover:text-green-700 transition") History of Kenpo
@@ -53,6 +53,11 @@ html(lang="en")
         a(href="/profiles/me" class="hover:text-green-700 transition mt-6") Profile
 
         a(href="/" class="hover:text-green-700 transition mt-6") Home
+
+        if currentUser && currentUser.role === 'admin'
+          a(href="/techniques/all", class="hover:text-green-700 transition mt-6") Admin
+
+
         //- Future links
         // a(href="/portal/goals" class="hover:text-green-400 transition") Goals
         // a(href="/portal/forum" class="hover:text-green-400 transition") Forum
