@@ -1,4 +1,5 @@
 const { User } = require('../models');
+const { Op } = require('sequelize');
 
 
 exports.getAdminConsole = async (req, res, next) => {
@@ -8,24 +9,9 @@ exports.getAdminConsole = async (req, res, next) => {
         return res.redirect('/auth/login');
     }
 
-    let student = 0;
-    let instructor = 0;
-    let admin = 0;
-
-    const users = await User.findAll();
-
-    users.forEach(user => {
-        if (user.role === 'admin') { 
-            admin++;
-            instructor++;
-            student++;    
-        } else if (user.role === 'instructor') {
-            instructor++;
-            student++;
-        } else if (user.role === 'student') {
-            student++;
-        }
-    });
+    const students = await User.count({ where: { role: { [Op.in]: ['student', 'instructor', 'admin'] } } });
+    const instructors = await User.count({ where: { role: { [Op.in]: ['instructor', 'admin'] } } });
+    const admins = await User.count({ where: { role : { [Op.in]: ['admin'] } } });
 
     if (user.role !== 'admin') {
         return res.status(403).render('403', {
@@ -39,6 +25,7 @@ exports.getAdminConsole = async (req, res, next) => {
         pageTitle: `Admin Console`,
         currentPage: 'admin',
         layout: 'layouts/admin-layout',
-        errorMessage: null
+        errorMessage: null,
+        stats: { studentCount: students, instructorCount: instructors, adminCount: admins }
     });
 };
