@@ -1,44 +1,40 @@
-//- views/admin.pug
+//- views/admin/console.pug (or views/admin/admin.pug if you kept that name)
 extends ../layouts/admin-layout.pug
 
 block content
-  // Top header (layout already shows pageTitle, this is optional)
-  .mb-6
-    p.text-sm.text-gray-500 Welcome, #{currentUser && currentUser.fullName || currentUser && currentUser.username}
+  // Welcome line
+  p(class="text-sm text-gray-500 mb-6")
+    | Welcome, #{currentUser && (currentUser.fullName || currentUser.username)}
 
-  // Quick actions
+  // Counters (Users, Instructors, Admins)
+  div(class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8")
+    .bg-white.rounded-lg.shadow.p-4.border.border-gray-100
+      p(class="text-xs uppercase tracking-wide text-gray-500") Users
+      p(class="text-2xl font-bold text-gray-900 mt-1") #{stats && stats.userCount || 0}
+    .bg-white.rounded-lg.shadow.p-4.border.border-gray-100
+      p(class="text-xs uppercase tracking-wide text-gray-500") Instructors
+      p(class="text-2xl font-bold text-gray-900 mt-1") #{stats && stats.instructorCount || 0}
+    .bg-white.rounded-lg.shadow.p-4.border.border-gray-100
+      p(class="text-xs uppercase tracking-wide text-gray-500") Admins
+      p(class="text-2xl font-bold text-gray-900 mt-1") #{stats && stats.adminCount || 0}
+
+  // Quick actions (Manage Users, Manage Curriculum, Manage Techniques)
   div(class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6")
+    a(href="/admin/users", class="block bg-white rounded-xl shadow p-5 border border-gray-100 hover:shadow-md transition")
+      h3(class="text-lg font-semibold text-gray-900") Manage Users
+      p(class="text-sm text-gray-600 mt-1") Create, edit, and manage user roles.
+    a(href="/admin/curriculum", class="block bg-white rounded-xl shadow p-5 border border-gray-100 hover:shadow-md transition")
+      h3(class="text-lg font-semibold text-gray-900") Manage Curriculum
+      p(class="text-sm text-gray-600 mt-1") Techniques, forms, sets, and basics.
     a(href="/techniques/all", class="block bg-white rounded-xl shadow p-5 border border-gray-100 hover:shadow-md transition")
-      h3.text-lg.font-semibold.text-gray-900 Flex(items-center gap-2)
-        | Manage Techniques
-      p.text-sm.text-gray-600.mt-1 View, edit, and publish techniques.
+      h3(class="text-lg font-semibold text-gray-900") Manage Techniques
+      p(class="text-sm text-gray-600 mt-1") View, edit, and publish techniques.
 
-    //- Future cards you can uncomment when ready
-    // a(href="/admin/users", class="block bg-white rounded-xl shadow p-5 border border-gray-100 hover:shadow-md transition")
-    //   h3.text-lg.font-semibold.text-gray-900 Manage Users
-    //   p.text-sm.text-gray-600.mt-1 Create, edit, and manage user roles.
-
-    // a(href="/admin/settings", class="block bg-white rounded-xl shadow p-5 border border-gray-100 hover:shadow-md transition")
-    //   h3.text-lg.font-semibold.text-gray-900 Site Settings
-    //   p.text-sm.text-gray-600.mt-1 Platform configuration and preferences.
-
-  // Stats row (placeholders you can wire later)
-  div(class="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-4")
-    .bg-white.rounded-lg.shadow.p-4.border.border-gray-100
-      p.text-xs.uppercase.tracking-wide.text-gray-500 Techniques
-      p.text-2xl.font-bold.text-gray-900.mt-1 #{stats && stats.techniqueCount || 0}
-    .bg-white.rounded-lg.shadow.p-4.border.border-gray-100
-      p.text-xs.uppercase.tracking-wide.text-gray-500 Belts
-      p.text-2xl.font-bold.text-gray-900.mt-1 #{stats && stats.beltCount || 0}
-    .bg-white.rounded-lg.shadow.p-4.border.border-gray-100
-      p.text-xs.uppercase.tracking-wide.text-gray-500 Users
-      p.text-2xl.font-bold.text-gray-900.mt-1 #{stats && stats.userCount || 1}
-
-  // Recent activity / audit (optional placeholder)
+  // Recent activity (unchanged)
   .mt-8.bg-white.rounded-xl.shadow.border.border-gray-100
     .p-5.border-b.border-gray-100
-      h3.text-lg.font-semibold.text-gray-900 Recent Activity
-      p.text-sm.text-gray-600.mt-1 Last 10 admin actions (coming soon)
+      h3(class="text-lg font-semibold text-gray-900") Recent Activity
+      p(class="text-sm text-gray-600 mt-1") Last 10 admin actions (coming soon)
     .divide-y.divide-gray-100
       if recentEvents && recentEvents.length
         each ev in recentEvents
@@ -47,11 +43,3 @@ block content
             .text-xs.text-gray-500= ev.time
       else
         .p-4.text-sm.text-gray-500 No recent admin activity yet.
-
-  // Help / notes
-  .mt-8.bg-yellow-50.border.border-yellow-200.rounded-xl.p-4
-    h4.text-sm.font-semibold.text-yellow-900 Admin tips
-    ul.list-disc.list-inside.text-sm.text-yellow-900.mt-2
-      li Step-up auth for publish/delete (later).
-      li Protect admin routes with a requireAdmin middleware.
-      li All admin actions should be logged (audit trail).
