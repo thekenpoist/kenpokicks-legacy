@@ -47,14 +47,6 @@ html(lang="en")
         a(href="/portal/dashboard" class="px-2 py-1 rounded hover:text-amber-300 transition flex items-center")
           span Dashboard
 
-        if currentUser && currentUser.role === 'admin'
-          a(href="/techniques/all-techniques" class="px-2 py-1 rounded hover:text-amber-300 transition flex items-center")
-            span Techniques
-
-        // future: add more admin links here
-        // a(href="/admin/users" class="px-2 py-1 rounded hover:text-amber-300 transition") Users
-        // a(href="/admin/settings" class="px-2 py-1 rounded hover:text-amber-300 transition") Settings
-
         a(href="/auth/logout" class="mt-auto text-sm px-2 py-1 rounded hover:text-amber-300 transition") Logout
 
     // Main Content (light surface with subtle header cue)
