@@ -58,3 +58,11 @@ exports.getEditTechnique = async (req, res, next) => {
         return renderServerError(res, err, 'all-techniques');
     }
 }
+
+exports.postEditTechnique = async (req, res, next) => {
+    const user = res.locals.currentUser;
+
+    if (!user) {
+        return res.redirect('/auth/login');
+    }
+}
