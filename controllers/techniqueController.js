@@ -49,5 +49,12 @@ exports.getEditTechnique = async (req, res, next) => {
         const technique = await Technique.findOne({
             where: { technique }
         })
+    } catch (err) {
+        logger.error(`Error fetching technique: ${err.message}`);
+        if (err.stack) {
+            logger.error(err.stack);
+        }
+
+        return renderServerError(res, err, 'all-techniques');
     }
 }
