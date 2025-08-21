@@ -13,20 +13,21 @@ exports.getAllTechniques = async (req, res, next) => {
 
     try {
         const techniques = await Technique.findAll();
+        const techniquesPlain = techniques.map(t => t.get({ plain: true }));
 
         if (techniques.length === 0) {
             return res.status(404).render('404', { 
                     pageTitle: "Techniques not found",
-                    currentPage: 'portal/dashboard'
+                    currentPage: 'admin'
                 });
         }
 
-        res.render('all-techniques', {
+        res.render('techniques/all-techniques', {
             pageTitle: 'All Techniques',
             currentPage: 'techniques',
-            layout: 'layouts/dashboard-layout',
+            layout: 'layouts/admin-layout',
             errorMessage: null,
-            techniques
+            techniques: techniquesPlain
         });
     } catch (err) {
         logger.error(`Error fetching techniques: ${err.message}`);
