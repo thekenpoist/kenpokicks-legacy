@@ -1,0 +1,143 @@
+//- views/techniques/tech-form.pug
+//- expects: { pageTitle, layout: 'layouts/admin-layout', formAction, submitButtonText,
+//-            formData, errorMessage?, fieldErrors?, csrfToken?, beltColors?, groups? }
+extends ../layouts/admin-layout.pug
+
+block content
+  .mb-6.flex.items-center.justify-between
+    h1(class="text-2xl font-bold text-gray-900") #{pageTitle}
+    a(href="/techniques/all" class="text-sm text-blue-600 hover:underline") ← Back to All Techniques
+
+  if errorMessage
+    p(class="mb-4 bg-red-50 text-red-800 px-4 py-2 rounded border border-red-200") #{errorMessage}
+
+  form(action=formAction method="POST" class="bg-white rounded-xl shadow p-6 border border-gray-100 space-y-5")
+    if csrfToken
+      input(type="hidden" name="_csrf" value=csrfToken)
+
+    //- Hidden IDs (keep if you want to post them back)
+    if formData && formData.techId
+      input(type="hidden" name="techId" value=formData.techId)
+    if formData && formData.updatedAt
+      input(type="hidden" name="updatedAt" value=formData.updatedAt)
+
+    // Title
+    .flex.flex-col
+      label(for="techTitle" class="text-sm font-medium text-gray-700") Title
+      input#techTitle(type="text" name="techTitle" required
+        value=formData?.techTitle || ''
+        class=`mt-1 w-full rounded border-gray-300 focus:ring-2 focus:ring-blue-500 ${fieldErrors?.techTitle ? 'border-red-400' : ''}`
+        placeholder="e.g., Delayed Sword")
+      if fieldErrors?.techTitle
+        p(class="text-xs text-red-600 mt-1") #{fieldErrors.techTitle}
+
+    // Slug
+    .flex.flex-col
+      label(for="techSlug" class="text-sm font-medium text-gray-700") Slug
+      input#techSlug(type="text" name="techSlug" required
+        value=formData?.techSlug || ''
+        class=`mt-1 w-full rounded border-gray-300 focus:ring-2 focus:ring-blue-500 ${fieldErrors?.techSlug ? 'border-red-400' : ''}`
+        placeholder="delayed-sword")
+      if fieldErrors?.techSlug
+        p(class="text-xs text-red-600 mt-1") #{fieldErrors.techSlug}
+
+    // Attack
+    .flex.flex-col
+      label(for="techAttack" class="text-sm font-medium text-gray-700") Attack
+      input#techAttack(type="text" name="techAttack" required
+        value=formData?.techAttack || ''
+        class=`mt-1 w-full rounded border-gray-300 focus:ring-2 focus:ring-blue-500 ${fieldErrors?.techAttack ? 'border-red-400' : ''}`
+        placeholder="Right-hand lapel grab")
+      if fieldErrors?.techAttack
+        p(class="text-xs text-red-600 mt-1") #{fieldErrors.techAttack}
+
+    // Description (JSON)
+    .flex.flex-col
+      label(for="techDescription" class="text-sm font-medium text-gray-700") Description (JSON)
+      textarea#techDescription(name="techDescription" rows="8"
+        class=`mt-1 w-full rounded border-gray-300 focus:ring-2 focus:ring-blue-500 font-mono text-sm ${fieldErrors?.techDescription ? 'border-red-400' : ''}`
+        placeholder='{"steps":[ "...", "..." ], "notes":"..."}') #{formData?.techDescription ? JSON.stringify(formData.techDescription, null, 2) : ''}
+      if fieldErrors?.techDescription
+        p(class="text-xs text-red-600 mt-1") #{fieldErrors.techDescription}
+
+    // Group
+    .flex.flex-col
+      label(for="techGroup" class="text-sm font-medium text-gray-700") Group
+      if groups && groups.length
+        select#techGroup(name="techGroup" required
+          class=`mt-1 w-full rounded border-gray-300 focus:ring-2 focus:ring-blue-500 ${fieldErrors?.techGroup ? 'border-red-400' : ''}`)
+          option(value="" disabled selected=!(formData && formData.techGroup)) Select a group
+          each g in groups
+            option(value=g selected=(formData?.techGroup?.toLowerCase()===String(g).toLowerCase())) #{g}
+      else
+        input#techGroup(type="text" name="techGroup" required
+          value=formData?.techGroup || ''
+          class=`mt-1 w-full rounded border-gray-300 focus:ring-2 focus:ring-blue-500 ${fieldErrors?.techGroup ? 'border-red-400' : ''}`
+          placeholder="e.g., Grabs")
+      if fieldErrors?.techGroup
+        p(class="text-xs text-red-600 mt-1") #{fieldErrors.techGroup}
+
+    // Attack Angle
+    .flex.flex-col
+      label(for="techAttackAngle" class="text-sm font-medium text-gray-700") Attack Angle
+      input#techAttackAngle(type="text" name="techAttackAngle" required
+        value=formData?.techAttackAngle || ''
+        class=`mt-1 w-full rounded border-gray-300 focus:ring-2 focus:ring-blue-500 ${fieldErrors?.techAttackAngle ? 'border-red-400' : ''}`
+        placeholder="e.g., 12 o'clock / front")
+      if fieldErrors?.techAttackAngle
+        p(class="text-xs text-red-600 mt-1") #{fieldErrors.techAttackAngle}
+
+    // Notes
+    .flex.flex-col
+      label(for="techNotes" class="text-sm font-medium text-gray-700") Notes
+      textarea#techNotes(name="techNotes" rows="5"
+        class=`mt-1 w-full rounded border-gray-300 focus:ring-2 focus:ring-blue-500 ${fieldErrors?.techNotes ? 'border-red-400' : ''}`
+        placeholder="Instructor notes…") #{formData?.techNotes || ''}
+      if fieldErrors?.techNotes
+        p(class="text-xs text-red-600 mt-1") #{fieldErrors.techNotes}
+
+    // Related Form (optional)
+    .flex.flex-col
+      label(for="relatedForm" class="text-sm font-medium text-gray-700") Related Form (optional)
+      input#relatedForm(type="text" name="relatedForm"
+        value=formData?.relatedForm || ''
+        class="mt-1 w-full rounded border-gray-300 focus:ring-2 focus:ring-blue-500"
+        placeholder="e.g., Short Form 2")
+
+    // Belt Color
+    .flex.flex-col
+      label(for="beltColor" class="text-sm font-medium text-gray-700") Belt Color
+      if beltColors && beltColors.length
+        select#beltColor(name="beltColor" required
+          class=`mt-1 w-full rounded border-gray-300 focus:ring-2 focus:ring-blue-500 ${fieldErrors?.beltColor ? 'border-red-400' : ''}`)
+          option(value="" disabled selected=!(formData && formData.beltColor)) Select a belt
+          each color in beltColors
+            option(value=color selected=(formData?.beltColor?.toLowerCase()===String(color).toLowerCase())) #{color}
+      else
+        input#beltColor(type="text" name="beltColor" required
+          value=formData?.beltColor || ''
+          class=`mt-1 w-full rounded border-gray-300 focus:ring-2 focus:ring-blue-500 ${fieldErrors?.beltColor ? 'border-red-400' : ''}`
+          placeholder="Yellow / Orange / …")
+      if fieldErrors?.beltColor
+        p(class="text-xs text-red-600 mt-1") #{fieldErrors.beltColor}
+
+    // Video URL (optional)
+    .flex.flex-col
+      label(for="videoUrl" class="text-sm font-medium text-gray-700") Video URL (optional)
+      input#videoUrl(type="url" name="videoUrl"
+        value=formData?.videoUrl || ''
+        class="mt-1 w-full rounded border-gray-300 focus:ring-2 focus:ring-blue-500"
+        placeholder="https://…")
+
+    // Last Updated By (hidden or readonly)
+    if formData?.lastUpdatedBy
+      .flex.flex-col
+        label(class="text-sm font-medium text-gray-700") Last Updated By
+        input(type="text" readonly value=formData.lastUpdatedBy
+          class="mt-1 w-full rounded border-gray-200 bg-gray-50 text-gray-600")
+
+    // Actions
+    .flex.items-center.gap-3.pt-2
+      button(type="submit" class="inline-flex items-center px-4 py-2 rounded-lg bg-blue-600 text-white font-semibold hover:bg-blue-700 transition")
+        | #{submitButtonText || 'Save Changes'}
+      a(href="/techniques/all" class="text-sm text-gray-600 hover:underline") Cancel
