@@ -37,3 +37,17 @@ exports.getAllTechniques = async (req, res, next) => {
         return renderServerError(res, err, 'portal/dashboard');
     }
 }
+
+exports.getEditTechnique = async (req, res, next) => {
+    const user = res.locals.currentUser;
+
+    if (!user) {
+        return res.redirect('/auth/login');
+    }
+
+    try {
+        const technique = await Technique.findOne({
+            where: { technique }
+        })
+    }
+}
