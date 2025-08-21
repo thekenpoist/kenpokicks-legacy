@@ -40,7 +40,7 @@ exports.getAllTechniques = async (req, res, next) => {
 
 exports.getEditTechnique = async (req, res, next) => {
     const user = res.locals.currentUser;
-    const techniqueId = req.params.techId;
+    const techniqueId = req.params.id;
 
     if (!user) {
         return res.redirect('/auth/login');
@@ -54,18 +54,19 @@ exports.getEditTechnique = async (req, res, next) => {
         if (!technique) {
             return res.status(404).render('404', {
                 pageTitle: 'Technique not found',
-                currentPage: 'admin'
+                currentPage: 'admin',
+                layout: 'layouts/admin-layout'
             });
         }
 
         res.render('techniques/tech-form', {
             pageTitle: 'Edit Technique',
             currentPage: 'techniques',
-            formAction: `/techs/edit/${techniqueId}`,
+            formAction: `/techniques/${techniqueId}/edit`,
             submitButtonText: 'Save Changes',
             errorMessage: null,
-            layout: admin-layout,
-            formData: technique
+            layout: 'layouts/admin-layout',
+            formData: technique.get({ plain: true })
         });
     } catch (err) {
         logger.error(`Error fetching technique: ${err.message}`);
@@ -73,7 +74,7 @@ exports.getEditTechnique = async (req, res, next) => {
             logger.error(err.stack);
         }
 
-        return renderServerError(res, err, 'all-techniques');
+        return renderServerError(res, err, 'admin');
     }
 };
 
