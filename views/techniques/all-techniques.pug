@@ -2,15 +2,16 @@ extends ../layouts/admin-layout.pug
 
 block content
   .flex.items-center.justify-between.mb-6
-    h1.text-2xl.font-bold.text-red-800 All Techniques
+    h1.text-2xl.font-bold.text-gray-900 All Techniques
     a(href="/admin" class="text-blue-600 hover:underline") ← Back to Admin Console
-  .bg-white.shadow-lg.rounded-xl.p-6
-    h1.text-2xl.font-bold.text-red-800.mb-6 All Techniques
 
-    if techniques.length
-      ul.divide-y.divide-gray-200
-        each technique in techniques
-          li.py-3
-            a(href=`/techniques/${technique.techId}/edit`, class="text-blue-600 hover:underline") #{technique.techTitle}
-    else
-      p.text-gray-500 No techniques found.
+  .bg-white.shadow-lg.rounded-xl.p-6
+    // make the list area scrollable (see #2)
+    .mt-2(style="max-height: calc(100vh - 260px); overflow-y: auto;")
+      if techniques && techniques.length
+        ul.divide-y.divide-gray-200
+          each technique in techniques
+            li.py-3
+              a(href=`/techniques/${technique.techId}/edit`, class="text-blue-600 hover:underline") #{technique.techTitle}
+      else
+        p.text-gray-500 No techniques found.
