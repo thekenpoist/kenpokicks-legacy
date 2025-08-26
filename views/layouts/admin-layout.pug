@@ -5,7 +5,6 @@ html(lang="en")
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
     title #{pageTitle}
     link(rel="stylesheet", href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css")
-
     style.
       @font-face {
         font-family: "Karate";
@@ -18,10 +17,9 @@ html(lang="en")
 
   body(class="bg-gray-100 flex")
 
-    // Flash Messages (top of content area style)
+    // Flash Messages (offset so they don't sit under the fixed sidebar)
     if typeof messages !== 'undefined' && (messages.info || messages.success || messages.error)
-      // container spans full width above layout; tweak as you like
-      .fixed.top-0.left-0.right-0.z-40.px-6.pt-4.space-y-2
+      .fixed.top-0.left-0.right-0.z-40.px-6.pt-4.space-y-2.ml-64
         if messages.info && messages.info.length
           each msg in messages.info
             p(class="bg-blue-50 text-blue-800 px-4 py-2 rounded border border-blue-200 shadow-sm")= msg
@@ -32,28 +30,22 @@ html(lang="en")
           each msg in messages.error
             p(class="bg-red-50 text-red-800 px-4 py-2 rounded border border-red-200 shadow-sm")= msg
 
-    // Sidebar (dark, admin-only vibe)
-    aside(class="w-64 bg-gray-900 text-gray-100 h-screen p-6 flex flex-col space-y-6 border-r border-gray-800")
-      // logo
+    // Sidebar (fixed)
+    aside(class="fixed left-0 top-0 w-64 bg-gray-900 text-gray-100 h-screen p-6 flex flex-col space-y-6 border-r border-gray-800")
       img(src="/images/AMTSPatch.jpg" alt="Kenpo Kicks Logo" class="mx-auto w-full max-w-lg rounded shadow")
 
-      // title / badge
       .px-2
-        h2(class="text-xl font-bold tracking-wide flex items-center gap-2")
-          | Admin Console
+        h2(class="text-xl font-bold tracking-wide") Admin Console
 
-      // nav
       nav.flex.flex-col.text-base.pl-2.pr-1.mt-4.space-y-2
-        a(href="/portal/dashboard" class="px-2 py-1 rounded hover:text-amber-300 transition flex items-center")
+        a(href="/portal/dashboard" class=`px-2 py-1 rounded transition flex items-center ${currentPage==='dashboard' ? 'bg-black bg-opacity-20 text-amber-300' : 'hover:text-amber-300'}`)
           span Dashboard
-
+        a(href="/admin" class=`px-2 py-1 rounded transition flex items-center ${currentPage==='admin' ? 'bg-black bg-opacity-20 text-amber-300' : 'hover:text-amber-300'}`)
+          span Admin
         a(href="/auth/logout" class="mt-auto text-sm px-2 py-1 rounded hover:text-amber-300 transition") Logout
 
-    // Main Content (light surface with subtle header cue)
-    main(class="flex-1 p-10")
-      // optional admin header cue
+    // Main Content (shifted by sidebar, scrollable)
+    main(class="ml-64 flex-1 min-h-screen p-10 overflow-y-auto bg-gray-100")
       .mb-6
-        h1(class="text-2xl font-bold text-gray-900 flex items-center gap-3")
-          span #{pageTitle || 'Admin'}
-
+        h1(class="text-2xl font-bold text-gray-900") #{pageTitle || 'Admin'}
       block content
