@@ -50,7 +50,7 @@ exports.getEditTechnique = async (req, res, next) => {
 
     try {
         const technique = await Technique.findOne({
-            where: { techID: techniqueId }
+            where: { techId: techniqueId }
         })
 
         if (!technique) {
