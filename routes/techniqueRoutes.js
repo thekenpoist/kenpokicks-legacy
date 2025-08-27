@@ -7,6 +7,7 @@ const router = express.Router();
 
 router.get('/all', isAuthenticated, techniqueController.getAllTechniques)
 
-router.get('/:id/edit', isAuthenticated, techniqueController.getEditTechnique);
+router.get('/:techId/edit', isAuthenticated, techniqueController.getEditTechnique);
+router.post('/:techId/edit', isAuthenticated, techniqueController.postEditTechnique)
 
 module.exports = router;
