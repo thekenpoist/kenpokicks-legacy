@@ -1,7 +1,6 @@
 const { Technique } = require('../models');
 const { validationResult } = require('express-validator');
-const { Op } = require('sequelize');
-const { renderServerError } = require('../utils/errorrUtil')
+const { renderServerError } = require('../utils/errorUtil')
 const logger = require('../utils/loggerUtil');
 
 
