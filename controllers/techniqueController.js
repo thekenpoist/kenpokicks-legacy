@@ -41,21 +41,19 @@ exports.getAllTechniques = async (req, res, next) => {
 
 exports.getEditTechnique = async (req, res, next) => {
     const user = res.locals.currentUser;
-    const techniqueId = req.params.id;
-
     if (!user) {
         return res.redirect('/auth/login');
     }
 
+    const { techId } = req.params;
+
     try {
-        const technique = await Technique.findOne({
-            where: { techId: techniqueId }
-        })
+        const technique = await Technique.findByPk(techId);
 
         if (!technique) {
             return res.status(404).render('404', {
                 pageTitle: 'Technique not found',
-                currentPage: 'admin',
+                currentPage: 'techniques',
                 layout: 'layouts/admin-layout'
             });
         }
@@ -63,7 +61,7 @@ exports.getEditTechnique = async (req, res, next) => {
         res.render('techniques/tech-form', {
             pageTitle: 'Edit Technique',
             currentPage: 'techniques',
-            formAction: `/techniques/${techniqueId}/edit`,
+            formAction: `/techniques/${techId}/edit`,
             submitButtonText: 'Save Changes',
             errorMessage: null,
             layout: 'layouts/admin-layout',
