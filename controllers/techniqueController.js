@@ -110,7 +110,7 @@ exports.postEditTechnique = async (req, res, next) => {
         relatedForm,
         beltColor,
         videoUrl,
-        lastUpdateBy
+        lastUpdatedBy
     } = req.body;
     
     const { techId } = req.params;
@@ -137,7 +137,7 @@ exports.postEditTechnique = async (req, res, next) => {
             relatedForm,
             beltColor,
             videoUrl,
-            lastUpdateBy
+            lastUpdatedBy
         }, {
             where: { techId }
         });
