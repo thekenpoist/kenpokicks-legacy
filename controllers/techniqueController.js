@@ -83,20 +83,24 @@ exports.postEditTechnique = async (req, res, next) => {
         return res.redirect('/auth/login');
     }
 
+    const { techId } = req.params;
+
+    const formAction = `/techniques/${techId}/edit`;
+
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-
         return res.status(422).render('techniques/tech-form', {
             pageTitle: 'Edit Technique',
             currentPage: 'techniques',
-            formAction: '/techniques',
-            submitButtonText: 'Edit Technique',
+            formAction,
+            layout: 'layouts/admin-layout',
+            submitButtonText: 'Save Changes',
             errorMessage: errors.array().map(e => e.msg).join(', '),
             formData: req.body
         });
     }
 
-    const {
+    let {
         techTitle,
         techSlug,
         techAttack,
@@ -109,17 +113,29 @@ exports.postEditTechnique = async (req, res, next) => {
         videoUrl,
         lastUpdatedBy
     } = req.body;
-    
-    const { techId } = req.params;
-    try {
-        const technique = await Technique.findOne({
-            where: { techId }
-        });
 
+    let techDescriptionParsed = null;
+    try {
+        techDescriptionParsed = techDescription ? JSON.parse(techDescription) : null;
+    } catch (e) {
+        return res.status(422).render('techniques/tech-form', {
+            pageTitle: 'Edit Technique',
+            currentPage: 'techniques',
+            formAction,
+            layout: 'layouts/admin-layout',
+            submitButtonText: 'Save Changes',
+            errorMessage: 'Description must be valid JSON',
+            formData: req.body
+        }); 
+    }
+    
+    try {
+        const technique = await Technique.findByPk(techId)
         if (!technique) {
             return res.status(404).render('404', {
                 pageTitle: 'Technique Not Found',
-                currentPage: 'techniques'
+                currentPage: 'techniques',
+                layout: 'layouts/admin-layout'
             });
         }
 
@@ -127,17 +143,17 @@ exports.postEditTechnique = async (req, res, next) => {
             techTitle,
             techSlug,
             techAttack,
-            techDescription,
+            techDescription: techDescriptionParsed,
             techGroup,
             techAttackAngle,
             techNotes,
             relatedForm,
             beltColor,
-            videoUrl,
+            videoUrl: videoUrl || null,
             lastUpdatedBy
-        }, {
-            where: { techId }
         });
+
+        return res.redirect('techniques/all');
     } catch (err) {
         logger.error(`Error updating user: ${err.message}`);
         if (err.stack) {
