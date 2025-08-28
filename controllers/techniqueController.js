@@ -155,15 +155,33 @@ exports.postEditTechnique = async (req, res, next) => {
 
         return res.redirect('techniques/all');
     } catch (err) {
-        logger.error(`Error updating user: ${err.message}`);
+
+        const isUnique = err?.name === 'SequelizeUniqueConstraintError' || err?.original?.code === 'ER_DUP_ENTRY';
+
+        if (isUnique) {
+            return res.status(422).render('techniques/tech-form', {
+                pageTitle: 'Edit Technique',
+                currentPage: 'techniques',
+                layout: 'layouts/admin-layout',
+                formAction,
+                submitButtonText: 'Save Changes',
+                errorMessage: 'Title or Slug must be unique.',
+                formData: req.body
+            })
+        }
+
+        logger.error(`Error updating technique: ${err.message}`);
         if (err.stack) {
             logger.error(err.stack);
         }
-        res.status(500).render('techniques/tech-form', {
-            pageTitle: 'Edit Technique',
-            currentPage: 'techniques',
-            errorMessage: 'Something went wrong. Please try again.',
-            formData: req.body
-        });
+        return res.status(500).render('techniques/tech-form', {
+                pageTitle: 'Edit Technique',
+                currentPage: 'techniques',
+                layout: 'layouts/admin-layout',
+                formAction,
+                submitButtonText: 'Save Changes',
+                errorMessage: 'Something went wrong. Please try again.',
+                formData: req.body
+            });
     }
-}
+};
