@@ -150,7 +150,7 @@ exports.postEditTechnique = async (req, res, next) => {
             relatedForm,
             beltColor,
             videoUrl: videoUrl || null,
-            lastUpdatedBy
+            lastUpdatedBy: lastUpdatedBy || user?.username || null
         });
 
         return res.redirect('techniques/all');
