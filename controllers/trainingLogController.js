@@ -1,7 +1,7 @@
 const { validationResult } = require('express-validator');
 const { User, TrainingLog } = require('../models');
 const { DATE } = require('sequelize');
-const { renderServerError } = require('../utils/errorrUtil');
+const { renderServerError } = require('../utils/errorUtil');
 const { formatInTimeZone, zonedTimeToUtc, utcToZonedTime } = require('date-fns-tz');
 const logger = require('../utils/loggerUtil');
 
