@@ -30,8 +30,9 @@ exports.editTechniqueRules = [
             'Expert'
         ])
         .withMessage('Group must be one of the defined levels'),
-    body('techAttackAngle'),
-    // Ace, how would I make sure that this is in the correct format of the clock?
+    body('techAttackAngle')
+        .matches(/^(?:[1-9]|1[0-2]):[0-5][0-9]$/)
+        .withMessage("Attack angle must be in the format H:MM (e.g., '1:00', '2:30', '12:00')"),
     body('techNotes')
         .optional()
         .trim(),
