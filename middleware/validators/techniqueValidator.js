@@ -31,8 +31,8 @@ exports.editTechniqueRules = [
         ])
         .withMessage('Group must be one of the defined levels'),
     body('techAttackAngle')
-        .matches(/^(?:[1-9]|1[0-2]):[0-5][0-9]$/)
-        .withMessage("Attack angle must be in the format H:MM (e.g., '1:00', '2:30', '12:00')"),
+        .matches(/^(?:[1-9]|1[0-2]):(?:00|30)$/)
+        .withMessage("Attack angle must be in the format H:00 or H:30 (e.g., '1:00', '2:30', '12:00')"),
     body('techNotes')
         .optional()
         .trim(),
