@@ -5,14 +5,16 @@ exports.editTechniqueRules = [
         .trim()
         .notEmpty().withMessage('A title is required'),
     body('techSlug')
-        .matches(/^[a-z0-9]+(?:-[a-z0-9]+)*$/)
         .trim()
-        .notEmpty().withMessage('Slug must be lowercase, numbers, and dashes only'),
+        .notEmpty().withMessage('A slug is required')
+        .matches(/^[a-z0-9]+(?:-[a-z0-9]+)*$/)
+        .withMessage('Slug must be lowercase, numbers, and dashes only'),
     body('techAttack')
         .trim()
         .notEmpty().withMessage('An attack is required'),
     body('techDescription')
-        .custum(value => {
+        .notEmpty().withMessage('A description is required')
+        .custom(value => {
             try {
                 JSON.parse(value);
                 return true;
@@ -26,7 +28,8 @@ exports.editTechniqueRules = [
             'Intermediate',
             'Advanced',
             'Expert'
-        ]),
+        ])
+        .withMessage('Group must be one of the defined levels'),
     body('techAttackAngle'),
     // Ace, how would I make sure that this is in the correct format of the clock?
     body('techNotes')
@@ -46,12 +49,14 @@ exports.editTechniqueRules = [
             'Red',
             'Black/Red',
             'Black'
-        ]),
+        ])
+        .withMessage('Invalid belt color'),
     body('videoUrl')
         .optional()
         .trim()
         .isURL().withMessage('Must be a valid URL'),
+    // handled server-side usually
     body('lastUpdatedBy')
-        .trim()
-        .notEmpty().withMessage('This field must not be empty'),
+        .optional()
+        .trim(),
 ];
