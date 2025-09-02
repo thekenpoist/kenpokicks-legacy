@@ -5,14 +5,21 @@ exports.editTechniqueRules = [
         .trim()
         .notEmpty().withMessage('A title is required'),
     body('techSlug')
+        .matches(/^[a-z0-9]+(?:-[a-z0-9]+)*$/)
         .trim()
-        .notEmpty().withMessage('A slug is required'),
+        .notEmpty().withMessage('Slug must be lowercase, numbers, and dashes only'),
     body('techAttack')
         .trim()
         .notEmpty().withMessage('An attack is required'),
     body('techDescription')
-        .trim()
-        .notEmpty().withMessage('A description is required and must be in JSON format'),
+        .custum(value => {
+            try {
+                JSON.parse(value);
+                return true;
+            } catch (e) {
+                throw new Error('Description must be valid JSON')
+            }
+        }),
     body('techGroup')
         .isIn([
             'Beginner',
@@ -42,7 +49,8 @@ exports.editTechniqueRules = [
         ]),
     body('videoUrl')
         .optional()
-        .trim(),
+        .trim()
+        .isURL().withMessage('Must be a valid URL'),
     body('lastUpdatedBy')
         .trim()
         .notEmpty().withMessage('This field must not be empty'),
