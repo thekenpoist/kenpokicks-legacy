@@ -1,4 +1,4 @@
-const attackAngles = [
+const techAttackAngle = [
     "12:00", "12:30",
     "1:00", "1:30",
     "2:00", "2:30",
@@ -13,4 +13,44 @@ const attackAngles = [
     "11:00", "11:30"
 ];
 
-module.exports = { attackAngles }
+const beltColor = [
+    "Yellow",
+    "Orange",
+    "Purple",
+    "Blue",
+    "Green",
+    "Brown",
+    "Red",
+    "Black/Red",
+    "Black"
+];
+
+const beltGroup = {
+    beginner: ["Yellow", "Orange", "Purple"],
+    intermediate: ["Blue", "Green", "Brown"],
+    advanced: ["Red", "Black/Red"],
+    expert: ["Black"]
+};
+
+const techGroup = [
+    "Punch",
+    "Kick",
+    "Strike Combo",
+    "Grab",
+    "Hold & Hug",
+    "Tackle",
+    "Choke",
+    "Lock",
+    "Push",
+    "Multiple Attacker",
+    "Stick Attack",
+    "Gun Attack",
+    "Knife Attack"
+];
+
+module.exports = { 
+    techAttackAngle,
+    beltColor,
+    beltGroup,
+    techGroup
+};
