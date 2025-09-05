@@ -2,7 +2,7 @@ const { Technique } = require('../models');
 const { validationResult } = require('express-validator');
 const { renderServerError } = require('../utils/errorUtil')
 const logger = require('../utils/loggerUtil');
-const { attackAngles } = require('../utils/constants');
+const { techAttackAngle } = require('../utils/constants');
 
 
 exports.getAllTechniques = async (req, res, next) => {
@@ -66,7 +66,7 @@ exports.getEditTechnique = async (req, res, next) => {
             submitButtonText: 'Save Changes',
             errorMessage: null,
             layout: 'layouts/admin-layout',
-            attackAngles,
+            techAttackAngle,
             formData: technique.get({ plain: true })
         });
     } catch (err) {
