@@ -13,5 +13,4 @@ const attackAngles = [
     "11:00", "11:30"
 ];
 
-
 module.exports = { attackAngles }
