@@ -155,9 +155,11 @@ exports.postEditTechnique = async (req, res, next) => {
             beltColor,
             videoUrl: videoUrl || null,
             lastUpdatedBy: lastUpdatedBy || user?.username || null
+        },{
+            where: { techId }
         });
 
-        return res.redirect('techniques/all');
+        return res.redirect('/techniques/all');
     } catch (err) {
 
         const isUnique = err?.name === 'SequelizeUniqueConstraintError' || err?.original?.code === 'ER_DUP_ENTRY';
