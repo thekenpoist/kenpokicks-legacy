@@ -119,18 +119,29 @@ block content
     // Attack Angle
     .flex.flex-col
       label(for="techAttackAngle" class="text-sm font-medium text-gray-700") Attack Angle
-      input#techAttackAngle(
-        type="text"
-        name="techAttackAngle"
-        required
-        value=(formData && formData.techAttackAngle) || ''
-        class=( (fieldErrors && fieldErrors.techAttackAngle)
-          ? "mt-1 w-full rounded border-gray-300 focus:ring-2 focus:ring-blue-500 border-red-400"
-          : "mt-1 w-full rounded border-gray-300 focus:ring-2 focus:ring-blue-500")
-        placeholder="e.g., 12 o'clock / front"
-      )
-      if fieldErrors && fieldErrors.techAttackAngle
-        p(class="text-xs text-red-600 mt-1") #{fieldErrors.techAttackAngle}
+      if attackAngles && attackAngles.length
+        select#techAttackAngle(
+          name="techAttackAngle"
+          required
+          class=( (fieldErrors && fieldErrors.techAttackAngle)
+            ? "mt-1 w-full rounded border-gray-300 focus:ring-2 focus:ring-blue-500 border-red-400"
+            : "mt-1 w-full rounded border-gray-300 focus:ring-2 focus:ring-blue-500")
+        )
+          option(value="" disabled selected=!(formData && formData.techAttackAngle)) Select an angle
+          each angle in attackAngles
+            option(
+              value=angle
+              selected=(formData && formData.techAttackAngle && formData.techAttackAngle === angle)
+            ) #{angle}
+      else
+        input#techAttackAngle(
+          type="text"
+          name="techAttackAngle"
+          required
+          value=(formData && formData.techAttackAngle) || ''
+          class="mt-1 w-full rounded border-gray-300 focus:ring-2 focus:ring-blue-500"
+          placeholder="e.g., 3:00"
+        )
 
     // Notes
     .flex.flex-col
