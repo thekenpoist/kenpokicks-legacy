@@ -119,7 +119,7 @@ block content
     // Attack Angle
     .flex.flex-col
       label(for="techAttackAngle" class="text-sm font-medium text-gray-700") Attack Angle
-      if attackAngles && attackAngles.length
+      if techAttackAngle && techAttackAngle.length
         select#techAttackAngle(
           name="techAttackAngle"
           required
@@ -128,7 +128,7 @@ block content
             : "mt-1 w-full rounded border-gray-300 focus:ring-2 focus:ring-blue-500")
         )
           option(value="" disabled selected=!(formData && formData.techAttackAngle)) Select an angle
-          each angle in attackAngles
+          each angle in techAttackAngle
             option(
               value=angle
               selected=(formData && formData.techAttackAngle && formData.techAttackAngle === angle)
