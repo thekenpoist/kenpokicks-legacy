@@ -1,4 +1,5 @@
 const { body } = require('express-validator');
+const { techAttackAngle, techGroup, beltColor } = require('../../utils/constants');
 
 exports.editTechniqueRules = [
     body('techTitle')
@@ -23,16 +24,13 @@ exports.editTechniqueRules = [
             }
         }),
     body('techGroup')
-        .isIn([
-            'Beginner',
-            'Intermediate',
-            'Advanced',
-            'Expert'
-        ])
-        .withMessage('Group must be one of the defined levels'),
+        .isIn(techGroup)
+        .withMessage(`Group must be one of: ${techGroup.join(', ')}`),
     body('techAttackAngle')
         .matches(/^(?:[1-9]|1[0-2]):(?:00|30)$/)
-        .withMessage("Attack angle must be in the format H:00 or H:30 (e.g., '1:00', '2:30', '12:00')"),
+        .withMessage("Attack angle must be in the format H:00 or H:30 (e.g., '1:00', '2:30', '12:00')")
+        .isIn(techAttackAngle)
+        .withMessage(`Attack angle must be one of: ${techAttackAngle.join(', ')}`),
     body('techNotes')
         .optional()
         .trim(),
@@ -40,20 +38,11 @@ exports.editTechniqueRules = [
         .optional()
         .trim(),
     body('beltColor')
-        .isIn([
-            'Yellow',
-            'Orange',
-            'Purple',
-            'Blue',
-            'Green',
-            'Brown',
-            'Red',
-            'Black/Red',
-            'Black'
-        ])
-        .withMessage('Invalid belt color'),
+        .trim()
+        .isIn(beltColor)
+        .withMessage(`Belt color must be: ${beltColor.join(', ')}`),
     body('videoUrl')
-        .optional()
+        .optional({ checkFalsy: true })
         .trim()
         .isURL().withMessage('Must be a valid URL'),
     // handled server-side usually
