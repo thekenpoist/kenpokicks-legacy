@@ -85,10 +85,10 @@ block content
       if fieldErrors && fieldErrors.techDescription
         p(class="text-xs text-red-600 mt-1") #{fieldErrors.techDescription}
 
-    // Group
+    // Attack Type (techGroup)
     .flex.flex-col
-      label(for="techGroup" class="text-sm font-medium text-gray-700") Group
-      if groups && groups.length
+      label(for="techGroup" class="text-sm font-medium text-gray-700") Attack Type
+      if techGroup && techGroup.length
         select#techGroup(
           name="techGroup"
           required
@@ -96,13 +96,14 @@ block content
             ? "mt-1 w-full rounded border-gray-300 focus:ring-2 focus:ring-blue-500 border-red-400"
             : "mt-1 w-full rounded border-gray-300 focus:ring-2 focus:ring-blue-500")
         )
-          option(value="" disabled selected=!(formData && formData.techGroup)) Select a group
-          each g in groups
+          option(value="" disabled selected=!(formData && formData.techGroup)) Select an attack type
+          each g in techGroup
             option(
               value=g
-              selected=(formData && formData.techGroup && formData.techGroup.toLowerCase() === String(g).toLowerCase())
+              selected=(formData && formData.techGroup === g)
             ) #{g}
       else
+        // fallback text input if constants weren't provided
         input#techGroup(
           type="text"
           name="techGroup"
@@ -111,10 +112,11 @@ block content
           class=( (fieldErrors && fieldErrors.techGroup)
             ? "mt-1 w-full rounded border-gray-300 focus:ring-2 focus:ring-blue-500 border-red-400"
             : "mt-1 w-full rounded border-gray-300 focus:ring-2 focus:ring-blue-500")
-          placeholder="e.g., Grabs"
+          placeholder="e.g., Grab"
         )
       if fieldErrors && fieldErrors.techGroup
         p(class="text-xs text-red-600 mt-1") #{fieldErrors.techGroup}
+
 
     // Attack Angle
     .flex.flex-col
@@ -171,7 +173,7 @@ block content
     // Belt Color
     .flex.flex-col
       label(for="beltColor" class="text-sm font-medium text-gray-700") Belt Color
-      if beltColors && beltColors.length
+      if beltColor && beltColor.length
         select#beltColor(
           name="beltColor"
           required
@@ -180,10 +182,10 @@ block content
             : "mt-1 w-full rounded border-gray-300 focus:ring-2 focus:ring-blue-500")
         )
           option(value="" disabled selected=!(formData && formData.beltColor)) Select a belt
-          each color in beltColors
+          each color in beltColor
             option(
               value=color
-              selected=(formData && formData.beltColor && formData.beltColor.toLowerCase() === String(color).toLowerCase())
+              selected=(formData && formData.beltColor === color)
             ) #{color}
       else
         input#beltColor(
