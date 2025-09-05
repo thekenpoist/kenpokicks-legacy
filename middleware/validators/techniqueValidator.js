@@ -15,13 +15,16 @@ exports.editTechniqueRules = [
         .notEmpty().withMessage('An attack is required'),
     body('techDescription')
         .notEmpty().withMessage('A description is required')
-        .custom(value => {
-            try {
-                JSON.parse(value);
-                return true;
-            } catch (e) {
-                throw new Error('Description must be valid JSON')
-            }
+        .bail()
+        .custom((value) => {
+        // Allow either a stringified JSON or an object already
+        if (typeof value === 'object') return true;
+        try { JSON.parse(value); return true; }
+        catch { throw new Error('Description must be valid JSON'); }
+        })
+        .customSanitizer((value) => {
+        // Ensure downstream gets an object
+        return typeof value === 'object' ? value : JSON.parse(value);
         }),
     body('techGroup')
         .isIn(techGroup)
