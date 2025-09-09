@@ -26,9 +26,9 @@ const beltColor = [
 ];
 
 const beltGroup = {
-    beginner: ["Yellow", "Orange", "Purple"],
-    intermediate: ["Blue", "Green", "Brown"],
-    advanced: ["Red", "Black/Red"],
+    beginner: ["White", "Yellow", "Orange"],
+    intermediate: ["Purple", "Blue", "Green"],
+    advanced: ["Brown", "Red", "Black/Red"],
     expert: ["Black"]
 };
 
