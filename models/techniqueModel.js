@@ -84,7 +84,7 @@ module.exports = (sequelize) => {
         "Green",
         "Brown",
         "Red",
-        "Black/Red",
+        "Red/Black",
         "Black"
       ),
       allowNull: false,

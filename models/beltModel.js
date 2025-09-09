@@ -20,8 +20,9 @@ module.exports = (sequelize) => {
         primaryKey: true,
         autoIncrement: true
         },
-        beltName: {
+        beltColor: {
         type: DataTypes.ENUM(
+            "White",
             "Yellow",
             "Orange",
             "Purple",
@@ -29,7 +30,7 @@ module.exports = (sequelize) => {
             "Green",
             "Brown",
             "Red",
-            "Black/Red",
+            "Red/Black",
             "Black"
         ),
         allowNull: false,

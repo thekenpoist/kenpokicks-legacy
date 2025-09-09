@@ -51,7 +51,7 @@ module.exports = {
         "Green",
         "Brown",
         "Red",
-        "Black/Red",
+        "Red/Black",
         "Black"
       ),
       allowNull: false,

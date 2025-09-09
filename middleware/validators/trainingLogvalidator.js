@@ -43,7 +43,7 @@ exports.createTrainingLogRules = [
             'Green',
             'Brown',
             'Red',
-            'Black/Red',
+            'Red/Black',
             'Black',
             'N/A'
         ])
