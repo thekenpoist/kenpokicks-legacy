@@ -21,7 +21,17 @@ module.exports = (sequelize) => {
         autoIncrement: true
         },
         beltName: {
-        type: DataTypes.STRING,
+        type: DataTypes.ENUM(
+            "Yellow",
+            "Orange",
+            "Purple",
+            "Blue",
+            "Green",
+            "Brown",
+            "Red",
+            "Black/Red",
+            "Black"
+        ),
         allowNull: false,
         unique: true
         },
@@ -39,7 +49,12 @@ module.exports = (sequelize) => {
         allowNull: true
         },
         beltGroup: {
-        type: DataTypes.STRING,
+        type: DataTypes.ENUM(
+            "beginner",
+            "intermediate",
+            "advanced",
+            "expert"
+        ),
         allowNull: false
         },
     }, {
