@@ -57,7 +57,17 @@ module.exports = (sequelize) => {
       allowNull: false
     },
     logRelatedBelt: {
-      type: DataTypes.STRING,
+      type: DataTypes.ENUM(
+        "Yellow",
+        "Orange",
+        "Purple",
+        "Blue",
+        "Green",
+        "Brown",
+        "Red",
+        "Red/Black",
+        "Black"
+      ),
       allowNull: true
     },
     logDate: {
