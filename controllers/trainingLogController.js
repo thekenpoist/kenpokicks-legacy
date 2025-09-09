@@ -76,10 +76,6 @@ exports.postCreateTrainingLog = async (req, res, next) => {
             logIntensity
         });
 
-        console.log('[create] tz:', res.locals.tz,
-            'raw:', req.body.logDateTime,
-            'utc:', res.locals.localToUtc(req.body.logDate));
-
         if (req.xhr) {
             return res.status(201).json({
                 success: true,
