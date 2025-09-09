@@ -58,6 +58,7 @@ module.exports = (sequelize) => {
     },
     logRelatedBelt: {
       type: DataTypes.ENUM(
+        "N/A",
         "Yellow",
         "Orange",
         "Purple",
