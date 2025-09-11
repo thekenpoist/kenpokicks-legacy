@@ -42,8 +42,13 @@ exports.getAllTechniques = async (req, res, next) => {
 
 exports.getEditTechnique = async (req, res, next) => {
     const user = res.locals.currentUser;
-    if (!user) {
-        return res.redirect('/auth/login');
+
+    if (!user || !['admin'].includes(user.role)) {
+        return res.status(403).render('403', {
+            pageTitle: 'Access Denied',
+            currentPage: 'portal/dashboard',
+            layout:'layouts/dashboard-layout'
+        })
     }
 
     const { techId } = req.params;
@@ -83,8 +88,13 @@ exports.getEditTechnique = async (req, res, next) => {
 
 exports.postEditTechnique = async (req, res, next) => {
     const user = res.locals.currentUser;
-    if (!user) {
-        return res.redirect('/auth/login');
+    
+    if (!user || !['admin'].includes(user.role)) {
+        return res.status(403).render('403', {
+            pageTitle: 'Access Denied',
+            currentPage: 'portal/dashboard',
+            layout:'layouts/dashboard-layout'
+        })
     }
 
     const { techId } = req.params;
