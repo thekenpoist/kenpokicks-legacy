@@ -1,4 +1,4 @@
-module.exports = function requireRole(...allowed) {
+function requireRole(...allowed) {
     return (req, res, next) => {
         const user = res.locals.currentUser || req.user ||null;
 
@@ -21,3 +21,5 @@ module.exports = function requireRole(...allowed) {
         next();
     };
 }
+
+module.exports = requireRole;
