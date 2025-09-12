@@ -16,6 +16,7 @@ const techniqueRouter = require('./routes/techniqueRoutes');
 const trainingRouter = require('./routes/trainingRoutes');
 const trainingLogRouter = require('./routes/trainingLogRoutes');
 const userRouter = require('./routes/userRoutes');
+const { createCsrfToken } = require('./middleware/csrfMiddleware');
 const { ppid } = require('process');
 const PORT = process.env.PORT || 3000;
 const app = express();
@@ -47,6 +48,7 @@ app.use(session({
     }
 }));
 
+app.use(createCsrfToken);
 app.use(flash());
 app.use(attachFlashMessages);
 app.use(setCurrentUser);
