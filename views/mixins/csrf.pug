@@ -1,0 +1,5 @@
+mixin csrfField()
+    if typeof csrfToken !== 'undefined' && csrfToken
+        input(type="hidden" name="_csrf" value=csrfToken)
+    else 
+        span.txt-red-600 CSRF Token Missing

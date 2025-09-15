@@ -1,5 +1,6 @@
 //- views/training-logs/log-form.pug
 form(action=formAction method="POST" class="space-y-4")
+  input(type="hidden" name="_csrf" value=csrfToken)
 
   if errorMessage
     p.text-red-600.text-sm.bg-red-50.border.border-red-200.rounded.p-2 #{errorMessage}
