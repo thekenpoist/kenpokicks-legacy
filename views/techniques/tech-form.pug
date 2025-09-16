@@ -15,9 +15,7 @@ block content
     p(class="mb-4 bg-red-50 text-red-800 px-4 py-2 rounded border border-red-200") #{errorMessage}
 
   form(action=formAction method="POST" class="bg-white rounded-xl shadow p-6 border border-gray-100 space-y-5")
-    if csrfToken
-      input(type="hidden" name="_csrf" value=csrfToken)
-
+    +csrfField()
     if formData && formData.techId
       input(type="hidden" name="techId" value=formData.techId)
     if formData && formData.updatedAt
