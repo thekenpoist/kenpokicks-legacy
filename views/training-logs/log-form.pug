@@ -1,4 +1,5 @@
 //- views/training-logs/log-form.pug
+include ../mixins/csrf
 form(action=formAction method="POST" class="space-y-4")
   +csrfField()
 

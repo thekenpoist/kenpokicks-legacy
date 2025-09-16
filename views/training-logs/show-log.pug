@@ -103,6 +103,9 @@ block content
         if (form.closest('#entryFormContainer')) {
           e.preventDefault();
           const formData = new FormData(form);
+          if (!formData.has('_csrf')) {
+            formData.append('_csrf', window.CSRF_TOKEN);
+          }
           fetch(form.action, {
             method: 'POST',
             body: formData,
