@@ -1,0 +1,22 @@
+//- views/training/forms-template.pug
+extends ../layouts/dashboard-layout.pug
+
+block content
+  .container.mx-auto.p-6
+    if content.forms && content.forms.length
+      each form in content.forms
+        .bg-white.shadow-md.rounded-lg.p-5.mb-8
+          h1(class="text-2xl md:text-3xl font-bold text-center mb-6 text-red-800") #{form.name}
+
+          if form.sequence && form.sequence.length
+            ol(class="list-decimal list-inside space-y-3")
+              each step in form.sequence
+                li
+                  p(class="whitespace-pre-wrap text-gray-800") #{step.text}
+          else
+            p(class="text-gray-500 text-center") No steps found.
+    else
+      p(class="text-red-600 font-semibold text-center") No forms found.
+
+    div(class="mt-6 text-center")
+      a(href="/portal/dashboard" class="text-sm text-blue-600 hover:underline") ← Back to Dashboard
