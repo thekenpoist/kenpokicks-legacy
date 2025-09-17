@@ -19,6 +19,7 @@ const userRouter = require('./routes/userRoutes');
 const { createCsrfToken } = require('./middleware/csrfMiddleware');
 const { ppid } = require('process');
 const PORT = process.env.PORT || 3000;
+const helmet = require('helmet');
 const app = express();
 
 // Set Pug as the view engine
