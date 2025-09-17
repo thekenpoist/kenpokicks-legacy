@@ -28,6 +28,9 @@ app.set('views', path.join(__dirname, 'views'));
 // Add a helper function to make path aliases work
 app.locals.basedir = path.join(__dirname, 'views');
 
+// Use helmet to apply safe default security headers
+app.use(helmet());
+
 // Static assets
 app.use(express.static(path.join(__dirname, 'public')));
 
