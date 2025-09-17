@@ -31,6 +31,7 @@ app.locals.basedir = path.join(__dirname, 'views');
 
 // Use helmet to apply safe default security headers
 app.use(helmet());
+app.use(helmet.referrerPolicy({ policy: 'strict-origin-when-cross-origin' }));
 
 // Static assets
 app.use(express.static(path.join(__dirname, 'public')));
