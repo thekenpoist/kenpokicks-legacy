@@ -34,6 +34,15 @@ app.use(helmet());
 app.use(helmet.referrerPolicy({ policy: 'strict-origin-when-cross-origin' }));
 app.use(helmet.xFrameOptions({ action: 'deny' }));
 
+const isProd = process.env.NODE_ENV === 'production';
+if (isProd) {
+    app.use(helmet.hsts({
+        maxAge: 31536000,
+        includeSubDomains: true,
+        preload: false
+    }));
+}
+
 // Static assets
 app.use(express.static(path.join(__dirname, 'public')));
 
