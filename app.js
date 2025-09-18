@@ -34,6 +34,7 @@ app.use(helmet());
 app.use(helmet.referrerPolicy({ policy: 'strict-origin-when-cross-origin' }));
 app.use(helmet.frameguard({ action: 'deny' }));
 app.use(helmet.crossOriginResourcePolicy({ policy: 'same-origin' }));
+app.use(helmet.crossOriginOpenerPolicy({ policy: 'same-origin' }));
 
 const isProd = process.env.NODE_ENV === 'production';
 if (isProd) {
