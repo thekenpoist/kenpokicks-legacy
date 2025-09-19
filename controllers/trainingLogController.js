@@ -141,32 +141,47 @@ exports.getOneTrainingLog = async (req, res, next) => {
 };
 
 exports.getRecentTrainingLogs = async (req, res, next) => {
-    try {
-        const { fmt } = res.locals;
+  try {
+    const { fmt } = res.locals;
 
-        const trainingLogs = await TrainingLog.findAll({
-        where: { userUuid: res.locals.currentUser.uuid },
-        order: [['logDate', 'DESC']],
-        limit: 10
+    const trainingLogs = await TrainingLog.findAll({
+      where: { userUuid: res.locals.currentUser.uuid },
+      order: [['logDate', 'DESC']],
+      limit: 10
     });
 
-    const html = trainingLogs.map(log => `
-      <div class="grid grid-cols-3 text-sm text-gray-800 border-b border-gray-100 py-2 cursor-pointer hover:bg-gray-50"
-           onclick="window.location='/logs/${log.logId}'">
-        <div>${fmt ? fmt(log.logDate, 'MMM d, yyyy, h:mm a') : new Date(log.logDate).toISOString().slice(0,10)}</div>
-        <div>${log.logCategory}</div>
-        <div>${log.logTitle || '(No Title)'}</div>
-      </div>`).join('');
+    // Minimal HTML escaper since we're string-building (prevents XSS)
+    const esc = (v) =>
+      String(v ?? '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+
+    const html = trainingLogs.map((log) => {
+      const dateStr = fmt
+        ? fmt(log.logDate, 'MMM d, yyyy, h:mm a')
+        : new Date(log.logDate).toISOString().slice(0, 16).replace('T', ' ');
+
+      const href = `/logs/${encodeURIComponent(log.logId)}`;
+      return `
+        <a href="${href}" id="log-${esc(log.logId)}"
+        class="block grid grid-cols-3 text-sm text-gray-800 border-b border-gray-100 py-2 hover:bg-gray-50">
+        <div>${esc(dateStr)}</div>
+        <div>${esc(log.logCategory)}</div>
+        <div class="truncate">${esc(log.logTitle || '(No Title)')}</div>
+        </a>`;
+        }).join('');
 
     res.send(html);
-    } catch (err) {
-        logger.error(`Error fetching training log: ${err.message}`);
-        if (err.stack) {
-            logger.error(err.stack);
-        }
-        res.status(500).send('Failed to fetch recent logs');
-    }
+  } catch (err) {
+    logger.error(`Error fetching training log: ${err.message}`);
+    if (err.stack) logger.error(err.stack);
+    res.status(500).send('Failed to fetch recent logs');
+  }
 };
+
 
 exports.getAllTrainingLogs = async (req, res, next) => {
     const user = res.locals.currentUser;
