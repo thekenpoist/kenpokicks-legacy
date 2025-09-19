@@ -7,9 +7,11 @@ block content
   //- Section 1
   div.mb-4.mx-auto.w-full.max-w-2xl
     button(
-        class="text-left w-full bg-red-100 text-red-800 font-semibold p-3 rounded-md shadow-md transition duration-300 hover:bg-red-200",
-        onclick=`toggleAnswer('history-1')`
-      )
+      type="button"
+      class="text-left w-full bg-red-100 text-red-800 font-semibold p-3 rounded-md shadow-md transition duration-300 hover:bg-red-200"
+      data-action="history-toggle"
+      data-target="#history-1"
+    )
       | 1. Ancient Roots of Kenpo
     div.hidden.mt-2.text-left.p-4.bg-white.rounded-md.shadow-inner(id='history-1')
       p 
@@ -98,9 +100,11 @@ block content
   //- Section 2
   div.mb-4.mx-auto.w-full.max-w-2xl
     button(
-        class="text-left w-full bg-red-100 text-red-800 font-semibold p-3 rounded-md shadow-md transition duration-300 hover:bg-red-200",
-        onclick=`toggleAnswer('history-2')`
-      )
+      type="button"
+      class="text-left w-full bg-red-100 text-red-800 font-semibold p-3 rounded-md shadow-md transition duration-300 hover:bg-red-200"
+      data-action="history-toggle"
+      data-target="#history-2"
+    )
       | 2. Kenpo’s Journey Through Japan and Hawaii
     div.hidden.mt-2.text-left.p-4.bg-white.rounded-md.shadow-inner(id='history-2')
       div.hidden.mt-2.text-left.p-4.bg-white.rounded-md.shadow-inner(id='history-2')
@@ -211,9 +215,11 @@ block content
   //- Section 3
   div.mb-4.mx-auto.w-full.max-w-2xl
     button(
-        class="text-left w-full bg-red-100 text-red-800 font-semibold p-3 rounded-md shadow-md transition duration-300 hover:bg-red-200",
-        onclick=`toggleAnswer('history-3')`
-      )
+      type="button"
+      class="text-left w-full bg-red-100 text-red-800 font-semibold p-3 rounded-md shadow-md transition duration-300 hover:bg-red-200"
+      data-action="history-toggle"
+      data-target="#history-3"
+    )
       | 3. The Birth of American Kenpo
     div.hidden.mt-2.text-left.p-4.bg-white.rounded-md.shadow-inner(id='history-3')
       p
@@ -328,9 +334,11 @@ block content
   //- Section 4
   div.mb-4.mx-auto.w-full.max-w-2xl
     button(
-        class="text-left w-full bg-red-100 text-red-800 font-semibold p-3 rounded-md shadow-md transition duration-300 hover:bg-red-200",
-        onclick=`toggleAnswer('history-4')`
-      )
+      type="button"
+      class="text-left w-full bg-red-100 text-red-800 font-semibold p-3 rounded-md shadow-md transition duration-300 hover:bg-red-200"
+      data-action="history-toggle"
+      data-target="#history-4"
+    )
       | 4. The Principles and Philosophy of Kenpo
     div.hidden.mt-2.text-left.p-4.bg-white.rounded-md.shadow-inner(id='history-4')
       p
@@ -459,9 +467,11 @@ block content
   //- Section 5
   div.mb-4.mx-auto.w-full.max-w-2xl
     button(
-        class="text-left w-full bg-red-100 text-red-800 font-semibold p-3 rounded-md shadow-md transition duration-300 hover:bg-red-200",
-        onclick=`toggleAnswer('history-5')`
-      )
+      type="button"
+      class="text-left w-full bg-red-100 text-red-800 font-semibold p-3 rounded-md shadow-md transition duration-300 hover:bg-red-200"
+      data-action="history-toggle"
+      data-target="#history-5"
+    )
       | 5. Sifu Steven J. Hull's Kenpo Journey
     div.hidden.mt-2.text-left.p-4.bg-white.rounded-md.shadow-inner(id='history-5')
       p 
@@ -568,12 +578,5 @@ block content
         b how they carry themselves, protect what matters, and continue to grow—
         |  in the dojo, as a human, and in every quiet corner of life.
 
-  script.
-    function toggleAnswer(id) {
-      const el = document.getElementById(id);
-      if (el.classList.contains('hidden')) {
-        el.classList.remove('hidden');
-      } else {
-        el.classList.add('hidden');
-      }
-    }
+  block append pageScripts
+    script(src="/js/features/history.js" defer)
