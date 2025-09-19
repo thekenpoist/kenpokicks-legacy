@@ -30,20 +30,22 @@ app.set('views', path.join(__dirname, 'views'));
 app.locals.basedir = path.join(__dirname, 'views');
 
 // Use helmet to apply safe default security headers
-app.use(helmet());
-app.use(helmet.referrerPolicy({ policy: 'strict-origin-when-cross-origin' }));
-app.use(helmet.frameguard({ action: 'deny' }));
-app.use(helmet.crossOriginResourcePolicy({ policy: 'same-origin' }));
-app.use(helmet.crossOriginOpenerPolicy({ policy: 'same-origin' }));
-
 const isProd = process.env.NODE_ENV === 'production';
-if (isProd) {
-    app.use(helmet.hsts({
-        maxAge: 31536000,
-        includeSubDomains: true,
-        preload: false
-    }));
-}
+
+app.use(helmet({
+  // Keep Helmet’s default CSP, etc.
+  referrerPolicy: { policy: 'strict-origin-when-cross-origin' }, // override default
+  xFrameOptions: { action: 'deny' }, // legacy but fine for old browsers
+  crossOriginResourcePolicy: { policy: 'same-origin' },
+  crossOriginOpenerPolicy: { policy: 'same-origin' },
+
+  // Only send HSTS in prod
+  strictTransportSecurity: isProd ? {
+    maxAge: 31536000,
+    includeSubDomains: true,
+    preload: false,
+  } : false,
+}));
 
 // Static assets
 app.use(express.static(path.join(__dirname, 'public')));
