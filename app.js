@@ -20,6 +20,8 @@ const { createCsrfToken } = require('./middleware/csrfMiddleware');
 const { ppid } = require('process');
 const PORT = process.env.PORT || 3000;
 const helmet = require('helmet');
+const morgan = require('morgan');
+const { logger, accessLogger } = require ('./utils/loggerUtil');
 const app = express();
 
 // Set Pug as the view engine
@@ -49,6 +51,10 @@ app.use(helmet({
 
 // Static assets
 app.use(express.static(path.join(__dirname, 'public')));
+
+// Access logging
+const stream = { write: (msg) => accessLogger.info(msg.trim()) };
+app.use(morgan('combined', { stream }));
 
 // Middleware: JSON/form parsing
 app.use(express.urlencoded({ extended: true }));
