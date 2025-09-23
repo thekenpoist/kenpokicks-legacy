@@ -96,6 +96,19 @@ app.use((err, req, res, next) => {
 // 404 error fallback
 app.use(errorController.get404);
 
+// Central error handler
+app.use((err, req, next) => {
+  logger.error(err);
+  const status = err.status || 500;
+  res.status(status).json({
+    err: status >= 500 ? 'Internal Server Error' : err.message
+  });
+});
+
+// Safety nets
+process.on('unhandledRejection', (reason) => logger.error(reason));
+process.on('uncaughtException', (err) => { logger.error(err); process.exit(1); })
+
 // Start server
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
