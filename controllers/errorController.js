@@ -15,16 +15,8 @@ exports.get404 = (req, res, next) => {
 
 // Controller for handling generic errors
 exports.get500 = (err, req, res, next) => {
-    logger.error(`Server Error ${err.message}`);
-        if (err.stack) {
-            logger.error(err.stack);
-        }
-
-    res.status(500).render('500', {
+    res.status(err.status || 500).render('500', {
         pageTitle: 'Server Error',
-        statusCode: 500,
-        message: 'An unexpected error occurred',
-        err: err,
-        showstack: process.env.NODE_ENV !== 'production',
+        showstack: process.env.NODE_ENV !== 'production' ? err.stack : null
     });
 };
