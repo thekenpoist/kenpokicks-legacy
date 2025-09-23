@@ -57,7 +57,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Access logging
 const stream = { write: (msg) => accessLogger.info(msg.trim()) };
-app.use(morgan('combined', { stream }));
+app.use(morgan('combined', { 
+  stream,
+  skip: (req) => req.path === '/favicon.ico' || req.path === '/health'
+ }));
 
 // Middleware: JSON/form parsing
 app.use(express.urlencoded({ extended: true }));
