@@ -28,6 +28,9 @@ const app = express();
 app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, 'views'));
 
+// Tust proxy
+app.set('trust proxy', 1);
+
 // Add a helper function to make path aliases work
 app.locals.basedir = path.join(__dirname, 'views');
 
@@ -37,12 +40,12 @@ const isProd = process.env.NODE_ENV === 'production';
 app.use(helmet({
   // Keep Helmet’s default CSP, etc.
   referrerPolicy: { policy: 'strict-origin-when-cross-origin' }, // override default
-  xFrameOptions: { action: 'deny' }, // legacy but fine for old browsers
+  frameguard: { action: 'deny' }, // legacy but fine for old browsers
   crossOriginResourcePolicy: { policy: 'same-origin' },
   crossOriginOpenerPolicy: { policy: 'same-origin' },
 
   // Only send HSTS in prod
-  strictTransportSecurity: isProd ? {
+  hsts: isProd ? {
     maxAge: 31536000,
     includeSubDomains: true,
     preload: false,
@@ -96,20 +99,26 @@ app.use((err, req, res, next) => {
 // 404 error fallback
 app.use(errorController.get404);
 
-// Central error handler
-app.use((err, req, next) => {
+// Final error handler
+app.use((err, req, res, next) => {
   logger.error(err);
-  const status = err.status || 500;
-  res.status(status).json({
-    err: status >= 500 ? 'Internal Server Error' : err.message
-  });
+  if (res.headersSetn) return next(err);
+  return errorController.get500(err, req, res, next);
 });
 
 // Safety nets
-process.on('unhandledRejection', (reason) => logger.error(reason));
-process.on('uncaughtException', (err) => { logger.error(err); process.exit(1); })
+process.once('unhandledRejection', (reason) => {
+  const err = reason instanceof Error ? reason : new Error(String(reason));
+  logger.error(reason);
+  if (isProd) process.exit(1);
+});
+
+process.once('uncaughtException', (err) => { 
+  logger.error(err); 
+  process.exit(1); 
+});
 
 // Start server
 app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
+    logger.info(`Kenpokicks listening on port ${PORT}`);
 });
