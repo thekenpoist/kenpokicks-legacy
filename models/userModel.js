@@ -6,10 +6,6 @@ module.exports = (sequelize) => {
     static associate(models) {
       // define association here
     }
-
-    get fullName() {
-      return `${this.firstName} ${this.lastName}`.trim();
-    }
   }
 
   User.init({
@@ -39,6 +35,14 @@ module.exports = (sequelize) => {
     lastName: {
       type: DataTypes.STRING,
       allowNull: false
+    },
+    fullName: {
+      type: DataTypes.VIRTUAL,
+      get() {
+        const first = this.getDataValue('firstName') || '';
+        const last = this.getDataValue('lastName') || '';
+        return [first, last].filter(Boolean).join(' ');
+      }
     },
     rank: {
       type: DataTypes.STRING,
