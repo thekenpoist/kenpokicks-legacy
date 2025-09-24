@@ -10,6 +10,6 @@ block content
         ul.divide-y.divide-gray-200
           each user in allUsers
             li.py-3
-              a(href=`/admin/${allUsers.uuid}/edit`, class="text-blue-600 hover:underline") #{allUsers.fullName} #{allUsers.username} #{allUsers.email}
+              a(href=`/admin/${allUsers.uuid}/edit`, class="text-blue-600 hover:underline") #{user.fullName} #{user.username} #{user.email}
       else
         p.text-gray-500 No users found.
