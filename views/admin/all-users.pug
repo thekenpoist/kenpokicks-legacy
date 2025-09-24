@@ -1,0 +1,15 @@
+extends ../layouts/admin-layout.pug
+
+block content
+  .flex.items-center.justify-between.mb-6
+    a(href="/admin" class="text-blue-600 hover:underline") ← Back to Admin Console
+
+  .bg-white.shadow-lg.rounded-xl.p-6
+    .mt-2(style="max-height: calc(100vh - 260px); overflow-y: auto;")
+      if allUsers && allUsers.length
+        ul.divide-y.divide-gray-200
+          each user in allUsers
+            li.py-3
+              a(href=`/admin/${allUsers.uuid}/edit`, class="text-blue-600 hover:underline") #{allUsers.fullName} #{allUsers.username} #{allUsers.email}
+      else
+        p.text-gray-500 No users found.
