@@ -7,5 +7,7 @@ const router = express.Router();
 
 router.get('/', isAuthenticated, requireRole('admin'), adminController.getAdminConsole);
 
+router.get('/all', isAuthenticated, requireRole('admin'), adminController.getAllUsers)
+
 
 module.exports = router;
