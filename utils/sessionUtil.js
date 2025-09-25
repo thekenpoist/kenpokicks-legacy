@@ -1,4 +1,4 @@
-const logger = require('../utils/loggerUtil');
+const { logger } = require('../utils/loggerUtil');
 
 function logoutAndRedirect(req, res, redirectPath, queryParam = '') {
     req.session.destroy(err => {
