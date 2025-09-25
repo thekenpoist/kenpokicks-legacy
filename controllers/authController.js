@@ -4,7 +4,7 @@ const argon2 = require('argon2');
 const { Op } = require('sequelize');
 const { sendVerificationEmail } = require('../utils/sendVerificationEmailUtil');
 const { v4: uuidv4 } = require('uuid');
-const logger = require('../utils/loggerUtil');
+const { logger } = require('../utils/loggerUtil');
 
 exports.getSignup = (req, res, next) => {
     res.render('auth/signup', {

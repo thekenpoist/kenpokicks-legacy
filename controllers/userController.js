@@ -5,7 +5,7 @@ const { Op } = require('sequelize')
 const { v4: uuidv4 } = require('uuid');
 const { renderServerError } = require('../utils/errorUtil');
 const { sendVerificationEmail } = require('../utils/sendVerificationEmailUtil');
-const logger = require('../utils/loggerUtil');
+const { logger } = require('../utils/loggerUtil');
 const { logoutAndRedirect } = require('../utils/sessionUtil');
 const { rmSync } = require('fs');
 

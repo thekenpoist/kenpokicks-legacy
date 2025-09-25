@@ -1,5 +1,5 @@
 const { getFaqs } = require('../utils/faqUtil');
-const logger = require('../utils/loggerUtil');
+const { logger } = require('../utils/loggerUtil');
 
 
 exports.getIndex = (req, res, next) => {

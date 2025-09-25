@@ -3,7 +3,7 @@ const { User, TrainingLog } = require('../models');
 const { DATE } = require('sequelize');
 const { renderServerError } = require('../utils/errorUtil');
 const { formatInTimeZone, zonedTimeToUtc, utcToZonedTime } = require('date-fns-tz');
-const logger = require('../utils/loggerUtil');
+const { logger } = require('../utils/loggerUtil');
 
 exports.getCreateTrainingLog = (req, res, next) => {
     const now = new Date();

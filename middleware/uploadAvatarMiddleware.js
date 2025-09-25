@@ -2,7 +2,7 @@ const multer = require('multer');
 const sharp = require('sharp');
 const path = require('path');
 const fs = require('fs');
-const logger = require('../utils/loggerUtil');
+const { logger } = require('../utils/loggerUtil');
 
 const tempDir = 'temp/uploads';
 const finalDir = 'public/uploads/avatars';

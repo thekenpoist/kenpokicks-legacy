@@ -65,3 +65,7 @@ exports.getAllUsers = async (req, res, next) => {
         return renderServerError(res, err, 'portal/dashboard');
     }
 };
+
+exports.getEditUser = async (req, res, next) => {
+    
+}

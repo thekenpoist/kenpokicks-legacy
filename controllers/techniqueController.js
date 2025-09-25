@@ -1,7 +1,7 @@
 const { Technique } = require('../models');
 const { validationResult } = require('express-validator');
 const { renderServerError } = require('../utils/errorUtil')
-const logger = require('../utils/loggerUtil');
+const { logger } = require('../utils/loggerUtil');
 const { techAttackAngle, beltColor, techGroup } = require('../utils/constants');
 
 
