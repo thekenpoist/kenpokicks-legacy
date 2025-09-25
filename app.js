@@ -22,14 +22,22 @@ const PORT = process.env.PORT || 3000;
 const helmet = require('helmet');
 const morgan = require('morgan');
 const { logger, accessLogger } = require ('./utils/loggerUtil');
+const { vf: uuidv4 } = require('uuid');
 const app = express();
 
 // Set Pug as the view engine
 app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, 'views'));
 
-// Tust proxy
+// Trust proxy
 app.set('trust proxy', 1);
+
+// Add/confirm request ID before logging
+app.use((req, res, next) => {
+  req.id = req.headers['x-request-id'] || uuidv4();
+  res.setHeader('X-Request-Id', req.id);
+  next();
+});
 
 // Add a helper function to make path aliases work
 app.locals.basedir = path.join(__dirname, 'views');
