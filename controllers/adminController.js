@@ -120,7 +120,7 @@ exports.getEditUser = async (req, res, next) => {
                 },
                 submitLabel: 'Update Profile',
                 formMode: 'edit',
-                formAction: '/admin/users/${userUuid}/update'
+                formAction: `/admin/users/${userUuid}/update`
             });
         } catch (err) {
             logger.error(`Error fetching user profile: ${err.message}`);

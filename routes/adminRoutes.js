@@ -9,5 +9,7 @@ router.get('/', isAuthenticated, requireRole('admin'), adminController.getAdminC
 
 router.get('/all', isAuthenticated, requireRole('admin'), adminController.getAllUsers)
 
+router.get('/users/:uuid/edit', isAuthenticated, requireRole('admin'), adminController.getEditUser);
+
 
 module.exports = router;
