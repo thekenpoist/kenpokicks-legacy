@@ -1,0 +1,89 @@
+//- views/admin/edit-user-profile.pug
+extends ../layouts/admin-layout.pug
+
+block content
+  .flex.items-center.justify-between.mb-6
+    a(href="/admin", class="text-blue-600 hover:underline") ← Back to Admin Console
+    h1(class="text-xl font-semibold")= pageTitle
+
+  //- Main card
+  .bg-white.shadow-lg.rounded-xl.p-6
+    if errorMessage
+      .mb-4.text-red-600.text-sm= errorMessage
+
+    form(method="POST", action=formAction, novalidate)
+      if typeof csrfToken !== 'undefined'
+        input(type="hidden", name="_csrf", value=csrfToken)
+
+      .space-y-4
+        .grid.grid-cols-1.gap-4
+          .form-group
+            label.block.text-sm.font-medium.mb-1(for="username") Username
+            input#username(type="text", name="username", required, value=formData.username, class="w-full border border-gray-300 rounded-lg px-3 py-2")
+
+          .form-group
+            label.block.text-sm.font-medium.mb-1(for="firstName") First Name
+            input#firstName(type="text", name="firstName", required, value=formData.firstName, class="w-full border border-gray-300 rounded-lg px-3 py-2")
+
+          .form-group
+            label.block.text-sm.font-medium.mb-1(for="lastName") Last Name
+            input#lastName(type="text", name="lastName", required, value=formData.lastName, class="w-full border border-gray-300 rounded-lg px-3 py-2")
+
+          .form-group
+            label.block.text-sm.font-medium.mb-1(for="email") Email
+            input#email(type="email", name="email", required, value=formData.email, class="w-full border border-gray-300 rounded-lg px-3 py-2")
+
+          .form-group
+            label.block.text-sm.font-medium.mb-1(for="confirmEmail") Confirm Email
+            input#confirmEmail(type="email", name="confirmEmail", required, value=formData.confirmEmail, class="w-full border border-gray-300 rounded-lg px-3 py-2")
+
+          .form-group
+            label.block.text-sm.font-medium.mb-1(for="style") Style
+            input#style(type="text", name="style", value=formData.style, class="w-full border border-gray-300 rounded-lg px-3 py-2")
+
+          .form-group
+            label.block.text-sm.font-medium.mb-1(for="rank") Rank
+            input#rank(type="text", name="rank", value=formData.rank, class="w-full border border-gray-300 rounded-lg px-3 py-2")
+
+          .form-group
+            label.block.text-sm.font-medium.mb-1(for="timezone") Timezone
+            input#timezone(type="text", name="timezone", value=formData.timezone, placeholder="America/Los_Angeles", class="w-full border border-gray-300 rounded-lg px-3 py-2")
+
+      .mt-4
+        button(type="submit", class="inline-flex items-center px-4 py-2 rounded-lg bg-blue-600 text-white")= submitLabel
+
+  //- Account controls card
+  .bg-white.shadow-lg.rounded-xl.p-6.mt-6
+    h2(class="text-lg font-semibold mb-4") Account Controls
+
+    //- Reset Password (send reset link)
+    form(method="POST", action=(formAction && formAction.replace('/update','/reset-password')))
+      if typeof csrfToken !== 'undefined'
+        input(type="hidden", name="_csrf", value=csrfToken)
+      .flex.items-center.justify-between.gap-3
+        span(class="text-sm") Send a password reset link to this user
+        button(type="submit", class="px-3 py-2 rounded-lg bg-gray-200") Reset Password
+
+    hr(class="my-4")
+
+    //- Suspend user
+    form(method="POST", action=(formAction && formAction.replace('/update','/suspend')))
+      if typeof csrfToken !== 'undefined'
+        input(type="hidden", name="_csrf", value=csrfToken)
+      .flex.items-center.justify-between.gap-3
+        span(class="text-sm") Prevent login until reactivated
+        button(type="submit", class="px-3 py-2 rounded-lg bg-yellow-300") Suspend User
+
+    hr(class="my-4")
+
+    //- Deactivate or Delete user
+    form(method="POST", action=(formAction && formAction.replace('/update','/deactivate')))
+      if typeof csrfToken !== 'undefined'
+        input(type="hidden", name="_csrf", value=csrfToken)
+      .flex.items-center.justify-between.gap-3
+        span(class="text-sm") Proceed to deactivate or delete on the next step
+        button(
+          type="submit",
+          class="px-3 py-2 rounded-lg bg-red-500 text-white",
+          onclick='return confirm("Proceed with account removal")'
+        ) Deactivate or Delete User
