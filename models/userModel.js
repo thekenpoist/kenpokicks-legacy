@@ -91,7 +91,15 @@ module.exports = (sequelize) => {
     sequelize,
     modelName: 'User',
     tableName: 'users',
-    timestamps: true
+    timestamps: true,
+    defaultScope: { attributes: { exclude: ['password','verificationToken'] } },
+    scopes: {
+      auth:   { attributes: { include: ['password','failedLoginAttempts','lockoutUntil','isVerified','role'] } },
+      verify: { attributes: { include: ['verificationToken'] } },
+      forEdit:{ attributes: ['uuid','username','firstName','lastName','email','style','rank','timezone','role','isVerified','avatar','lastLoggedIn'] },
+      forList:{ attributes: ['uuid','username','email','role','rank','style','isVerified','lastLoggedIn'] }
+    }
+
   });
 
   return User;
