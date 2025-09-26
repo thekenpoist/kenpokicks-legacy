@@ -82,6 +82,14 @@ exports.getEditUser = async (req, res, next) => {
         return res.redirect('/auth/login');
     }
 
+    if (user.role !== 'admin') {
+        return res.status(403).render('403', {
+            pageTitle: 'Access Denied',
+            currentPage: 'portal/dashboard',
+            layout: 'layouts/dashboard-layout'
+        });
+    }
+
     try {
         const userProfile = await User.findByPk(userUuid);
 
