@@ -67,5 +67,47 @@ exports.getAllUsers = async (req, res, next) => {
 };
 
 exports.getEditUser = async (req, res, next) => {
-    
-}
+    const user = res.locals.currentUser;
+    const userUuid = req.params.uuid;
+
+    if (!user) {
+        return res.redirect('/auth/login');
+    }
+
+    try {
+        const userProfile = await User.findByPk(userUuid);
+
+        if (!userProfile) {
+            return res.status(404).render('404', {
+                pageTitle: 'User profile not found',
+                currentPage: 'users'
+            });
+        }
+
+        res.render('admin/edit-user-profile', {
+                pageTitle: "Edit User Profile",
+                currentPage: 'profile',
+                layout: 'layouts/admin-layout',
+                errorMessage: null,
+                formData: {
+                    username: userProfile.username,
+                    firstName: userProfile.firstName,
+                    lastName: userProfile.lastName,
+                    email: userProfile.email,
+                    confirmEmail: userProfile.email,
+                    style: userProfile.style || '',
+                    rank: userProfile.rank || '',
+                    timezone: userProfile.timezone || ''
+                },
+                submitLabel: 'Update Profile',
+                formMode: 'edit',
+                formAction: '/profiles/edit-profile'
+            });
+        } catch (err) {
+            logger.error(`Error fetching user profile: ${err.message}`);
+            if (err.stack) {
+                logger.error(err.stack);
+            }
+            return renderServerError(res, err, 'users');
+    }
+};
