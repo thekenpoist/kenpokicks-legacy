@@ -91,18 +91,21 @@ exports.getEditUser = async (req, res, next) => {
     }
 
     try {
-        const userProfile = await User.findByPk(userUuid);
+        const userProfile = await User.findByPk(userUuid, {
+            attributes: ['uuid','username','firstName','lastName','email','style','rank','timezone', 'fullName']
+        });
 
         if (!userProfile) {
             return res.status(404).render('404', {
                 pageTitle: 'User profile not found',
+                layout: 'layouts/admin-layout',
                 currentPage: 'users'
             });
         }
 
-        res.render('admin/edit-user-profile', {
+        return res.render('admin/edit-user-profile', {
                 pageTitle: "Edit User Profile",
-                currentPage: 'profile',
+                currentPage: 'users',
                 layout: 'layouts/admin-layout',
                 errorMessage: null,
                 formData: {
@@ -117,7 +120,7 @@ exports.getEditUser = async (req, res, next) => {
                 },
                 submitLabel: 'Update Profile',
                 formMode: 'edit',
-                formAction: '/profiles/edit-profile'
+                formAction: '/admin/users/${userUuid}/update'
             });
         } catch (err) {
             logger.error(`Error fetching user profile: ${err.message}`);
