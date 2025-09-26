@@ -39,6 +39,14 @@ exports.getAllUsers = async (req, res, next) => {
         return res.redirect('/auth/login');
     }
 
+    if (user.role !== 'admin') {
+        return res.status(403).render('403', {
+            pageTitle: 'Access Denied',
+            currentPage: 'portal/dashboard',
+            layout: 'layouts/dashboard-layout'
+        });
+    }
+
     try {
         const allUsers = await User.findAll();
         const usersPlain = allUsers.map(u => u.get({ plain: true }));
