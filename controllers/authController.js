@@ -114,7 +114,10 @@ exports.getCheckEmail = (req, res) => {
 };
 
 exports.getVerifyEmail = async (req, res, next) => {
-    const user = await User.findOne({ where: { verificationToken: req.query.token }});
+    const user = await User.findOne({
+        where: { verificationToken: req.query.token }
+    });
+
     logger.info(`Received verification token "${req.query.token}" for user: ${user.email}`);
 
     if (user) {

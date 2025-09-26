@@ -92,7 +92,7 @@ module.exports = (sequelize) => {
     modelName: 'User',
     tableName: 'users',
     timestamps: true,
-    defaultScope: { attributes: { exclude: ['password','verificationToken'] } },
+    // defaultScope: { attributes: { exclude: ['password','verificationToken'] } },
     scopes: {
       auth:   { attributes: { include: ['password','failedLoginAttempts','lockoutUntil','isVerified','role'] } },
       verify: { attributes: { include: ['verificationToken'] } },
