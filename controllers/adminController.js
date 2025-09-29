@@ -3,6 +3,8 @@ const { Op } = require('sequelize');
 const { logger } = require('../utils/loggerUtil');
 const { renderServerError } = require('../utils/errorUtil');
 const { validationResult } = require('express-validator');
+const { v4: uuidv4 } = require('uuid');
+const { sendVerificationEmail } = require('../utils/sendVerificationEmailUtil');
 
 
 
@@ -135,7 +137,7 @@ exports.getEditUser = async (req, res, next) => {
 
 exports.postEditUser = async (req, res, next) => {
     const user = res.locals.currentUser;
-    const userUuid = req.params.uuid;
+    const { uuid } = req.params;
 
     if (!user) {
         return res.redirect('/auth/login');
@@ -149,5 +151,103 @@ exports.postEditUser = async (req, res, next) => {
         });
     }
 
-    // Need tp finish postEditUser
-}
+    if (!errors.isEmpty()) {
+        const userEmail = res?.locals?.currentUser?.email || 'unknown';
+
+        logger.warn(`Validation failed during profile update for user: ${userEmail}`);
+        errors.array().forEach(err => {
+            const field = err.param || 'unknown';
+            logger.warn(`• ${field}: ${err.msg}`);
+        });
+
+        return res.status(422).render('profiles/edit-profile', {
+            pageTitle: 'Edit Profile',
+            currentPage: 'profile',
+            errorMessage: errors.array().map(e => e.msg).join(', '),
+            formData: req.body
+        });
+    }
+
+    try {
+        const {
+            email,
+            firstName,
+            lastName,
+            username,
+            rank,
+            style,
+            timezone
+        } = req.body;
+
+        const trimmedEmail = email.trim().toLowerCase();
+        const trimmedUsername = username.trim().toLowerCase();
+
+        const emailChanged = trimmedEmail !== user.email.toLowerCase();
+
+        const existingUser = await User.findOne({
+            where: {
+                [Op.or]: [
+                    { email: trimmedEmail },
+                    { username: trimmedUsername }
+                ],
+                uuid: { [Op.ne]: uuid }
+            }
+        });
+
+        if (existingUser) {
+            let errorMsg = 'Username or email already in use';
+            if (existingUser.email === trimmedEmail) {
+                errorMsg = 'Email is already registered';
+            } else if (existingUser.username === trimmedUsername) {
+                errorMsg = 'Username is already taken';
+            }
+
+            return res.status(400).render('profiles/edit-profile', {
+                pageTitle: 'Edit Profile',
+                currentPage: 'profile',
+                errorMessage: errorMsg,
+                formData: req.body
+            });
+        }
+
+        const updatedFields = {
+            username: trimmedUsername || user.username,
+            email: user.email,
+            firstName: firstName || user.firstName,
+            lastName: lastName || user.lastName,
+            style: style || user.style,
+            rank: rank || user.rank,
+            avatar: req.avatarPath || user.avatar,
+            timezone: timezone || user.timezone,
+            updatedAt: new Date()
+        };
+
+        // Handle email update and re-verification
+        if (emailChanged) {
+            const verificationToken = uuidv4();
+            updatedFields.email = trimmedEmail;
+            updatedFields.isVerified = false;
+            updatedFields.verificationToken = verificationToken;
+            await sendVerificationEmail(trimmedEmail, verificationToken);
+        }
+
+        await User.update(updatedFields, { where: { uuid } });
+        const updatedUser = await User.findOne({ where: { uuid } });
+        res.locals.currentUser = updatedUser;
+
+        // req.flash('success', 'Profile updated successfully.');
+        return res.redirect(`/admin/users/${uuid}/update`);
+
+    } catch (err) {
+        logger.error(`Error updating user: ${err.message}`);
+        if (err.stack) {
+            logger.error(err.stack);
+        }
+        res.status(500).render('profiles/edit-profile', {
+            pageTitle: 'Edit Profile',
+            currentPage: 'profile',
+            errorMessage: 'Something went wrong. Please try again.',
+            formData: req.body
+        });
+    }
+};
