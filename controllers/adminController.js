@@ -151,6 +151,8 @@ exports.postEditUser = async (req, res, next) => {
         });
     }
 
+    const errors = validationResult(req);
+
     if (!errors.isEmpty()) {
         const userEmail = res?.locals?.currentUser?.email || 'unknown';
 
