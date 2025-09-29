@@ -2,6 +2,8 @@ const { User } = require('../models');
 const { Op } = require('sequelize');
 const { logger } = require('../utils/loggerUtil');
 const { renderServerError } = require('../utils/errorUtil');
+const { validationResult } = require('express-validator');
+
 
 
 exports.getAdminConsole = async (req, res, next) => {
@@ -130,3 +132,22 @@ exports.getEditUser = async (req, res, next) => {
             return renderServerError(res, err, 'users');
     }
 };
+
+exports.postEditUser = async (req, res, next) => {
+    const user = res.locals.currentUser;
+    const userUuid = req.params.uuid;
+
+    if (!user) {
+        return res.redirect('/auth/login');
+    }
+
+    if (user.role !== 'admin') {
+        return res.status(403).render('403', {
+            pageTitle: 'Access Denied',
+            currentPage: 'portal/dashboard',
+            layout: 'layouts/dashboard-layout'
+        });
+    }
+
+    // Need tp finish postEditUser
+}
