@@ -174,6 +174,17 @@ exports.postEditUser = async (req, res, next) => {
         });
     }
 
+    const targetUser = await User.findByPk(uuid, {
+        attributes: ['uuid', 'email', 'username', 'firstName', 'lastName', 'style', 'rank', 'avatar', 'timezone']
+    });
+    if (!targetUser) {
+        return res.status(404).render('404', {
+            pageTitle: 'User profile not found',
+            currentPage: 'users',
+            layout: 'layouts/admin-layout'
+        });
+    }
+
     try {
         const {
             email,
@@ -188,9 +199,9 @@ exports.postEditUser = async (req, res, next) => {
         const trimmedEmail = email.trim().toLowerCase();
         const trimmedUsername = username.trim().toLowerCase();
 
-        const emailChanged = trimmedEmail !== user.email.toLowerCase();
+        const emailChanged = trimmedEmail !== targetUser.email.toLowerCase();
 
-        const existingUser = await User.findOne({
+   /*     const existingUser = await User.findOne({
             where: {
                 [Op.or]: [
                     { email: trimmedEmail },
@@ -198,13 +209,13 @@ exports.postEditUser = async (req, res, next) => {
                 ],
                 uuid: { [Op.ne]: uuid }
             }
-        });
+        }); */
 
-        if (existingUser) {
+        if (targetUser) {
             let errorMsg = 'Username or email already in use';
-            if (existingUser.email === trimmedEmail) {
+            if (targetUser.email === trimmedEmail) {
                 errorMsg = 'Email is already registered';
-            } else if (existingUser.username === trimmedUsername) {
+            } else if (targetUser.username === trimmedUsername) {
                 errorMsg = 'Username is already taken';
             }
 
@@ -221,14 +232,14 @@ exports.postEditUser = async (req, res, next) => {
         }
 
         const updatedFields = {
-            username: trimmedUsername || user.username,
-            email: user.email,
-            firstName: firstName || user.firstName,
-            lastName: lastName || user.lastName,
-            style: style || user.style,
-            rank: rank || user.rank,
-            avatar: req.avatarPath || user.avatar,
-            timezone: timezone || user.timezone,
+            username: trimmedUsername || targetUser.username,
+            email: targetUser.email,
+            firstName: firstName || targetUser.firstName,
+            lastName: lastName || targetUser.lastName,
+            style: style || targetUser.style,
+            rank: rank || targetUser.rank,
+            avatar: req.avatarPath || targetUser.avatar,
+            timezone: timezone || targetUser.timezone,
             updatedAt: new Date()
         };
 
@@ -243,10 +254,9 @@ exports.postEditUser = async (req, res, next) => {
 
         await User.update(updatedFields, { where: { uuid } });
         const updatedUser = await User.findOne({ where: { uuid } });
-        res.locals.currentUser = updatedUser;
 
         // req.flash('success', 'Profile updated successfully.');
-        return res.redirect(`/admin/users/${uuid}/update`);
+        return res.redirect(`/admin/users/${uuid}/edit`);
 
     } catch (err) {
         logger.error(`Error updating user: ${err.message}`);
