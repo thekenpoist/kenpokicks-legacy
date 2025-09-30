@@ -136,14 +136,14 @@ exports.getEditUser = async (req, res, next) => {
 };
 
 exports.postEditUser = async (req, res, next) => {
-    const user = res.locals.currentUser;
+    const admin = res.locals.currentUser;
     const { uuid } = req.params;
 
-    if (!user) {
+    if (!admin) {
         return res.redirect('/auth/login');
     }
 
-    if (user.role !== 'admin') {
+    if (admin.role !== 'admin') {
         return res.status(403).render('403', {
             pageTitle: 'Access Denied',
             currentPage: 'portal/dashboard',
@@ -152,15 +152,9 @@ exports.postEditUser = async (req, res, next) => {
     }
 
     const errors = validationResult(req);
-
     if (!errors.isEmpty()) {
-        const userEmail = res?.locals?.currentUser?.email || 'unknown';
-
-        logger.warn(`Validation failed during profile update for user: ${userEmail}`);
-        errors.array().forEach(err => {
-            const field = err.param || 'unknown';
-            logger.warn(`• ${field}: ${err.msg}`);
-        });
+        logger.warn(`[admin.postEditUser] validation failed for uuid=${uuid}`);
+        errors.array().forEach(err => logger.warn(`• ${err.param || 'field'} ${err.msg}`));
 
         return res.status(422).render('admin/edit-user-profile', {
             pageTitle: 'Edit User Profile',
@@ -174,92 +168,139 @@ exports.postEditUser = async (req, res, next) => {
         });
     }
 
-    const targetUser = await User.findByPk(uuid, {
-        attributes: ['uuid', 'email', 'username', 'firstName', 'lastName', 'style', 'rank', 'avatar', 'timezone']
-    });
-    if (!targetUser) {
-        return res.status(404).render('404', {
-            pageTitle: 'User profile not found',
-            currentPage: 'users',
-            layout: 'layouts/admin-layout'
-        });
-    }
+    try { 
 
-    try {
+        const targetUser = await User.findByPk(uuid, {
+            attributes: [
+                'uuid', 'email', 'username', 'firstName', 'lastName', 
+                'style', 'rank', 'avatar', 'timezone', 'isVerified', 'verificationToken'
+            ]
+        });
+        if (!targetUser) {
+            return res.status(404).render('404', {
+                pageTitle: 'User profile not found',
+                currentPage: 'users',
+                layout: 'layouts/admin-layout'
+            });
+        }
+
         const {
-            email,
-            firstName,
-            lastName,
-            username,
-            rank,
-            style,
-            timezone
+            email = '',
+            confirmEmail = '',
+            firstName = '',
+            lastName = '',
+            username = '',
+            rank = '',
+            style = '',
+            timezone = ''
         } = req.body;
 
-        const trimmedEmail = email.trim().toLowerCase();
-        const trimmedUsername = username.trim().toLowerCase();
+        const normalizedInput = {
+            email: email.trim().toLowerCase(),
+            confirmEmail: confirmEmail.trim().toLowerCase(),
+            username: username.trim().toLowerCase(),
+            firstName: firstName.trim(),
+            lastName: lastName.trim(),
+            rank: rank.trim(),
+            style: style.trim(),
+            timezone: timezone.trim()
+        };
 
-        const emailChanged = trimmedEmail !== targetUser.email.toLowerCase();
+        if (!normalizedInput.email || normalizedInput.email !== normalizedInput.confirmEmail) {
+            return res.status(422).render('admin/edit-user-profile', {
+                pageTitle: 'Edit User Profile',
+                currentPage: 'users',
+                layout: 'layouts/admin-layout',
+                errorMessage: errors.array().map(e => e.msg).join(', '),
+                formData: {
+                    username: normalizedInput.username,
+                    firstName: normalizedInput.firstName,
+                    lastName: normalizedInput.lastName,
+                    email: normalizedInput.email,
+                    confirmEmail: normalizedInput.confirmEmail,
+                    style: normalizedInput.style,
+                    rank: normalizedInput.rank,
+                    timezone: normalizedInput.timezone
+                },
+                submitLabel: 'Update Profile',
+                formMode: 'edit',
+                formAction: `/admin/users/${uuid}/update`
+        });
+        }
+        
 
-   /*     const existingUser = await User.findOne({
+        const conflict = await User.findOne({
             where: {
-                [Op.or]: [
-                    { email: trimmedEmail },
+                [Op.and]: [
+                    { uuid: { [Op.ne]: uuid } },
+                    { [Op.or]: [{ email: normalizedInput.email }, { username: normalizedInput.username }] },
                     { username: trimmedUsername }
-                ],
-                uuid: { [Op.ne]: uuid }
-            }
-        }); */
+                ]
+            },
+            attributes: ['uuid', 'email', 'username']
+        }); 
 
-        if (targetUser) {
-            let errorMsg = 'Username or email already in use';
-            if (targetUser.email === trimmedEmail) {
-                errorMsg = 'Email is already registered';
-            } else if (targetUser.username === trimmedUsername) {
-                errorMsg = 'Username is already taken';
-            }
+        if (conflict) {
+            const errorMsg = 
+                conflict.email === normalizedInput.email
+                    ? 'Email is already registered'
+                    : 'Username is already taken';
 
             return res.status(400).render('admin/edit-user-profile', {
                 pageTitle: 'Edit User Profile',
                 currentPage: 'users',
                 layout: 'layouts/admin-layout',
                 errorMessage: errorMsg,
-                formData: req.body,
+                formData: {
+                    username: normalizedInput.username,
+                    firstName: normalizedInput.firstName,
+                    lastName: normalizedInput.lastName,
+                    email: normalizedInput.email,
+                    confirmEmail: normalizedInput.confirmEmail,
+                    style: normalizedInput.style,
+                    rank: normalizedInput.rank,
+                    timezone: normalizedInput.timezone
+                },
                 submitLabel: 'Update Profile',
                 formMode: 'edit',
                 formAction: `/admin/users/${uuid}/update`
             });
         }
 
+        const emailChanged = normalizedInput.email !== targetUser.email.toLowerCase();
         const updatedFields = {
-            username: trimmedUsername || targetUser.username,
+            username: normalizedInput.username || targetUser.username,
             email: targetUser.email,
-            firstName: firstName || targetUser.firstName,
-            lastName: lastName || targetUser.lastName,
-            style: style || targetUser.style,
-            rank: rank || targetUser.rank,
+            firstName: normalizedInput.firstName || targetUser.firstName,
+            lastName: normalizedInput.lastName || targetUser.lastName,
+            style: normalizedInput.style || targetUser.style,
+            rank: normalizedInput.rank || targetUser.rank,
             avatar: req.avatarPath || targetUser.avatar,
-            timezone: timezone || targetUser.timezone,
+            timezone: normalizedInput.timezone || targetUser.timezone,
             updatedAt: new Date()
         };
 
         // Handle email update and re-verification
         if (emailChanged) {
             const verificationToken = uuidv4();
-            updatedFields.email = trimmedEmail;
+            updatedFields.email = normalizedInput.email;
             updatedFields.isVerified = false;
             updatedFields.verificationToken = verificationToken;
-            await sendVerificationEmail(trimmedEmail, verificationToken);
         }
 
-        await User.update(updatedFields, { where: { uuid } });
-        const updatedUser = await User.findOne({ where: { uuid } });
+        try {
+            await sendVerificationEmail(normalizedInput.email, verificationToken);
+        } catch (mailErr) {
+            logger.error(`sendVerificationEmail failed for uuid=${uuid}: ${mailErr.message}`);
+        }
+
+        await targetUser.update(updatedFields);
 
         // req.flash('success', 'Profile updated successfully.');
         return res.redirect(`/admin/users/${uuid}/edit`);
 
     } catch (err) {
-        logger.error(`Error updating user: ${err.message}`);
+        logger.error(`Error updating user ${uuid}: ${err.message}`);
         if (err.stack) {
             logger.error(err.stack);
         }
