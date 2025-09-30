@@ -162,11 +162,15 @@ exports.postEditUser = async (req, res, next) => {
             logger.warn(`• ${field}: ${err.msg}`);
         });
 
-        return res.status(422).render('profiles/edit-profile', {
-            pageTitle: 'Edit Profile',
-            currentPage: 'profile',
+        return res.status(422).render('admin/edit-user-profile', {
+            pageTitle: 'Edit User Profile',
+            currentPage: 'users',
+            layout: 'layouts/admin-layout',
             errorMessage: errors.array().map(e => e.msg).join(', '),
-            formData: req.body
+            formData: req.body,
+            submitLabel: 'Update Profile',
+            formMode: 'edit',
+            formAction: `/admin/users/${uuid}/update`
         });
     }
 
@@ -204,11 +208,15 @@ exports.postEditUser = async (req, res, next) => {
                 errorMsg = 'Username is already taken';
             }
 
-            return res.status(400).render('profiles/edit-profile', {
-                pageTitle: 'Edit Profile',
-                currentPage: 'profile',
+            return res.status(400).render('admin/edit-user-profile', {
+                pageTitle: 'Edit User Profile',
+                currentPage: 'users',
+                layout: 'layouts/admin-layout',
                 errorMessage: errorMsg,
-                formData: req.body
+                formData: req.body,
+                submitLabel: 'Update Profile',
+                formMode: 'edit',
+                formAction: `/admin/users/${uuid}/update`
             });
         }
 
@@ -245,11 +253,15 @@ exports.postEditUser = async (req, res, next) => {
         if (err.stack) {
             logger.error(err.stack);
         }
-        res.status(500).render('profiles/edit-profile', {
-            pageTitle: 'Edit Profile',
-            currentPage: 'profile',
+        res.status(500).render('admin/edituser-profile', {
+            pageTitle: 'Edit User Profile',
+            currentPage: 'users',
+            layout: 'layouts/admin-layout',
             errorMessage: 'Something went wrong. Please try again.',
-            formData: req.body
+            formData: req.body,
+            submitLabel: 'Update Profile',
+            formMode: 'edit',
+            formAction: `/admin/users/${uuid}/update`
         });
     }
 };
