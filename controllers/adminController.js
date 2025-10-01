@@ -304,15 +304,6 @@ exports.postEditUser = async (req, res, next) => {
         if (err.stack) {
             logger.error(err.stack);
         }
-        res.status(500).render('admin/edituser-profile', {
-            pageTitle: 'Edit User Profile',
-            currentPage: 'users',
-            layout: 'layouts/admin-layout',
-            errorMessage: 'Something went wrong. Please try again.',
-            formData: req.body,
-            submitLabel: 'Update Profile',
-            formMode: 'edit',
-            formAction: `/admin/users/${uuid}/update`
-        });
+        return renderServerError(res, err, 'users');
     }
 };
