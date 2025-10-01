@@ -211,7 +211,7 @@ exports.postEditUser = async (req, res, next) => {
                 pageTitle: 'Edit User Profile',
                 currentPage: 'users',
                 layout: 'layouts/admin-layout',
-                errorMessage: errors.array().map(e => e.msg).join(', '),
+                errorMessage: 'Emails must match',
                 formData: {
                     username: normalizedInput.username,
                     firstName: normalizedInput.firstName,
@@ -234,7 +234,6 @@ exports.postEditUser = async (req, res, next) => {
                 [Op.and]: [
                     { uuid: { [Op.ne]: uuid } },
                     { [Op.or]: [{ email: normalizedInput.email }, { username: normalizedInput.username }] },
-                    { username: trimmedUsername }
                 ]
             },
             attributes: ['uuid', 'email', 'username']
@@ -276,8 +275,7 @@ exports.postEditUser = async (req, res, next) => {
             style: normalizedInput.style || targetUser.style,
             rank: normalizedInput.rank || targetUser.rank,
             avatar: req.avatarPath || targetUser.avatar,
-            timezone: normalizedInput.timezone || targetUser.timezone,
-            updatedAt: new Date()
+            timezone: normalizedInput.timezone || targetUser.timezone
         };
 
         // Handle email update and re-verification
@@ -286,12 +284,12 @@ exports.postEditUser = async (req, res, next) => {
             updatedFields.email = normalizedInput.email;
             updatedFields.isVerified = false;
             updatedFields.verificationToken = verificationToken;
-        }
 
-        try {
-            await sendVerificationEmail(normalizedInput.email, verificationToken);
-        } catch (mailErr) {
-            logger.error(`sendVerificationEmail failed for uuid=${uuid}: ${mailErr.message}`);
+            try {
+                await sendVerificationEmail(normalizedInput.email, verificationToken);
+            } catch (mailErr) {
+                logger.error(`sendVerificationEmail failed for uuid=${uuid}: ${mailErr.message}`);
+            }
         }
 
         await targetUser.update(updatedFields);
