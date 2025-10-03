@@ -171,6 +171,15 @@ exports.postLogin = async (req, res, next) => {
 
         }
 
+        if (user.suspendUntil && Date.now() < +user.suspendUntil) {
+            return res.status(401).render('auth/login', {
+                pageTitle: 'Login',
+                currentPage: 'login',
+                errorMessage: `Your account has been suspended.`
+            });
+
+        }
+
         if (!user.isVerified) {
             return res.status(401).render('auth/login', {
                 pageTitle: 'Login',
