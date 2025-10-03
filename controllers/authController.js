@@ -5,6 +5,7 @@ const { Op } = require('sequelize');
 const { sendVerificationEmail } = require('../utils/sendVerificationEmailUtil');
 const { v4: uuidv4 } = require('uuid');
 const { logger } = require('../utils/loggerUtil');
+const { assessUserLoginability } = require('../utils/authUtil');
 
 exports.getSignup = (req, res, next) => {
     res.render('auth/signup', {
@@ -153,47 +154,12 @@ exports.postLogin = async (req, res, next) => {
             }
         });
 
-        if (!user) {
+        const loginability = assessUserLoginability(user);
+        if (!loginability.ok) {
             return res.status(401).render('auth/login', {
                 pageTitle: 'Login',
                 currentPage: 'login',
-                errorMessage: 'Invalid credential'
-            });
-        }
-
-        if (user.deletedAt) {
-            return res.status(401).render('auth/login', {
-                pageTitle: 'Login',
-                currentPage: 'login',
-                errorMessage: 'Your account is not available at this time.'
-            });
-        }
-
-        if (user.lockoutUntil && new Date() < user.lockoutUntil) {
-            const minutesLeft = Math.ceil((user.lockoutUntil - new Date()) / 60000);
-            return res.status(401).render('auth/login', {
-                pageTitle: 'Login',
-                currentPage: 'login',
-                errorMessage: `Account locked. Try again in ${minutesLeft} minutes`
-            });
-
-        }
-
-        if (user.suspendUntil && Date.now() < +user.suspendUntil) {
-            const minutesLeft = Math.ceil((+user.suspendUntil - Date.now()) / 60000);
-            return res.status(401).render('auth/login', {
-                pageTitle: 'Login',
-                currentPage: 'login',
-                errorMessage: 'Your account is not available at this time.'
-            });
-
-        }
-
-        if (!user.isVerified) {
-            return res.status(401).render('auth/login', {
-                pageTitle: 'Login',
-                currentPage: 'login',
-                errorMessage: 'Please verify your account before logging in.'
+                errorMessage: loginability.message
             });
         }
 
