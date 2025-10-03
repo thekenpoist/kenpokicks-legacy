@@ -1,4 +1,5 @@
 'use strict';
+const { truncate } = require('fs');
 const { Model, DataTypes, DATE } = require('sequelize');
 
 module.exports = (sequelize) => {
@@ -86,20 +87,66 @@ module.exports = (sequelize) => {
     lockoutUntil: {
       type: DataTypes.DATE,
       allowNull: true
+    },
+    suspendUntil: {
+      type: DataTypes.DATE,
+      allowNull: true
+    },
+    statusReason: {
+      type: DataTypes.STRING,
+      allowNull: true
+    },
+    deletedAt: {
+      type: DataTypes.DATE,
+      allowNull: true
+    },
+    deletedBy: {
+      type: DataTypes.UUID,
+      allowNull: true
+    },
+    deleteReason: {
+      type: DataTypes.STRING(120),
+      allowNull: true
+    },
+    pwdResetTokenHash: {
+      type: DataTypes.STRING(64),
+      allowNull: true
+    },
+    pwdResetExpiresAt: {
+      type: DataTypes.DATE,
+      allowNull: true
+    },
+    pwdResetRequestedAt: {
+      type: DataTypes.DATE,
+      allowNull: true
+    },
+    pwdResetUsedAt: {
+      type: DataTypes.DATE,
+      allowNull: true
+    },
+    lastPasswordChangeAt: {
+      type: DataTypes.DATE,
+      allowNull: true
+    },
+    passwordVersion: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      defaultValue: 0
     }
   }, {
     sequelize,
     modelName: 'User',
     tableName: 'users',
     timestamps: true,
-    // defaultScope: { attributes: { exclude: ['password','verificationToken'] } },
     scopes: {
-      auth:   { attributes: { include: ['password','failedLoginAttempts','lockoutUntil','isVerified','role'] } },
-      verify: { attributes: { include: ['verificationToken'] } },
-      forEdit:{ attributes: ['uuid','username','firstName','lastName','email','style','rank','timezone','role','isVerified','avatar','lastLoggedIn'] },
-      forList:{ attributes: ['uuid','username','email','role','rank','style','isVerified','lastLoggedIn'] }
+      auth:   { attributes: { include: [
+        'password','failedLoginAttempts','lockoutUntil','isVerified','role',
+        'suspendUntil','deletedAt','passwordVersion','lastPasswordChangeAt'
+      ] } },
+      verify:  { attributes: { include: ['verificationToken'] } },
+      forEdit: { attributes: ['uuid','username','firstName','lastName','email','style','rank','timezone','role','isVerified','avatar','lastLoggedIn','suspendUntil','statusReason'] },
+      forList: { attributes: ['uuid','username','email','role','rank','style','isVerified','lastLoggedIn'] }
     }
-
   });
 
   return User;
