@@ -161,6 +161,14 @@ exports.postLogin = async (req, res, next) => {
             });
         }
 
+        if (user.deletedAt) {
+            return res.status(401).render('auth/login', {
+                pageTitle: 'Login',
+                currentPage: 'login',
+                errorMessage: 'Your account is not available at this time.'
+            });
+        }
+
         if (user.lockoutUntil && new Date() < user.lockoutUntil) {
             const minutesLeft = Math.ceil((user.lockoutUntil - new Date()) / 60000);
             return res.status(401).render('auth/login', {
@@ -172,10 +180,11 @@ exports.postLogin = async (req, res, next) => {
         }
 
         if (user.suspendUntil && Date.now() < +user.suspendUntil) {
+            const minutesLeft = Math.ceil((+user.suspendUntil - Date.now()) / 60000);
             return res.status(401).render('auth/login', {
                 pageTitle: 'Login',
                 currentPage: 'login',
-                errorMessage: `Your account has been suspended.`
+                errorMessage: 'Your account is not available at this time.'
             });
 
         }
