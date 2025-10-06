@@ -36,6 +36,49 @@ exports.getAdminConsole = async (req, res, next) => {
     });
 };
 
+exports.getOneUser = async (req, res, next) => {
+    const user = res.locals.currentUser;
+    const userUuid = req.params.uuid;
+
+    if (!user) {
+        return res.redirect('/auth/login');
+    }
+
+    if (user.role !== 'admin') {
+        return res.status(403).render('403', {
+            pageTitle: 'Access Denied',
+            currentPage: 'portal/dashboard',
+            layout: 'layouts/dashboard-layout'
+        });
+    }
+
+    try {
+        const oneUser = await TrainingLog.findByPk(userUuid);
+
+        if (!oneUser) {
+            return res.status(404).render('404', {
+                pageTitle: 'User not found',
+                layout: 'layouts/admin-layout',
+                currentPage: 'users'
+            });
+        }
+        res.render('admin/show-user', {
+            pageTitle: 'View User',
+            currentPage: 'users',
+            errorMessage: null,
+            log: oneUser
+        });
+    } catch (err) {
+        logger.error(`Error fetching user: ${err.message}`);
+        if (err.stack) {
+            logger.error(err.stack);
+        }
+
+        return renderServerError(res, err, 'users');
+    }
+};
+
+
 exports.getAllUsers = async (req, res, next) => {
     const user = res.locals.currentUser;
 
