@@ -53,7 +53,7 @@ exports.getOneUser = async (req, res, next) => {
     }
 
     try {
-        const oneUser = await TrainingLog.findByPk(userUuid);
+        const oneUser = await User.scope('forAdminShow').findByPk(userUuid);
 
         if (!oneUser) {
             return res.status(404).render('404', {
@@ -62,11 +62,11 @@ exports.getOneUser = async (req, res, next) => {
                 currentPage: 'users'
             });
         }
-        res.render('admin/show-user', {
+        res.render('admin/users/show', {
             pageTitle: 'View User',
             currentPage: 'users',
             errorMessage: null,
-            log: oneUser
+            user: oneUser
         });
     } catch (err) {
         logger.error(`Error fetching user: ${err.message}`);
@@ -77,7 +77,6 @@ exports.getOneUser = async (req, res, next) => {
         return renderServerError(res, err, 'users');
     }
 };
-
 
 exports.getAllUsers = async (req, res, next) => {
     const user = res.locals.currentUser;
