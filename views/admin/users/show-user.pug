@@ -1,0 +1,126 @@
+extends ../../layouts/admin-layout
+
+block content
+  .container
+    .flex.items-center.justify-between.mb-4
+      h1.text-2xl.font-semibold View User
+      .space-x-2
+        a.button.button-primary(href=`/admin/users/${user.uuid}/edit`) Edit User
+        a.button(href="/admin/users") ← Back to Users
+
+    // Identity
+    .card.mb-6
+      h2.card-title Identity
+      .grid.grid-cols-2.gap-4
+        .col
+          p
+            strong Full Name:
+            |  #{user.firstName} #{user.lastName}
+          p
+            strong Username:
+            |  #{user.username}
+          p
+            strong Email:
+            |  #{user.email}
+          p
+            strong Timezone:
+            |  #{user.timezone}
+        .col
+          if user.avatar
+            p
+              strong Avatar:
+              br
+              img(src=user.avatar alt="avatar" style="max-width:120px;border-radius:8px")
+          p
+            strong Role:
+            |  #{user.role}
+          p
+            strong Rank / Style:
+            |  #{user.rank} / #{user.style}
+
+    // Account Status
+    .card.mb-6
+      h2.card-title Account Status
+      .grid.grid-cols-3.gap-4
+        .cell
+          p
+            strong Verified:
+            |  #{user.isVerified ? 'Yes' : 'No'}
+        .cell
+          p
+            strong Failed Logins:
+            |  #{user.failedLoginAttempts || 0}
+        .cell
+          p
+            strong Last Logged In:
+            |  #{user.lastLoggedIn ? new Date(user.lastLoggedIn).toLocaleString() : '—'}
+        .cell
+          p
+            strong Lockout Until:
+            |  #{user.lockoutUntil ? new Date(user.lockoutUntil).toLocaleString() : '—'}
+        .cell
+          p
+            strong Suspended Until:
+            |  #{user.suspendUntil ? new Date(user.suspendUntil).toLocaleString() : '—'}
+        .cell
+          p
+            strong Status Reason:
+            |  #{user.statusReason || '—'}
+        .cell
+          p
+            strong Soft Deleted At:
+            |  #{user.deletedAt ? new Date(user.deletedAt).toLocaleString() : '—'}
+        .cell
+          p
+            strong Deleted By:
+            |  #{user.deletedBy || '—'}
+        .cell
+          p
+            strong Delete Reason:
+            |  #{user.deleteReason || '—'}
+
+    // Security (no sensitive secrets)
+    .card.mb-6
+      h2.card-title Security
+      .grid.grid-cols-3.gap-4
+        .cell
+          p
+            strong Last Password Change:
+            |  #{user.lastPasswordChangeAt ? new Date(user.lastPasswordChangeAt).toLocaleString() : '—'}
+        .cell
+          p
+            strong Password Version:
+            |  #{typeof user.passwordVersion === 'number' ? user.passwordVersion : '—'}
+        .cell
+          p
+            strong Reset Requested At:
+            |  #{user.pwdResetRequestedAt ? new Date(user.pwdResetRequestedAt).toLocaleString() : '—'}
+        .cell
+          p
+            strong Reset Expires At:
+            |  #{user.pwdResetExpiresAt ? new Date(user.pwdResetExpiresAt).toLocaleString() : '—'}
+        .cell
+          p
+            strong Reset Used At:
+            |  #{user.pwdResetUsedAt ? new Date(user.pwdResetUsedAt).toLocaleString() : '—'}
+        .cell
+          p
+            strong Reset Token:
+            |  #{user.pwdResetTokenHash ? '• present' : '—'}
+
+    // Metadata
+    .card.mb-6
+      h2.card-title Metadata
+      .grid.grid-cols-3.gap-4
+        .cell
+          p
+            strong Created At:
+            |  #{user.createdAt ? new Date(user.createdAt).toLocaleString() : '—'}
+        .cell
+          p
+            strong Updated At:
+            |  #{user.updatedAt ? new Date(user.updatedAt).toLocaleString() : '—'}
+
+    .flex.items-center.space-x-2.mt-6
+      a.button.button-primary(href=`/admin/users/${user.uuid}/edit`) Edit User
+      a.button(href="/admin/users") Cancel
