@@ -145,7 +145,18 @@ module.exports = (sequelize) => {
       ] } },
       verify:  { attributes: { include: ['verificationToken'] } },
       forEdit: { attributes: ['uuid','username','firstName','lastName','email','style','rank','timezone','role','isVerified','avatar','lastLoggedIn','suspendUntil','statusReason'] },
-      forList: { attributes: ['uuid','username','email','role','rank','style','isVerified','lastLoggedIn'] }
+      forList: { attributes: ['uuid','username','email','role','rank','style','isVerified','lastLoggedIn'] },
+      forAdminShow: {
+        attributes: [
+          'uuid','username','email','firstName','lastName','rank','style','role','avatar','timezone',
+          'isVerified','lastLoggedIn','createdAt','updatedAt',
+          'failedLoginAttempts','lockoutUntil','suspendUntil','statusReason',
+          'deletedAt','deletedBy','deleteReason',
+          'lastPasswordChangeAt','passwordVersion',
+          'pwdResetRequestedAt','pwdResetExpiresAt','pwdResetUsedAt'
+        ]
+      }
+
     }
   });
 
