@@ -12,6 +12,8 @@ router.get('/', isAuthenticated, requireRole('admin'), adminController.getAdminC
 
 router.get('/all', isAuthenticated, requireRole('admin'), adminController.getAllUsers)
 
+router.get('/users/:uuid/show', isAuthenticated, requireRole('admin'), adminController.getOneUser);
+
 router.get('/users/:uuid/edit', isAuthenticated, requireRole('admin'), adminController.getEditUser);
 router.post('/users/:uuid/update', isAuthenticated, processAvatar, verifyCsrfToken, validateUserUpdate, requireRole('admin'), adminController.postEditUser);
 
