@@ -62,7 +62,7 @@ exports.getOneUser = async (req, res, next) => {
                 currentPage: 'users'
             });
         }
-        res.render('admin/users/show', {
+        res.render('admin/users/show-user', {
             pageTitle: 'View User',
             currentPage: 'users',
             errorMessage: null,
