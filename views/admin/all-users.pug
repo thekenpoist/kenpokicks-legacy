@@ -26,6 +26,6 @@ block content
                   td(class="py-2 px-3")
                     span(class="block truncate opacity-70", title=user.email)= user.email
                   td(class="py-2 px-3")
-                    a(href=`/admin/users/${user.uuid}/edit`, class="text-blue-600 hover:underline") Edit
+                    a(href=`/admin/users/${user.uuid}/show`, class="text-blue-600 hover:underline") View
       else
         .py-8.text-center.text-gray-500 No users found.
