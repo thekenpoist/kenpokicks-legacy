@@ -5,8 +5,7 @@ block content
     .flex.items-center.justify-between.mb-4
       h1.text-2xl.font-semibold View User
       .space-x-2
-        a.button.button-primary(href=`/admin/users/${user.uuid}/edit`) Edit User
-        a.button(href="/admin/users") ← Back to Users
+        a.button(href="/admin/all") ← Back to Users
 
     // Identity
     .card.mb-6
@@ -123,4 +122,3 @@ block content
 
     .flex.items-center.space-x-2.mt-6
       a.button.button-primary(href=`/admin/users/${user.uuid}/edit`) Edit User
-      a.button(href="/admin/users") Cancel
