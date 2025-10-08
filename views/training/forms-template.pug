@@ -6,17 +6,59 @@ block content
     if content.forms && content.forms.length
       each form in content.forms
         .bg-white.shadow-md.rounded-lg.p-5.mb-8
-          h1(class="text-2xl md:text-3xl font-bold text-center mb-6 text-red-800") #{form.name}
+          .div(class="flex flex-col md:flex-row md:items-center md:justify-between gap-3 mb-4")
+            h1(class="text-2xl md:text-3xl font-bold text-red-800") #{form.name}
+            if form.version || form.belt
+              .div(class="flex flex-wrap gap-2")
+                if form.belt
+                  span(class="inline-flex items-center rounded-full border px-3 py-1 text-xs font-medium bg-red-50 text-red-700 border-red-200") #{form.belt}
+                if form.version
+                  span(class="inline-flex items-center rounded-full border px-3 py-1 text-xs font-medium bg-gray-50 text-gray-700 border-gray-200") Version #{form.version}
+
+          if form.notes
+            p(class="text-sm text-gray-600 mb-4") #{form.notes}
 
           if form.sequence && form.sequence.length
             ol(class="list-decimal list-inside space-y-3")
               each step in form.sequence
                 li
+                  // main step text
                   p(class="whitespace-pre-wrap text-gray-800") #{step.text}
+
+                  // optional stance/angle/tags chips (if you kept them)
+                  if step.stance || step.angle || step.tags
+                    .div(class="mt-1 flex flex-wrap gap-2")
+                      if step.stance
+                        span(class="text-[11px] rounded-full bg-gray-100 text-gray-700 px-2 py-0.5") #{step.stance}
+                      if step.angle
+                        span(class="text-[11px] rounded-full bg-gray-100 text-gray-700 px-2 py-0.5") #{step.angle}
+                      if step.tags
+                        each tag in step.tags
+                          span(class="text-[11px] rounded-full bg-blue-50 text-blue-700 px-2 py-0.5") #{tag}
+
+                  // techniques referenced in this step
+                  if step.techniques && step.techniques.length
+                    .div(class="mt-1 text-sm flex flex-wrap items-center gap-2")
+                      span(class="text-gray-600") References:
+                      each t in step.techniques
+                        - const techHref = t.slug ? `/training/techniques/${encodeURIComponent(t.slug)}` : (t.name ? `/training/techniques/${encodeURIComponent(t.name)}` : null);
+                        if techHref
+                          a(href=techHref class="text-blue-700 hover:underline") #{t.name || t.slug}
+                        else
+                          span(class="text-gray-700") #{t.name || 'Unknown'}
+
           else
             p(class="text-gray-500 text-center") No steps found.
+
+          // Optional form-level related techniques
+          if form.references && form.references.techniques && form.references.techniques.length
+            .div(class="mt-4 pt-4 border-t border-gray-200")
+              h3(class="text-sm font-semibold text-gray-700 mb-2") Related techniques
+              .div(class="flex flex-wrap gap-3 text-sm")
+                each refName in form.references.techniques
+                  a(href=`/training/techniques/${encodeURIComponent(refName)}` class="text-blue-700 hover:underline") #{refName}
     else
       p(class="text-red-600 font-semibold text-center") No forms found.
 
-    div(class="mt-6 text-center")
+    .mt-6.text-center
       a(href="/portal/dashboard" class="text-sm text-blue-600 hover:underline") ← Back to Dashboard
