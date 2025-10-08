@@ -3,7 +3,6 @@ extends ../../layouts/admin-layout
 block content
   .container
     .flex.items-center.justify-between.mb-4
-      h1.text-2xl.font-semibold View User
       .space-x-2
         a.button(href="/admin/all") ← Back to Users
 
@@ -22,6 +21,15 @@ block content
             strong Email:
             |  #{user.email}
           p
+            strong Role:
+            |  #{user.role}
+          p
+            strong Style:
+            |   #{user.style}
+          p 
+            strong Rank:
+            |  #{user.rank}
+          p
             strong Timezone:
             |  #{user.timezone}
         .col
@@ -30,12 +38,6 @@ block content
               strong Avatar:
               br
               img(src=user.avatar alt="avatar" style="max-width:120px;border-radius:8px")
-          p
-            strong Role:
-            |  #{user.role}
-          p
-            strong Rank / Style:
-            |  #{user.rank} / #{user.style}
 
     // Account Status
     .card.mb-6
@@ -121,4 +123,8 @@ block content
             |  #{user.updatedAt ? new Date(user.updatedAt).toLocaleString() : '—'}
 
     .flex.items-center.space-x-2.mt-6
-      a.button.button-primary(href=`/admin/users/${user.uuid}/edit`) Edit User
+      a(
+        href="/admin/users/" + user.uuid + "/edit"
+        class="inline-flex items-center px-4 py-2 rounded-md bg-blue-600 text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+      ) Edit User
+
