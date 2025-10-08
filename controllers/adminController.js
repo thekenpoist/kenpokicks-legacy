@@ -337,7 +337,7 @@ exports.postEditUser = async (req, res, next) => {
         await targetUser.update(updatedFields);
 
         // req.flash('success', 'Profile updated successfully.');
-        return res.redirect(`/admin/users/${uuid}/edit`);
+        return res.redirect(`/admin/users/${uuid}/show`);
 
     } catch (err) {
         logger.error(`Error updating user ${uuid}: ${err.message}`);
