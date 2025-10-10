@@ -1,0 +1,142 @@
+{
+  "forms": [
+    {
+      "name": "Long Form 3",
+      "beltSlug": "red",
+      "intro": "Our second technique form adds isolations and runs techniques on both left and right sides. Most techniques are run start to finish. Descriptions here are brief.",
+      "sets": [
+        {
+          "title": "SET 1: Destructive Twins",
+          "steps": [
+            { "text": "From natural stance, step forward into a right neutral bow while doing a left punch to the face and a right inverted punch to the groin." },
+            { "text": "Left forearm down (flat) in front of chest, then right forearm down (on top of the left forearm)." },
+            { "text": "Left high eye poke (fingers spread), then left hand grabs and pulls down—right punch low." },
+            { "text": "Right hand turns over (palm up), forearm cocks back (elbow in tight) to the side and does a downward claw to the right thigh." },
+            { "text": "Right hand back to hip in fist (palm down); right horizontal thrust punch to solar plexus; hand back to chest, then back-knuckle to face and back to waist as right foot steps back to natural stance." },
+            { "text": "Step forward into a left neutral bow while doing a right punch to face and a left inverted punch to groin." },
+            { "text": "Right forearm down (flat) in front of chest, then left forearm down (on top of right forearm)." },
+            { "text": "Right high eye poke (fingers spread), then right hand grabs and pulls down—left punch low." },
+            { "text": "Left hand turns over (palm up), forearm cocks back (elbow in tight) to the side and does a downward claw to the left thigh." },
+            { "text": "Left hand back to hip in fist (palm down); left horizontal thrust punch to solar plexus; hand back to chest, then back-knuckle to face and back to waist as left foot steps back to natural stance." }
+          ]
+        },
+        {
+          "title": "SET 2: Crashing Wings & Dominating Circles",
+          "steps": [
+            { "text": "Step right side into horse stance, extend arms up and out (eye-poke style), then do two downward elbows to the arms." },
+            { "text": "Left foot moves toward right foot (close kneel stance), then back to 7:30 doing a left side elbow and right inward hammerfist." },
+            { "text": "Turn into natural stance with hands on hips." },
+            { "text": "Left knee up then down. Throw to the right (left hand grabbing high, right hand grabbing low)." },
+            { "text": "Back to horse stance." },
+            { "text": "Both wrists extended at waist level; turn inward until palm up; double uppercut." },
+            { "text": "Step left side into horse stance while doing two downward elbows to the arms." },
+            { "text": "Right foot moves to left foot then back to 7:30 doing a right side elbow and left inward hammerfist." },
+            { "text": "Turn into natural stance with hands on hips." },
+            { "text": "Right knee up then down. Throw to the left (right hand grabbing head, left grabbing groin)." },
+            { "text": "Back to horse stance." }
+          ]
+        },
+        {
+          "title": "SET 3: Parting Wings",
+          "steps": [
+            { "text": "Both wrists extended at waist level; turn inward until palm up; double uppercut." },
+            { "text": "Arms down and crossed (palms open) against stomach, pulling back to waist (open hand, palm up)." },
+            { "text": "Right foot to left; hands together, palms in (chin high)." },
+            { "text": "Back into left neutral bow while doing two outward extended blocks (open hand, shoulder width)." },
+            { "text": "Into right forward bow while doing a right inward hand-sword to armpit while left hand checks high on right side of face." },
+            { "text": "Into neutral bow while doing a left outward hand-sword to throat and grabbing chest muscle with right hand and pulling back." },
+            { "text": "Into right forward bow while doing a right vertical middle-knuckle strike to the bottom of the sternum." },
+            { "text": "Right foot up to left; hands together, palms in, face high." },
+            { "text": "Back into right neutral bow while doing two outward extended blocks (open hand, shoulder width)." },
+            { "text": "Into left forward bow while doing a left inward hand-sword to armpit while right hand checks high on left side of face." },
+            { "text": "Into neutral bow while doing a right outward hand-sword to throat and grabbing chest muscle with left hand and pulling back." },
+            { "text": "Into left forward bow while doing a left vertical middle-knuckle strike to the bottom of the sternum." }
+          ]
+        },
+        {
+          "title": "SET 4: Glancing Spear",
+          "steps": [
+            { "text": "Right hand grabs and pulls to chest; right leg steps back to 6:00 (reverse bow) pulling—then turn back to 12:00 with left elbow and right glancing eye poke over left wrist." },
+            { "text": "Left hand grabs and pulls to chest; left leg steps back to 6:00 (reverse bow) pulling—then turn back to 12:00 with right elbow and left glancing eye poke over right wrist." },
+            { "text": "Right leg back into horse stance." }
+          ]
+        },
+        {
+          "title": "SET 5: Isolations",
+          "steps": [
+            { "text": "Right arm rotates downward from front to back, up and down to side, then snapping uppercut off to side." },
+            { "text": "Left arm rotates downward from front to back, up and down to side, then snapping uppercut off to side." },
+            { "text": "Right arm circles up toward back, back to front and across body, then snapping back-knuckle to side." },
+            { "text": "Left arm circles up toward back, back to front and across body, then snapping back-knuckle to side." },
+            { "text": "Repeat with both arms at the same time." }
+          ]
+        },
+        {
+          "title": "SET 6: Crossing Talons",
+          "steps": [
+            { "text": "Left wrist out, waist high; step to 12:00 doing right upward elbow, right side elbow, and right overhead downward elbow." },
+            { "text": "Back to horse stance." },
+            { "text": "Right wrist out, waist high; step to 12:00 doing left upward elbow, left side elbow, and left overhead downward elbow." },
+            { "text": "Back to horse stance." }
+          ]
+        },
+        {
+          "title": "SET 7: Thrusting Wedge",
+          "steps": [
+            { "text": "Right foot steps around left to 7:30 into right high wide kneel as hands move in a triangle up through the attacker’s arms, pinning them to the side; left arm continues to circle into an upward elbow (into horse stance) and a downward heel-palm claw (into high wide kneel)." },
+            { "text": "Right leg back to left; turn toward front; right leg out into horse stance." },
+            { "text": "Left foot steps around right to 4:30 into left high wide kneel as hands move in a triangle up through the arms, pinning them to the side; right arm continues to circle into an upward elbow (into horse stance) and a downward heel-palm claw (into high wide kneel)." },
+            { "text": "Left leg steps back to right; turn toward front; left leg out into horse stance." }
+          ]
+        },
+        {
+          "title": "SET 8: Blinding Sacrifice",
+          "steps": [
+            { "text": "Right leg steps to 10:30 while doing double outward face claws, then circling down to heel-palms to the groin." },
+            { "text": "Right leg cats back while doing double back-knuckles to kidneys." },
+            { "text": "Right foot forward to 10:30 again while doing double eye pokes (palm up)." },
+            { "text": "Double back-knuckle to mastoid; grab head and slam to right knee, landing forward." },
+            { "text": "Left leg steps to 1:30 while doing double eye pokes, then circling down to heel-palms to the groin." },
+            { "text": "Left leg cats back while doing double back-knuckles to kidneys." },
+            { "text": "Left foot forward to 1:30 again while doing double eye pokes." },
+            { "text": "Double back-knuckle to mastoid; grab head and slam to left knee, landing forward." }
+          ]
+        },
+        {
+          "title": "SET 9: Wings of Silk",
+          "steps": [
+            { "text": "Hands to sides, elbows bent; left hand grabs behind; left foot stomps." },
+            { "text": "Right arm up, left arm down; right scoop kick to groin; right foot steps to left of left foot (tight)." },
+            { "text": "Left foot steps around to left of right foot with left hand pinning arm on chest; right uppercut to break elbow." },
+            { "text": "Left foot steps around right foot (tight) and right foot steps back around to right of left foot." },
+            { "text": "Hands to sides, elbows bent; right hand grabs behind; right foot stomps." },
+            { "text": "Left arm up, right arm down; left scoop kick to groin; left foot steps to right of right foot (tight)." },
+            { "text": "Right foot steps around to right of left foot with right hand pinning arm on chest; left uppercut to break elbow." },
+            { "text": "Right foot steps around left foot (tight) and left foot steps back around to left of right foot." }
+          ]
+        },
+        {
+          "title": "SET 10: Repeating Devastation",
+          "steps": [
+            { "text": "Step left side into horse stance while doing two backward overhead hammerfists, sinking into horse stance." },
+            { "text": "Arms down to pin; left leg in to natural stance width while doing rear head-butt; right leg in cat." },
+            { "text": "Right hand on stomach, cover with left hand; left leg steps to 1:30 into a left forward bow." },
+            { "text": "Left rear elbow to 7:30 into reverse bow while right hand pulls to 1:30 (ripping the rag)." },
+            { "text": "Left foot back to horse stance." },
+            { "text": "Left hand on stomach, cover with right hand; right leg steps to 1:30 into a right forward bow." },
+            { "text": "Right rear elbow to 4:30 into reverse bow while left hand pulls to 10:30 (ripping the rag)." },
+            { "text": "Left foot up to horse stance with right hand still extended." }
+          ]
+        },
+        {
+          "title": "SET 11: Desperate Falcons",
+          "steps": [
+            { "text": "Extend left hand to match right hand. Left foot forward while hands swing out (left over right), circling from left to right and toward back, into a left back-knuckle to face, right vertical thrust punch, right ball-thrust kick, and right vertical thrust punch to chest." },
+            { "text": "Hands extended low in fists; right foot forward while hands swing out to left and front; right back-knuckle to face and left vertical thrust punch; right ball-thrust kick and right vertical thrust punch to chest." },
+            { "text": "Left foot forward into meditating position, then up to attention stance." }
+          ]
+        }
+      ]
+    }
+  ]
+}

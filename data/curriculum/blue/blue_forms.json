@@ -3,81 +3,24 @@
     {
       "name": "Short Form 2",
       "beltSlug": "blue",
-      "version": "1.0",
-      "notes": "Emphasizes stance transitions, angle changes, and back-elbow checks.",
+      "intro": "This form teaches blocking and countering while advancing—building on Short 1 and Long 1. We begin advancing into the attacker as we counter.",
       "sequence": [
-        { "text": "Starting from a horse stance..." },
-        {
-          "text": "Step forward with your right foot toward 12 o’clock into a right neutral bow while executing a right inward block with a left hand cover."
-        },
-        {
-          "text": "Execute a right outward chop."
-        },
-        {
-          "text": "Step forward with your left foot toward 12 o’clock into a left neutral bow while executing a left inward block with a right hand cover."
-        },
-        { "text": "Execute a left outward chop." },
-        {
-          "text": "Slide your left foot back into a transitional cat stance facing 12 o’clock while placing your right fist on your right hip (palm up), and your left fist on your right fist (saucer & tea cup)."
-        },
-        {
-          "text": "Step out with your left foot into a left neutral bow facing 9 o’clock while executing a left outward block and a right straight punch to 9 o’clock."
-        },
-        {
-          "text": "Slide your right foot into a transitional cat stance facing 12 o’clock while placing your left fist on your left hip (palm up), and your right fist on your left fist (saucer & tea cup)."
-        },
-        {
-          "text": "Step out with your right foot into a right neutral bow facing 3 o’clock while executing a right outward block and a left straight punch to 3 o’clock."
-        },
-        {
-          "text": "Sliding your left foot to 5:30, turn counter clockwise into a left wide kneel (facing 6 o’clock) while simultaneously executing a left upward block and a right hand middle knuckle vertical downward snap, followed by a right middle knuckle vertical thrust to 6 o’clock (elbow bent)."
-        },
-        {
-          "text": "Sliding your left foot to 12:30, turn clockwise into a right wide kneel (facing 12 o’clock) while simultaneously executing a right upward block and a left hand middle knuckle vertical downward snap, followed by a left middle knuckle vertical thrust to 12 o’clock (elbow bent)."
-        },
-        {
-          "text": "Pivot counter clockwise to face 4:30 as you slide your left foot into a cat stance while executing a right inside downward block (palm up) and cocking your left hand at the right shoulder."
-        },
-        {
-          "text": "Step out toward 4:30 into a left neutral bow stance while executing a left downward block with a right back elbow strike."
-        },
-        {
-          "text": "Step through to 4:30 with your right foot into a right neutral bow while executing a right heel of palm thrust to 4:30 with a left hand cover."
-        },
-        {
-          "text": "Slide your right foot back into a right 45 degree cat stance as you pivot clockwise to face 7:30 while executing a left inside downward block (palm up) and cocking your right hand at the left shoulder."
-        },
-        {
-          "text": "Step out toward 7:30 into a right neutral bow while executing a right downward block with a left back elbow strike."
-        },
-        {
-          "text": "Step through toward 7:30 with your left foot into a left neutral bow while executing a left heel of palm thrust to 7:30 with a right hand cover."
-        },
-        {
-          "text": "Slide your right foot back into a right 45 degree cat stance as you pivot clockwise to face 1:30 while executing a left inward block with a right back elbow strike."
-        },
-        {
-          "text": "Step out toward 1:30 with the right foot into a right neutral bow while executing a right extended outward block with a left back elbow strike."
-        },
-        {
-          "text": "Keeping your extended outward block in place, snap out a left half fist (at throat level) toward 1:30 as you pivot into a right forward bow. Immediately return your left fist to your hip as you pivot back into a right neutral bow."
-        },
-        {
-          "text": "Slide your left foot forward into a left 45 degree cat stance as you pivot counter clockwise to face 10:30 while executing a right inward block with a left back elbow strike."
-        },
-        {
-          "text": "Step out toward 10:30 with the left foot into a left neutral bow while executing a left extended outward block with a right back elbow strike."
-        },
-        {
-          "text": "Keeping your extended outward block in place, snap out a right half fist (at throat level) toward 10:30 as you pivot into a left forward bow. Immediately return your right fist to your hip as you pivot back into a left neutral bow."
-        },
-        {
-          "text": "Step forward with your right foot into a horse stance facing 12 o’clock as you bring your right fist to meet your left open hand."
-        }
+        { "text": "From a meditating horse stance, step to 12:00 with your right foot into a right neutral bow with your left hand checking at waist level and do a right inward block into a right outward hand sword." },
+        { "text": "Step through forward into a left neutral bow as you slide your right hand straight down to a check at waist level and do a left inward block into a left outward hand sword." },
+        { "text": "Slide your left foot back into a left transitional cat stance facing 9:00 as you pack your hands (left on top of right) at your right hip, then step out to 9:00 with your left foot into a left neutral bow facing 9:00 while doing a left outward block and right horizontal thrust punch (face level) together." },
+        { "text": "Slide your right foot over into a right transitional cat stance facing 3:00 as you pack your hands (right on top of left) at your left hip, then step out to 3:00 with your right foot into a right neutral bow facing 3:00 while doing a right outward block and left horizontal thrust punch (face level) together." },
+        { "text": "Slide your left foot over into a left transitional cat stance facing 3:00 as you pack your hands (left on top of right) at your right hip, then step back to 6:00 with your left foot and sink into a left high wide kneel facing 3:00 while doing a left upward block with a right middle knuckle strike." },
+        { "text": "As you rise from the high wide kneel, slide your right foot back into a transitional cat stance facing 9:00 as you pack your hands (right on top of left) at your left hip, then step forward to 12:00 with your right foot and sink into a high wide kneel while doing a right upward block with a left middle knuckle strike." },
+        { "text": "As you rise from the high wide kneel, slide your left foot up into a transitional cat stance facing 9:00 as you pack your hands (left on top of right) at your right hip, then step out to 4:30 with a right inward downward palm-up block; as you land in a left neutral bow facing 4:30, do a left downward block on the kick as your right arm pulls back to a rear elbow. Slide your left hand down into a waist-level check as you step through forward into a right neutral bow facing 4:30 while doing a right heel palm at face level." },
+        { "text": "Slide your right foot back into a transitional cat stance facing 9:00 as you pack your hands (right on top of left) at your left hip, then step out to 7:30 with a left inward downward palm-up block; as you land in a right neutral bow facing 7:30, do a right downward block on the kick as your left arm pulls back to a rear elbow. Slide your right hand down into a waist-level check as you step through forward into a left neutral bow facing 7:30 while doing a left heel palm at face level." },
+        { "text": "Rotate your body 180° clockwise to 1:30 as you slide your right leg back into a cat stance while pulling your right hand back to your waist and doing a left inward block to 1:30. Step out with your right leg into a right neutral bow facing 1:30 while doing a right outward extended block followed by a left horizontal snapping half-fist punch to face level." },
+        { "text": "Slide your left foot over into a transitional cat stance facing 9:00 while pulling your left hand back to your waist and doing a right inward block to 10:30. Step out with your left leg into a left neutral bow facing 10:30 while doing a left outward extended block followed by a right horizontal snapping half-fist punch to face level." },
+        { "text": "Slide your right leg forward into a horse stance as your right fist punches into your left palm into meditating position, then slide your left leg to your right as you move up into an attention stance." }
       ],
-      "references": {
-        "techniques": ["Delayed Sword", "Alternating Maces"]
-      }
+      "footerNotes": [
+        "Introduces: Times sign (4 new angles); Checks; Punching and blocking simultaneously; Outward Hand Sword; Middle Knuckle strike; Heel Palm; High Wide Kneel.",
+        "Clock angles are all from your original position."
+      ]
     }
   ]
 }

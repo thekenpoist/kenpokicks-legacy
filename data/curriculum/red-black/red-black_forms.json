@@ -1,0 +1,66 @@
+{
+  "forms": [
+    {
+      "name": "Two Man Set",
+      "beltSlug": "red-black",
+      "sets": [
+        {
+          "title": "Left Man",
+          "steps": [
+            { "text": "Start from an attention stance facing 12:00, left fist chambered, right fist resting on the left in a saucer/teacup position." },
+            { "text": "Step to your right into a horse stance while executing a right backfist to the bridge of the nose." },
+            { "text": "Draw the right elbow back into a right forearm block." },
+            { "text": "Step with the left foot slightly to 10:30 while executing a right inward thrusting chop to the throat." },
+            { "text": "Place the right fist on the left chambered fist in saucer/teacup while stepping to 1:30, then pivot into a neutral bow facing 7:30 while executing a right low backfist to the right kidney." },
+            { "text": "Pivot into a right forward bow facing 7:30 while executing a left horizontal punch to the solar plexus." },
+            { "text": "Pivot into a right reverse bow while executing a right downward block." },
+            { "text": "Chamber the left hand and rest the right hand on top (saucer/teacup) while stepping toward 7:30 into a left transitional twist stance, then step through with the right foot toward 7:30 while executing a right high backfist to the right temple." },
+            { "text": "Draw the right foot back to the left while executing a right downward block. (Steps 9 and 10 are done during an in-place stance change.)" },
+            { "text": "Step forward with the left foot into a left neutral bow toward 7:30 while executing a left uppercut punch to the left floating ribs." },
+            { "text": "Pivot into a left forward bow while executing a right upward block." },
+            { "text": "Right hammerfist to the left lower rib cage." },
+            { "text": "From the hammerfist, circle the right arm clockwise into a left extended outward block, finishing into a left outward chopping parry." },
+            { "text": "Pivot into a left neutral bow while executing a left half-fist strike to the throat." },
+            { "text": "Step back with the left foot into a right neutral bow facing 8:00 while executing a right inward block." },
+            { "text": "Immediately execute a right thrusting vertical punch to the maxilla under the nose." },
+            { "text": "Execute a right low dipping inward block." },
+            { "text": "Step-drag toward 8:00 into a right fighting horse stance while executing a right outward elbow (palm down) to the intercostal nerve cluster under the left arm." },
+            { "text": "Step slightly with the left foot and pivot into a right forward bow facing 9:00 while executing a left horizontal inward parry." },
+            { "text": "Pivot into a right neutral bow and execute a right vertical thrusting heel-palm to the right floating ribs." },
+            { "text": "Immediately pivot into a right reverse bow facing 3:00 while executing a right downward block." },
+            { "text": "Chamber both hands and execute a right mule kick to the opponent’s abdomen." },
+            { "text": "End by pivoting counter-clockwise on the left foot and planting the right foot into a left rear bow facing 9:00, the left arm in a downward block position and the right arm in an upward block position." }
+          ]
+        },
+        {
+          "title": "Right Man",
+          "steps": [
+            { "text": "Start from an attention stance facing 12:00, both hands palm-down at hip level, fingers pointing in (double press check position)." },
+            { "text": "Step back with the left foot into a right neutral bow facing 10:30 while executing a left inward / right outward combination parry." },
+            { "text": "Pivot into a right forward bow facing 10:30 while executing a left low punch to the right floating ribs, returning the right hand to a chambered position." },
+            { "text": "Still in forward bow, execute a left inward / right outward combination parry, leaving both hands in a universal positional check at the right shoulder." },
+            { "text": "Step to 3:00 with the left foot into a left forward bow while bringing the left fist to chamber and placing the right fist on top (saucer/teacup), then immediately pivot into a right neutral bow facing 1:30 while executing a right low backfist to the right kidney." },
+            { "text": "Drop back into a right cat stance while executing a left inward block and returning the right fist to chamber." },
+            { "text": "Right snap ball kick to the groin." },
+            { "text": "Pivot counter-clockwise into a horse stance facing 4:30, then immediately drop back with the left foot into a right twist stance while executing a left upward block." },
+            { "text": "From the twist stance, without retracting the left arm, execute a left snapping side kick to the right rib cage." },
+            { "text": "Plant forward into a left neutral bow facing 1:30 while executing a left low inward block." },
+            { "text": "Positional check with the right hand against the inside of the left wrist while executing a large circular left inward chop to the right side of the neck." },
+            { "text": "Drop back into a left cat stance while returning the right fist to chamber and drawing the left elbow back into a left forearm block." },
+            { "text": "Step back into place with the left foot into a left neutral bow while executing a left two-finger darting eye poke to the right eye." },
+            { "text": "Right extended outward parry into a right grab on the left wrist." },
+            { "text": "Step-drag toward 1:30 while executing a left outward elbow (palm down) to the intercostal nerve cluster under the right arm." },
+            { "text": "Execute a right upward parry (palm pushing up)." },
+            { "text": "Step with the left foot into a deep fighting horse stance toward 1:30 while executing a left outward chop to the right rib cage." },
+            { "text": "Drop back into a left cat stance while looping the left hand under and over into a downward-blocking backfist." },
+            { "text": "Step forward into a left neutral facing 2:00 while executing a left vertical snap punch to the right temple." },
+            { "text": "Step back with the left foot toward 9:00 into a right neutral bow facing 3:00 while executing a right downward block." },
+            { "text": "Immediately pivot into a right forward bow while executing a left thrusting vertical heel-palm to the right floating ribs." },
+            { "text": "In-place pivot into a right reverse bow while executing a right inside downward block, continuing the arm clockwise into a right outward block." },
+            { "text": "End by step-dragging into a right neutral bow facing 3:00 while simultaneously executing a right low uppercut punch and a left high horizontal punch, both fists in line with the center of the body." }
+          ]
+        }
+      ]
+    }
+  ]
+}
