@@ -2,11 +2,12 @@
 extends ../layouts/dashboard-layout.pug
 
 block content
-  // ---- Local styles & color variables (edit hexes to your brand) ----
+  // ---- Local styles & color variables ----
   style.
     :root{
-      --kenpo-red: #991b1b; /* Kenpo red for step labels & set titles */
-      /* belt colors (fallbacks if no beltSlug match) */
+      --kenpo-red: #991b1b; /* step labels & set titles */
+
+      /* belt colors */
       --belt-yellow: #eab308;
       --belt-orange: #f97316;
       --belt-purple: #7c3aed;
@@ -19,6 +20,15 @@ block content
     }
     .kenpo-red { color: var(--kenpo-red); }
 
+    /* gradient title for red-black */
+    .belt-gradient {
+      background: linear-gradient(90deg, var(--belt-red), var(--belt-black));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+  // map beltSlug -> solid color (non-gradient)
   - const beltColorMap = {
   -   'yellow': 'var(--belt-yellow)',
   -   'orange': 'var(--belt-orange)',
@@ -36,14 +46,18 @@ block content
       each form in content.forms
         - const beltSlug = (form.beltSlug || '').toLowerCase();
         - const titleColor = beltColorMap[beltSlug] || 'inherit';
+        - const isRedBlack = beltSlug === 'red-black';
 
         // ---- Card (compact & centered) ----
         .bg-white.shadow-sm.rounded-lg.p-4.mb-6.max-w-3xl.mx-auto
 
-          // ---- Form Title (color driven by beltSlug) ----
-          h1(class="text-xl md:text-2xl font-extrabold text-center mb-3", style=`color:${titleColor}`) #{form.name}
+          // ---- Form Title (belt color or red-black gradient) ----
+          if isRedBlack
+            h1(class="text-xl md:text-2xl font-extrabold text-center mb-3 belt-gradient") #{form.name}
+          else
+            h1(class="text-xl md:text-2xl font-extrabold text-center mb-3", style=`color:${titleColor}`) #{form.name}
 
-          // ---- Optional intro (for Long Form 3 style) ----
+          // Optional intro (Long Form 3 style)
           if form.intro
             p(class="text-sm text-gray-600 mb-4 text-center") #{form.intro}
 
@@ -61,14 +75,16 @@ block content
                   if step.parts && step.parts.length
                     p(class="text-gray-800")
                       each part in step.parts
-                        if part.type === 'tech'
+                        if part && part.type === 'tech'
                           - const href = part.slug ? `/training/techniques/${encodeURIComponent(part.slug)}` : (part.name ? `/training/techniques/${encodeURIComponent(part.name)}` : null);
                           if href
                             a(href=href class="text-blue-700 hover:underline") #{part.name || part.slug}
                           else
                             span #{part.name || ''}
-                        else
+                        else if part && part.type === 'text'
                           | #{part.value}
+                        else
+                          | 
                   else
                     p(class="text-gray-800") #{step.text}
 
@@ -90,18 +106,20 @@ block content
                       if step.parts && step.parts.length
                         p(class="text-gray-800")
                           each part in step.parts
-                            if part.type === 'tech'
+                            if part && part.type === 'tech'
                               - const href = part.slug ? `/training/techniques/${encodeURIComponent(part.slug)}` : (part.name ? `/training/techniques/${encodeURIComponent(part.name)}` : null);
                               if href
                                 a(href=href class="text-blue-700 hover:underline") #{part.name || part.slug}
                               else
                                 span #{part.name || ''}
-                            else
+                            else if part && part.type === 'text'
                               | #{part.value}
+                            else
+                              | 
                       else
                         p(class="text-gray-800") #{step.text}
 
-          // ---- Footer notes appear at the bottom (optional) ----
+          // ---- Footer notes (optional) ----
           if form.footerNotes
             .mt-6.pt-4.border-t.border-gray-200.max-w-2xl.mx-auto
               if Array.isArray(form.footerNotes)
