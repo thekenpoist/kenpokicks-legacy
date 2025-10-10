@@ -2,61 +2,147 @@
 extends ../layouts/dashboard-layout.pug
 
 block content
-  .container.mx-auto.p-6
-    if content.forms && content.forms.length
+  // ---- Local styles & color variables (edit hexes to your brand) ----
+  style.
+    :root{
+      --kenpo-red: #991b1b; /* Kenpo red for step labels & set titles */
+      /* belt colors (fallbacks if no beltSlug match) */
+      --belt-yellow: #eab308;
+      --belt-orange: #f97316;
+      --belt-purple: #7c3aed;
+      --belt-blue:   #2563eb;
+      --belt-green:  #16a34a;
+      --belt-red:    #dc2626;
+      --belt-brown:  #8b5a2b;
+      --belt-black:  #111827;
+      --belt-white:  #9ca3af;
+    }
+    .kenpo-red { color: var(--kenpo-red); }
+
+  - const beltColorMap = {
+  -   'yellow': 'var(--belt-yellow)',
+  -   'orange': 'var(--belt-orange)',
+  -   'purple': 'var(--belt-purple)',
+  -   'blue':   'var(--belt-blue)',
+  -   'green':  'var(--belt-green)',
+  -   'red':    'var(--belt-red)',
+  -   'brown':  'var(--belt-brown)',
+  -   'black':  'var(--belt-black)',
+  -   'white':  'var(--belt-white)'
+  - };
+
+  .container.mx-auto.p-4
+    if content && content.forms && content.forms.length
       each form in content.forms
-        .bg-white.shadow-md.rounded-lg.p-5.mb-8
-          .div(class="flex flex-col md:flex-row md:items-center md:justify-between gap-3 mb-4")
-            h1(class="text-2xl md:text-3xl font-bold text-red-800") #{form.name}
-            if form.version || form.belt
-              .div(class="flex flex-wrap gap-2")
-                if form.belt
-                  span(class="inline-flex items-center rounded-full border px-3 py-1 text-xs font-medium bg-red-50 text-red-700 border-red-200") #{form.belt}
-                if form.version
-                  span(class="inline-flex items-center rounded-full border px-3 py-1 text-xs font-medium bg-gray-50 text-gray-700 border-gray-200") Version #{form.version}
+        - const beltSlug = (form.beltSlug || '').toLowerCase();
+        - const titleColor = beltColorMap[beltSlug] || 'inherit';
 
-          if form.notes
-            p(class="text-sm text-gray-600 mb-4") #{form.notes}
+        // ---- Card (compact & centered) ----
+        .bg-white.shadow-sm.rounded-lg.p-4.mb-6.max-w-3xl.mx-auto
 
+          // ---- Form Title (color driven by beltSlug) ----
+          h1(class="text-xl md:text-2xl font-extrabold text-center mb-3", style=`color:${titleColor}`) #{form.name}
+
+          // ---- Optional intro (for Long Form 3 style) ----
+          if form.intro
+            p(class="text-sm text-gray-600 mb-4 text-center") #{form.intro}
+
+          // ------------------------------------------------
+          // Simple 1..N steps (e.g., Long Form 1)
+          // ------------------------------------------------
           if form.sequence && form.sequence.length
-            ol(class="list-decimal list-inside space-y-3")
-              each step in form.sequence
-                li
-                  // main step text
-                  p(class="whitespace-pre-wrap text-gray-800") #{step.text}
+            .space-y-3
+              each step, i in form.sequence
+                .flex.items-start.gap-3
+                  // Step label → "Step N" in Kenpo red
+                  span(class="kenpo-red font-semibold shrink-0 select-none") Step #{i + 1}
 
-                  // optional stance/angle/tags chips (if you kept them)
-                  if step.stance || step.angle || step.tags
-                    .div(class="mt-1 flex flex-wrap gap-2")
-                      if step.stance
-                        span(class="text-[11px] rounded-full bg-gray-100 text-gray-700 px-2 py-0.5") #{step.stance}
-                      if step.angle
-                        span(class="text-[11px] rounded-full bg-gray-100 text-gray-700 px-2 py-0.5") #{step.angle}
-                      if step.tags
-                        each tag in step.tags
-                          span(class="text-[11px] rounded-full bg-blue-50 text-blue-700 px-2 py-0.5") #{tag}
-
-                  // techniques referenced in this step
-                  if step.techniques && step.techniques.length
-                    .div(class="mt-1 text-sm flex flex-wrap items-center gap-2")
-                      span(class="text-gray-600") References:
-                      each t in step.techniques
-                        - const techHref = t.slug ? `/training/techniques/${encodeURIComponent(t.slug)}` : (t.name ? `/training/techniques/${encodeURIComponent(t.name)}` : null);
-                        if techHref
-                          a(href=techHref class="text-blue-700 hover:underline") #{t.name || t.slug}
+                  // Step text (supports parts[] with inline technique links, or plain step.text)
+                  if step.parts && step.parts.length
+                    p(class="text-gray-800")
+                      each part in step.parts
+                        if part.type === 'tech'
+                          - const href = part.slug ? `/training/techniques/${encodeURIComponent(part.slug)}` : (part.name ? `/training/techniques/${encodeURIComponent(part.name)}` : null);
+                          if href
+                            a(href=href class="text-blue-700 hover:underline") #{part.name || part.slug}
+                          else
+                            span #{part.name || ''}
                         else
-                          span(class="text-gray-700") #{t.name || 'Unknown'}
+                          | #{part.value}
+                  else
+                    p(class="text-gray-800") #{step.text}
 
-          else
-            p(class="text-gray-500 text-center") No steps found.
+          // ------------------------------------------------
+          // Sets with steps (e.g., Long Form 3)
+          // ------------------------------------------------
+          if form.sets && form.sets.length
+            .space-y-5
+              each s, si in form.sets
+                // Set title → Kenpo red
+                h3(class="text-base md:text-lg font-bold kenpo-red mb-2 text-center md:text-left") #{s.title}
+                .space-y-3
+                  each step, i in s.steps
+                    .flex.items-start.gap-3
+                      // Step label → "Step N" in Kenpo red
+                      span(class="kenpo-red font-semibold shrink-0 select-none") Step #{i + 1}
 
-          // Optional form-level related techniques
-          if form.references && form.references.techniques && form.references.techniques.length
-            .div(class="mt-4 pt-4 border-t border-gray-200")
+                      // Step text with inline technique links
+                      if step.parts && step.parts.length
+                        p(class="text-gray-800")
+                          each part in step.parts
+                            if part.type === 'tech'
+                              - const href = part.slug ? `/training/techniques/${encodeURIComponent(part.slug)}` : (part.name ? `/training/techniques/${encodeURIComponent(part.name)}` : null);
+                              if href
+                                a(href=href class="text-blue-700 hover:underline") #{part.name || part.slug}
+                              else
+                                span #{part.name || ''}
+                            else
+                              | #{part.value}
+                      else
+                        p(class="text-gray-800") #{step.text}
+
+          // ---- Footer notes appear at the bottom (optional) ----
+          if form.footerNotes
+            .mt-6.pt-4.border-t.border-gray-200.max-w-2xl.mx-auto
+              if Array.isArray(form.footerNotes)
+                ul(class="list-disc list-inside text-sm text-gray-700 space-y-1")
+                  each note in form.footerNotes
+                    li #{note}
+              else
+                p(class="text-sm text-gray-700") #{form.footerNotes}
+
+          // ---- Related techniques derived from steps (auto) ----
+          - (function(){
+          -   const add = (set, v) => { if (v) set.add(v); };
+          -   const rel = new Set();
+          -   if (Array.isArray(form.sequence)) {
+          -     for (const st of form.sequence) {
+          -       if (st && Array.isArray(st.parts)) {
+          -         for (const p of st.parts) if (p && p.type === 'tech') add(rel, p.name || p.slug);
+          -       }
+          -     }
+          -   }
+          -   if (Array.isArray(form.sets)) {
+          -     for (const ss of form.sets) {
+          -       if (ss && Array.isArray(ss.steps)) {
+          -         for (const st of ss.steps) {
+          -           if (st && Array.isArray(st.parts)) {
+          -             for (const p of st.parts) if (p && p.type === 'tech') add(rel, p.name || p.slug);
+          -           }
+          -         }
+          -       }
+          -     }
+          -   }
+          -   form.__related = Array.from(rel);
+          - })();
+
+          if form.__related && form.__related.length
+            .mt-4.pt-4.border-t.border-gray-200
               h3(class="text-sm font-semibold text-gray-700 mb-2") Related techniques
-              .div(class="flex flex-wrap gap-3 text-sm")
-                each refName in form.references.techniques
-                  a(href=`/training/techniques/${encodeURIComponent(refName)}` class="text-blue-700 hover:underline") #{refName}
+              .flex.flex-wrap.gap-3.text-sm
+                each tech in form.__related
+                  a(href=`/training/techniques/${encodeURIComponent(tech)}` class="text-blue-700 hover:underline") #{tech}
+
     else
       p(class="text-red-600 font-semibold text-center") No forms found.
 
