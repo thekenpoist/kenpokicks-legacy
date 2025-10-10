@@ -55,15 +55,14 @@ block content
           if form.sequence && form.sequence.length
             .space-y-3
               each step, i in form.sequence
-                .flex.items-start.gap-3
-                  // Step label → "Step N" in Kenpo red
-                  span(
-                    class="kenpo-red font-semibold shrink-0 select-none whitespace-nowrap tabular-nums leading-6 w-24 md:w-28"
-                  ) Step&nbsp;#{i + 1}
+                // fixed 2-col grid for perfect alignment
+                .div(class="grid grid-cols-[7.5rem,1fr] md:grid-cols-[8.5rem,1fr] gap-x-3 items-start")
+                  // Step label → "Step N" in Kenpo red (no-wrap, tabular digits)
+                  span(class="kenpo-red font-semibold select-none whitespace-nowrap tabular-nums leading-6") Step&nbsp;#{i + 1}
 
-                  // Step text (supports parts[] or plain text)
+                  // Step text (supports parts[] with inline technique links, or plain text)
                   if step.parts && step.parts.length
-                    p(class="text-gray-800")
+                    p(class="m-0 text-gray-800 leading-6 break-words")
                       each part in step.parts
                         if part && part.type === 'tech'
                           - const href = part.slug ? `/training/techniques/${encodeURIComponent(part.slug)}` : (part.name ? `/training/techniques/${encodeURIComponent(part.name)}` : null);
@@ -76,7 +75,7 @@ block content
                         else
                           | 
                   else
-                    p(class="text-gray-800") #{step.text}
+                    p(class="m-0 text-gray-800 leading-6 break-words") #{step.text}
 
           // -------- Sets with steps (Long Form 3 style) --------
           if form.sets && form.sets.length
@@ -86,12 +85,10 @@ block content
                 h3(class="text-base md:text-lg font-bold kenpo-red mb-2 text-center md:text-left") #{s.title}
                 .space-y-3
                   each step, i in s.steps
-                    .flex.items-start.gap-3
-                      span(
-                        class="kenpo-red font-semibold shrink-0 select-none whitespace-nowrap tabular-nums leading-6 w-24 md:w-28"
-                      ) Step&nbsp;#{i + 1}
+                    .div(class="grid grid-cols-[7.5rem,1fr] md:grid-cols-[8.5rem,1fr] gap-x-3 items-start")
+                      span(class="kenpo-red font-semibold select-none whitespace-nowrap tabular-nums leading-6") Step&nbsp;#{i + 1}
                       if step.parts && step.parts.length
-                        p(class="text-gray-800")
+                        p(class="m-0 text-gray-800 leading-6 break-words")
                           each part in step.parts
                             if part && part.type === 'tech'
                               - const href = part.slug ? `/training/techniques/${encodeURIComponent(part.slug)}` : (part.name ? `/training/techniques/${encodeURIComponent(part.name)}` : null);
@@ -104,7 +101,7 @@ block content
                             else
                               | 
                       else
-                        p(class="text-gray-800") #{step.text}
+                        p(class="m-0 text-gray-800 leading-6 break-words") #{step.text}
 
           // Footer notes (bottom-only)
           if form.footerNotes
