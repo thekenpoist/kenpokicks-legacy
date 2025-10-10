@@ -8,12 +8,10 @@
       "sequence": [
         { "text": "Starting from a horse stance..." },
         {
-          "text": "Step forward with your right foot toward 12 o’clock into a right neutral bow while executing a right inward block with a left hand cover.",
-          "techniques": [{ "slug": "delayed-sword" }]
+          "text": "Step forward with your right foot toward 12 o’clock into a right neutral bow while executing a right inward block with a left hand cover."
         },
         {
-          "text": "Execute a right outward chop.",
-          "techniques": [{ "slug": "alternating-maces" }]
+          "text": "Execute a right outward chop."
         },
         {
           "text": "Step forward with your left foot toward 12 o’clock into a left neutral bow while executing a left inward block with a right hand cover."
