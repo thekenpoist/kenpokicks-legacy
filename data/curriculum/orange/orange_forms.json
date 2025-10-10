@@ -1,50 +1,19 @@
 {
   "forms": [
     {
-      "id": "short-form-1",
-      "type": "form",
       "name": "Short Form 1",
+      "beltSlug": "orange",
       "sequence": [
-        {
-          "step": 1,
-          "text": "Start from a horse stance facing 12 o’clock."
-        },
-        {
-          "step": 2,
-          "text": "Drop your left foot back, to 6 o’clock, into a right neutral bow while simultaneously delivering a right inward block and a left back elbow strike."
-        },
-        {
-          "step": 3,
-          "text": "Drop your right foot back, to 6 o’clock, into a left neutral bow while simultaneously delivering a left inward block and a right back elbow strike."
-        },
-        {
-          "step": 4,
-          "text": "Turn to face your next imaginary opponent at 9 o’clock. Step with your right foot to 3 o’clock, into a left neutral bow, while simultaneously delivering a left outward block and a right back elbow strike."
-        },
-        {
-          "step": 5,
-          "text": "Drop your left foot back to 3 o’clock into a right neutral bow while simultaneously delivering a right outward block and a left back elbow strike."
-        },
-        {
-          "step": 6,
-          "text": "Turn to face your next imaginary opponent at 3 o’clock. Adjust your right foot towards 9 o’clock settling into a left neutral bow while simultaneously delivering a left upward block and a right back elbow strike."
-        },
-        {
-          "step": 7,
-          "text": "Drop your left foot back to 9 o’clock into a right neutral bow while simultaneously delivering a right upward block and a left back elbow strike."
-        },
-        {
-          "step": 8,
-          "text": "Turn to face your next imaginary opponent at 6 o’clock. Step with your left foot towards 12 o’clock, into a right neutral bow, while simultaneously delivering a right downward block and a left back elbow strike."
-        },
-        {
-          "step": 9,
-          "text": "Drop your right foot back to 12 o’clock into a left neutral bow, while simultaneously delivering a left downward block and a right back elbow strike."
-        },
-        {
-          "step": 10,
-          "text": "Step, clockwise, with your left foot to 12 o’clock into a horse stance with ( right fist in left open palm) salute. Thus returning to the form point of origin."
-        }
+        { "text": "Start from a horse stance facing 12 o’clock." },
+        { "text": "Drop your left foot back to 6 o’clock into a right neutral bow while simultaneously delivering a right inward block and a left back elbow strike." },
+        { "text": "Drop your right foot back to 6 o’clock into a left neutral bow while simultaneously delivering a left inward block and a right back elbow strike." },
+        { "text": "Turn to face your next imaginary opponent at 9 o’clock. Step with your right foot to 3 o’clock into a left neutral bow while simultaneously delivering a left outward block and a right back elbow strike." },
+        { "text": "Drop your left foot back to 3 o’clock into a right neutral bow while simultaneously delivering a right outward block and a left back elbow strike." },
+        { "text": "Turn to face your next imaginary opponent at 3 o’clock. Adjust your right foot towards 9 o’clock, settling into a left neutral bow while simultaneously delivering a left upward block and a right back elbow strike." },
+        { "text": "Drop your left foot back to 9 o’clock into a right neutral bow while simultaneously delivering a right upward block and a left back elbow strike." },
+        { "text": "Turn to face your next imaginary opponent at 6 o’clock. Step with your left foot towards 12 o’clock into a right neutral bow while simultaneously delivering a right downward block and a left back elbow strike." },
+        { "text": "Drop your right foot back to 12 o’clock into a left neutral bow while simultaneously delivering a left downward block and a right back elbow strike." },
+        { "text": "Step clockwise with your left foot to 12 o’clock into a horse stance and salute (right fist in left open palm), returning to the point of origin." }
       ]
     }
   ]
