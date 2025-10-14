@@ -6,20 +6,36 @@ const { Technique } = require('../models');
 
 exports.getSection = async (req, res) => {
     const { beltColor, section } = req.params;
+    const ALLOWED_SECTIONS = new Set(['techniques', 'basics', 'forms', 'sets']);
+    if (!ALLOWED_SECTIONS.has(section)) {
+        return res.status(404).render('404', { message: 'Section not found.' });
+    }
+
     const filePath = path.join(__dirname, '..', 'data', 'curriculum', beltColor, `${beltColor}_${section}.json`);
 
     try {
         const data = JSON.parse(fs.readFileSync(filePath, 'utf8'));
         res.render(`training/${section}-template`, {
             beltColor,
-            content: data
+            section,
+            content: typeof data === 'object' && !Array.isArray(data) ? data : { [section]: data },
+            hasData: Array.isArray(data) ? data.length > 0 : !!data
         });
     } catch (err) {
-        logger.error(`Error updating user: ${err.message}`);
+        if (err.code === 'ENOENT' && ALLOWED_SECTIONS.has(section)) {
+            return res.render(`training/${section}-template`, { 
+                beltColor,
+                section,
+                content: { [section]: [] },
+                hasData: false
+        })
+        }
+        logger.error(`Error loading curriculum for ${beltColor}/${section}: ${err.message}`);
         if (err.stack) {
             logger.error(err.stack);
         }
-        res.status(404).render('404', { message: 'Section not found.'});
+        res.status(ALLOWED_SECTIONS.has(section) ? 500 : 404)
+            .render(ALLOWED_SECTIONS.has(section) ? '500' : '404', { message: 'Problem loading this section.'});
     }
 };
 
