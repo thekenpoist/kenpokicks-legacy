@@ -1,0 +1,111 @@
+{
+  "sets": [
+    {
+      "name": "Coordination Set 1",
+      "beltSlug": "blue",
+      "sets": [
+        {
+          "title": "Set 1 (12 o'clock)",
+          "steps": [
+            { "text": "Back into a left neutral bow while doing a left outward block." },
+            { "text": "Extend your left outward block forward into a head level left punch." },
+            { "text": "Into a left forward bow while doing a right punch." },
+            { "text": "Right front ball kick and left punch." },
+            { "text": "Land back into a left forward bow while doing a right punch." }
+          ]
+        },
+        {
+          "title": "Set 2 (12 o'clock)",
+          "steps": [
+            { "text": "Step through with your right foot into a right neutral bow while doing a right outward block." },
+            { "text": "Extend your right outward block forward into a right punch." },
+            { "text": "Into a right forward bow while doing a left punch." },
+            { "text": "Left front ball kick and a right punch keeping the left hand palm up on your left hip." },
+            { "text": "Land back into a right forward bow while doing a left punch." }
+          ]
+        },
+        {
+          "title": "Set 3 (9 o'clock)",
+          "steps": [
+            { "text": "Right foot back to 3 o'clock, turning to 9 o'clock into a left neutral bow while doing a left outward block." },
+            { "text": "Extend your left outward block forward into a head level left punch." },
+            { "text": "Into a left forward bow while doing a right punch." },
+            { "text": "Right front ball kick and left punch." },
+            { "text": "Land back into a left forward bow while doing a right punch." }
+          ]
+        },
+        {
+          "title": "Set 4 (9 o'clock)",
+          "steps": [
+            { "text": "Step through with your right foot into a right neutral bow while doing a right outward block." },
+            { "text": "Extend your right outward block forward into a right punch." },
+            { "text": "Into a right forward bow while doing a left punch." },
+            { "text": "Left front ball kick and a right punch keeping the left hand palm up on your left hip." },
+            { "text": "Land back into a right forward bow while doing a left punch." }
+          ]
+        },
+        {
+          "title": "Set 5 (6 o'clock)",
+          "steps": [
+            { "text": "Right foot back to 12 o'clock, turning to 6 o'clock into a left neutral bow while doing a left outward block." },
+            { "text": "Extend your left outward block forward into a head level left punch." },
+            { "text": "Into a left forward bow while doing a right punch." },
+            { "text": "Right front ball kick and left punch." },
+            { "text": "Land back into a left forward bow while doing a right punch." }
+          ]
+        },
+        {
+          "title": "Set 6 (6 o'clock)",
+          "steps": [
+            { "text": "Step through with your right foot into a right neutral bow while doing a right outward block." },
+            { "text": "Extend your right outward block forward into a right punch." },
+            { "text": "Into a right forward bow while doing a left punch." },
+            { "text": "Left front ball kick and a right punch keeping the left hand palm up on your left hip." },
+            { "text": "Land back into a right forward bow while doing a left punch." }
+          ]
+        },
+        {
+          "title": "Set 7 (3 o'clock)",
+          "steps": [
+            { "text": "Right foot back to 9 o'clock, turning to 6 o'clock into a left neutral bow while doing a left outward block." },
+            { "text": "Extend your left outward block forward into a head level left punch." },
+            { "text": "Into a left forward bow while doing a right punch." },
+            { "text": "Right front ball kick and left punch." },
+            { "text": "Land back into a left forward bow while doing a right punch." }
+          ]
+        },
+        {
+          "title": "Set 8 (3 o'clock)",
+          "steps": [
+            { "text": "Step through with your right foot into a right neutral bow while doing a right outward block." },
+            { "text": "Extend your right outward block forward into a right punch." },
+            { "text": "Into a right forward bow while doing a left punch." },
+            { "text": "Left front ball kick and a right punch keeping the left hand palm up on your left hip." },
+            { "text": "Land back into a right forward bow while doing a left punch." }
+          ]
+        },
+        {
+          "title": "Set 9 (12 o'clock)",
+          "steps": [
+            { "text": "Right foot back to 6 o'clock, turning to 12 o'clock into a left neutral bow while doing a left outward block." },
+            { "text": "Extend your left outward block forward into a head level left punch." },
+            { "text": "Into a left forward bow while doing a right punch." },
+            { "text": "Right front ball kick and left punch." },
+            { "text": "Land back into a left forward bow while doing a right punch." }
+          ]
+        },
+        {
+          "title": "Set 10 (12 o'clock)",
+          "steps": [
+            { "text": "Step through with your right foot into a right neutral bow while doing a right outward block." },
+            { "text": "Extend your right outward block forward into a right punch." },
+            { "text": "Into a right forward bow while doing a left punch." },
+            { "text": "Left front ball kick and a right punch keeping the left hand palm up on your left hip." },
+            { "text": "Land back into a right forward bow while doing a left punch." },
+            { "text": "Step up with your left foot into a horse stance facing 12 o'clock." }
+          ]
+        }
+      ]
+    }
+  ]
+}
