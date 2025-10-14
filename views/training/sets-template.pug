@@ -5,9 +5,7 @@ block content
   // ---- Local styles & belt colors ----
   style.
     :root{
-      --kenpo-red: #991b1b; /* step labels & section headers */
-
-      /* belt colors */
+      --kenpo-red: #991b1b;
       --belt-yellow: #eab308;
       --belt-orange: #f97316;
       --belt-purple: #7c3aed;
@@ -26,22 +24,20 @@ block content
       color: transparent;
     }
 
-  // single-line JS object (valid in Pug)
   - const beltColorMap = { yellow:'var(--belt-yellow)', orange:'var(--belt-orange)', purple:'var(--belt-purple)', blue:'var(--belt-blue)', green:'var(--belt-green)', red:'var(--belt-red)', brown:'var(--belt-brown)', black:'var(--belt-black)', white:'var(--belt-white)' };
 
-  // ---- Normalize data shape ----
+  // ---- Normalize incoming data ----
   -
-    // Expect either:
-    // A) content.sets: [ { title, steps:[{text}] } ]
-    // B) content.forms: [ { name, beltSlug, sets:[...], notes:[...] }, ... ]
     let setsData = [];
     let collectionTitle = null;
     let beltSlug = null;
     let notes = null;
 
+    // Preferred: content.sets
     if (content && Array.isArray(content.sets)) {
       setsData = content.sets;
     } else if (content && Array.isArray(content.forms) && content.forms.length) {
+      // Your pasted shape: content.forms[0].sets
       const first = content.forms[0];
       if (first && Array.isArray(first.sets)) setsData = first.sets;
       collectionTitle = first?.name || null;
@@ -53,53 +49,65 @@ block content
     const titleColor = beltSlug ? (beltColorMap[beltSlug] || 'inherit') : 'inherit';
 
   .container.mx-auto.p-4
-    // ---- Optional collection title (e.g., "Starblock") ----
+    // Optional collection title (e.g., "Coordination Set 1")
     if collectionTitle
       if isRedBlack
-        h1.text-2xl.font-extrabold.text-center.mb-4.belt-gradient #{collectionTitle}
+        h1(class="text-2xl font-extrabold text-center mb-4 belt-gradient") #{collectionTitle}
       else
-        h1.text-2xl.font-extrabold.text-center.mb-4(style={color: titleColor}) #{collectionTitle}
+        h1(class="text-2xl font-extrabold text-center mb-4", style={color: titleColor}) #{collectionTitle}
 
     // ---- Render sets or empty state ----
     if Array.isArray(setsData) && setsData.length
-      each s in setsData
+      each item in setsData
         .bg-white.shadow-sm.rounded-lg.p-4.mb-6.max-w-3xl.mx-auto
-          // Set title
-          if s.title
-            h2(class="text-lg md:text-xl font-bold kenpo-red mb-3 text-center") #{s.title}
+          if item.title
+            h2(class="text-lg md:text-xl font-bold kenpo-red mb-3 text-center") #{item.title}
 
-          // Steps (numbered)
-          if Array.isArray(s.steps) && s.steps.length
+          // Case A: simple steps
+          if Array.isArray(item.steps) && item.steps.length
             .space-y-3
-              each step, i in s.steps
+              each step, i in item.steps
                 div(class="grid grid-cols-[7.5rem,1fr] md:grid-cols-[8.5rem,1fr] gap-x-3 items-start")
-                  // "Step N"
-                  span.kenpo-red.font-semibold.select-none.whitespace-nowrap.tabular-nums.leading-6 Step&nbsp;#{i + 1}
-                  // Step text
-                  p.m-0.text-gray-800.leading-6.break-words #{step && step.text ? step.text : ''}
+                  span(class="kenpo-red font-semibold select-none whitespace-nowrap tabular-nums leading-6") Step&nbsp;#{i + 1}
+                  p(class="m-0 text-gray-800 leading-6 break-words") #{step && step.text ? step.text : ''}
 
-          // Optional notes per set (rare; usually at collection level)
-          if s.notes
+          // Case B: grouped sub-sets (each with its own steps)
+          else if Array.isArray(item.sets) && item.sets.length
+            .space-y-5
+              each sub, si in item.sets
+                // sub-set title
+                if sub.title
+                  h3(class="text-base md:text-lg font-bold kenpo-red mb-2 text-center md:text-left") #{sub.title}
+                // sub-set steps
+                if Array.isArray(sub.steps) && sub.steps.length
+                  .space-y-3
+                    each step, i in sub.steps
+                      div(class="grid grid-cols-[7.5rem,1fr] md:grid-cols-[8.5rem,1fr] gap-x-3 items-start")
+                        span(class="kenpo-red font-semibold select-none whitespace-nowrap tabular-nums leading-6") Step&nbsp;#{i + 1}
+                        p(class="m-0 text-gray-800 leading-6 break-words") #{step && step.text ? step.text : ''}
+
+          // Optional notes at the item level
+          if item.notes
             .mt-4.pt-3.border-t.border-gray-200
-              if Array.isArray(s.notes)
-                ul.list-disc.list-inside.text-sm.text-gray-700.space-y-1
-                  each note in s.notes
-                    li #{note}
+              if Array.isArray(item.notes)
+                ul(class="list-disc list-inside text-sm text-gray-700 space-y-1")
+                  each n in item.notes
+                    li #{n}
               else
-                p.text-sm.text-gray-700 #{s.notes}
+                p(class="text-sm text-gray-700") #{item.notes}
 
-      // Collection-level notes (from forms[0].notes in your sample)
+      // Collection-level notes (from forms[0].notes)
       if notes
         .bg-white.shadow-sm.rounded-lg.p-4.max-w-3xl.mx-auto
-          h3.text-base.font-semibold.mb-2 Notes
+          h3(class="text-base font-semibold mb-2") Notes
           if Array.isArray(notes)
-            ul.list-disc.list-inside.text-sm.text-gray-700.space-y-1
+            ul(class="list-disc list-inside text-sm text-gray-700 space-y-1")
               each n in notes
                 li #{n}
           else
-            p.text-sm.text-gray-700 #{notes}
+            p(class="text-sm text-gray-700") #{notes}
     else
-      p.text-red-600.font-semibold.text-center There are no Sets for this belt.
+      p(class="text-red-600 font-semibold text-center") There are no Sets for this belt.
 
     .mt-6.text-center
       a(href="/portal/dashboard" class="text-sm text-blue-600 hover:underline") ← Back to Dashboard
