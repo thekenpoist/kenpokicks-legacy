@@ -5,7 +5,9 @@ block content
   // ---- Local styles & belt colors ----
   style.
     :root{
-      --kenpo-red: #991b1b;
+      --kenpo-red: #991b1b; /* step labels & set titles */
+
+      /* belt colors */
       --belt-yellow: #eab308;
       --belt-orange: #f97316;
       --belt-purple: #7c3aed;
@@ -17,6 +19,8 @@ block content
       --belt-white:  #9ca3af;
     }
     .kenpo-red { color: var(--kenpo-red); }
+
+    /* gradient title for red-black */
     .belt-gradient {
       background: linear-gradient(90deg, var(--belt-red), var(--belt-black));
       -webkit-background-clip: text;
@@ -24,88 +28,87 @@ block content
       color: transparent;
     }
 
+  // single-line JS object (valid in Pug)
   - const beltColorMap = { yellow:'var(--belt-yellow)', orange:'var(--belt-orange)', purple:'var(--belt-purple)', blue:'var(--belt-blue)', green:'var(--belt-green)', red:'var(--belt-red)', brown:'var(--belt-brown)', black:'var(--belt-black)', white:'var(--belt-white)' };
 
-  // ---- Normalize incoming data ----
-  -
-    let setsData = [];
-    let collectionTitle = null;
-    let beltSlug = null;
-    let notes = null;
-
-    // Preferred: content.sets
-    if (content && Array.isArray(content.sets)) {
-      setsData = content.sets;
-    } else if (content && Array.isArray(content.forms) && content.forms.length) {
-      // Your pasted shape: content.forms[0].sets
-      const first = content.forms[0];
-      if (first && Array.isArray(first.sets)) setsData = first.sets;
-      collectionTitle = first?.name || null;
-      beltSlug = (first?.beltSlug || '').toLowerCase();
-      notes = first?.notes || null;
-    }
-
-    const isRedBlack = beltSlug === 'red-black';
-    const titleColor = beltSlug ? (beltColorMap[beltSlug] || 'inherit') : 'inherit';
-
   .container.mx-auto.p-4
-    // Optional collection title (e.g., "Coordination Set 1")
-    if collectionTitle
-      if isRedBlack
-        h1(class="text-2xl font-extrabold text-center mb-4 belt-gradient") #{collectionTitle}
-      else
-        h1(class="text-2xl font-extrabold text-center mb-4", style={color: titleColor}) #{collectionTitle}
+    if content && content.sets && content.sets.length
+      each set in content.sets
+        - const beltSlug = (set.beltSlug || '').toLowerCase();
+        - const isRedBlack = beltSlug === 'red-black';
+        - const titleColor = beltColorMap[beltSlug] || 'inherit';
 
-    // ---- Render sets or empty state ----
-    if Array.isArray(setsData) && setsData.length
-      each item in setsData
+        // ---- Card (compact & centered) ----
         .bg-white.shadow-sm.rounded-lg.p-4.mb-6.max-w-3xl.mx-auto
-          if item.title
-            h2(class="text-lg md:text-xl font-bold kenpo-red mb-3 text-center") #{item.title}
 
-          // Case A: simple steps
-          if Array.isArray(item.steps) && item.steps.length
+          // ---- Title (belt color or red-black gradient) ----
+          if isRedBlack
+            h1(class="text-xl md:text-2xl font-extrabold text-center mb-3 belt-gradient") #{set.name || set.title || 'Set'}
+          else
+            h1(class="text-xl md:text-2xl font-extrabold text-center mb-3", style=`color:${titleColor}`) #{set.name || set.title || 'Set'}
+
+          // Optional intro
+          if set.intro
+            p(class="text-sm text-gray-600 mb-4 text-center") #{set.intro}
+
+          // -------- Simple 1..N steps (sequence) --------
+          if set.sequence && set.sequence.length
             .space-y-3
-              each step, i in item.steps
+              each step, i in set.sequence
+                // fixed 2-col grid for perfect alignment
                 div(class="grid grid-cols-[7.5rem,1fr] md:grid-cols-[8.5rem,1fr] gap-x-3 items-start")
                   span(class="kenpo-red font-semibold select-none whitespace-nowrap tabular-nums leading-6") Step&nbsp;#{i + 1}
-                  p(class="m-0 text-gray-800 leading-6 break-words") #{step && step.text ? step.text : ''}
+                  if step.parts && step.parts.length
+                    p(class="m-0 text-gray-800 leading-6 break-words")
+                      each part in step.parts
+                        if part && part.type === 'tech'
+                          - const href = part.slug ? `/training/techniques/${encodeURIComponent(part.slug)}` : (part.name ? `/training/techniques/${encodeURIComponent(part.name)}` : null);
+                          if href
+                            a(href=href class="text-blue-700 hover:underline") #{part.name || part.slug}
+                          else
+                            span #{part.name || ''}
+                        else if part && part.type === 'text'
+                          | #{part.value}
+                        else
+                          |
+                  else
+                    p(class="m-0 text-gray-800 leading-6 break-words") #{step.text}
 
-          // Case B: grouped sub-sets (each with its own steps)
-          else if Array.isArray(item.sets) && item.sets.length
+          // -------- Sub-sets with steps (grouped) --------
+          if set.sets && set.sets.length
             .space-y-5
-              each sub, si in item.sets
-                // sub-set title
-                if sub.title
-                  h3(class="text-base md:text-lg font-bold kenpo-red mb-2 text-center md:text-left") #{sub.title}
-                // sub-set steps
-                if Array.isArray(sub.steps) && sub.steps.length
-                  .space-y-3
-                    each step, i in sub.steps
-                      div(class="grid grid-cols-[7.5rem,1fr] md:grid-cols-[8.5rem,1fr] gap-x-3 items-start")
-                        span(class="kenpo-red font-semibold select-none whitespace-nowrap tabular-nums leading-6") Step&nbsp;#{i + 1}
-                        p(class="m-0 text-gray-800 leading-6 break-words") #{step && step.text ? step.text : ''}
+              each s in set.sets
+                h3(class="text-base md:text-lg font-bold kenpo-red mb-2 text-center md:text-left") #{s.title}
+                .space-y-3
+                  each step, i in s.steps
+                    div(class="grid grid-cols-[7.5rem,1fr] md:grid-cols-[8.5rem,1fr] gap-x-3 items-start")
+                      span(class="kenpo-red font-semibold select-none whitespace-nowrap tabular-nums leading-6") Step&nbsp;#{i + 1}
+                      if step.parts && step.parts.length
+                        p(class="m-0 text-gray-800 leading-6 break-words")
+                          each part in step.parts
+                            if part && part.type === 'tech'
+                              - const href = part.slug ? `/training/techniques/${encodeURIComponent(part.slug)}` : (part.name ? `/training/techniques/${encodeURIComponent(part.name)}` : null);
+                              if href
+                                a(href=href class="text-blue-700 hover:underline") #{part.name || part.slug}
+                              else
+                                span #{part.name || ''}
+                            else if part && part.type === 'text'
+                              | #{part.value}
+                            else
+                              |
+                      else
+                        p(class="m-0 text-gray-800 leading-6 break-words") #{step.text}
 
-          // Optional notes at the item level
-          if item.notes
-            .mt-4.pt-3.border-t.border-gray-200
-              if Array.isArray(item.notes)
+          // Footer notes (bottom-only)
+          if set.footerNotes
+            .mt-6.pt-4.border-t.border-gray-200.max-w-2xl.mx-auto
+              if Array.isArray(set.footerNotes)
                 ul(class="list-disc list-inside text-sm text-gray-700 space-y-1")
-                  each n in item.notes
-                    li #{n}
+                  each note in set.footerNotes
+                    li #{note}
               else
-                p(class="text-sm text-gray-700") #{item.notes}
+                p(class="text-sm text-gray-700") #{set.footerNotes}
 
-      // Collection-level notes (from forms[0].notes)
-      if notes
-        .bg-white.shadow-sm.rounded-lg.p-4.max-w-3xl.mx-auto
-          h3(class="text-base font-semibold mb-2") Notes
-          if Array.isArray(notes)
-            ul(class="list-disc list-inside text-sm text-gray-700 space-y-1")
-              each n in notes
-                li #{n}
-          else
-            p(class="text-sm text-gray-700") #{notes}
     else
       p(class="text-red-600 font-semibold text-center") There are no Sets for this belt.
 
