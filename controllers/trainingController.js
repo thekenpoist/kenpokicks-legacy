@@ -3,6 +3,10 @@ const fs = require('fs');
 const { logger } = require('../utils/loggerUtil');
 const { Technique } = require('../models');
 
+function loadJson(p) {
+    return JSON.parse(fs.readFileSync(p, 'utf-8'));
+}
+
 
 exports.getBeltCurriculum = async (req, res) => {
     const { beltColor, section } = req.params;
@@ -76,37 +80,33 @@ exports.getBeltTechniques = async (req, res, next) => {
     }
 };
 
-exports.getAdvancedForms = async (req, res) => {
-    const { beltColor, section } = req.params;
-    const ALLOWED_SECTIONS = new Set(['techniques', 'basics', 'forms', 'sets']);
-    if (!ALLOWED_SECTIONS.has(section)) {
-        return res.status(404).render('404', { message: 'Section not found.' });
-    }
+exports.getAdvancedForm = async (req, res) => {
+    const { formNumber } = String(req.params.num);
 
-    const filePath = path.join(__dirname, '..', 'data', 'curriculum', beltColor, `${beltColor}_${section}.json`);
+    const filePath = path.join(__dirname, '..', 'data', 'curriculum', 'advanced_forms', `form_${formNumber}.json`);
 
     try {
-        const data = JSON.parse(fs.readFileSync(filePath, 'utf8'));
-        res.render(`training/${section}-template`, {
-            beltColor,
-            section,
-            content: typeof data === 'object' && !Array.isArray(data) ? data : { [section]: data },
-            hasData: Array.isArray(data) ? data.length > 0 : !!data
-        });
-    } catch (err) {
-        if (err.code === 'ENOENT' && ALLOWED_SECTIONS.has(section)) {
-            return res.render(`training/${section}-template`, { 
-                beltColor,
-                section,
-                content: { [section]: [] },
-                hasData: false
-        })
+        const formData = loadJson(filePath);
+        const viewModel = {
+            pageTitle: formData.title || `Form ${formNumber}`,
+            beltSlug: 'advanced',
+            beltColor: 'advanced',
+            forms: [
+                {
+                    name: formData.name || `Form ${formNumber}`,
+                    title: formData.title || '',
+                    steps: formData.steps || [],
+                    summary: formData.summary || '',
+                    notes: formData.notes || ''
+                }
+            ]
         }
-        logger.error(`Error loading curriculum for ${beltColor}/${section}: ${err.message}`);
+        return res.render(`training/form-template`, viewModel);
+
+    } catch (err) {
+        logger.error(`Error loading Form ${formNumber}: ${err.message}`);
         if (err.stack) {
             logger.error(err.stack);
         }
-        res.status(ALLOWED_SECTIONS.has(section) ? 500 : 404)
-            .render(ALLOWED_SECTIONS.has(section) ? '500' : '404', { message: 'Problem loading this section.'});
     }
 };
