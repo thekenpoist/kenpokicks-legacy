@@ -7,6 +7,6 @@ const router = express.Router();
 
 router.get('/belt/:beltColor', isAuthenticated, trainingController.getBeltTechniques);
 
-router.get('/:beltColor/:section', isAuthenticated, trainingController.getSection);
+router.get('/:beltColor/:section', isAuthenticated, trainingController.getBeltCurriculum);
 
 module.exports = router;
