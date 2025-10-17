@@ -32,8 +32,9 @@ block content
   - const beltColorMap = { yellow:'var(--belt-yellow)', orange:'var(--belt-orange)', purple:'var(--belt-purple)', blue:'var(--belt-blue)', green:'var(--belt-green)', red:'var(--belt-red)', brown:'var(--belt-brown)', black:'var(--belt-black)', white:'var(--belt-white)' };
 
   .container.mx-auto.p-4
-    if content && content.forms && content.forms.length
-      each form in content.forms
+    - const formsArr = (content && content.forms) ? content.forms : (typeof forms !== 'undefined' ? forms : []);
+    if formsArr && formsArr.length
+      each form in formsArr
         - const beltSlug = (form.beltSlug || '').toLowerCase();
         - const isRedBlack = beltSlug === 'red-black';
         - const titleColor = beltColorMap[beltSlug] || 'inherit';
