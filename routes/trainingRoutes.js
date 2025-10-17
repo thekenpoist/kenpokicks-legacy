@@ -9,4 +9,7 @@ router.get('/belt/:beltColor', isAuthenticated, trainingController.getBeltTechni
 
 router.get('/:beltColor/:section', isAuthenticated, trainingController.getBeltCurriculum);
 
+router.get('/advanced/forms/:formNumber', isAuthenticated, trainingController.getAdvancedForm);
+
+
 module.exports = router;
