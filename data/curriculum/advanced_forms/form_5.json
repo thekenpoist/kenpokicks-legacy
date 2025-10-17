@@ -2,7 +2,7 @@
   "forms": [
     {
       "name": "Form 5",
-      "beltSlug": "black",
+      "beltSlug": "2nd-degree-black",
       "intro": "This is a technique form showing all takedown techniques—each technique takes the attacker to the ground in some way.",
       "sets": [
         {
@@ -221,7 +221,7 @@
           ]
         }
       ],
-      "notes": [
+      "footerNotes": [
         "Form opens at the praying-hands portion of the salutation.",
         "Technique form emphasizing takedowns."
       ]

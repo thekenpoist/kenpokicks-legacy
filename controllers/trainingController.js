@@ -87,21 +87,26 @@ exports.getAdvancedForm = async (req, res) => {
 
     try {
         const formData = loadJson(filePath);
+
+        const dataSource = Array.isArray(formData.forms) && formData.forms.length
+            ? formData.forms[0]
+            : formData;
+
         const viewModel = {
-            pageTitle: formData.title || `Form ${formNumber}`,
-            beltSlug: 'advanced',
-            beltColor: 'advanced',
+            pageTitle: dataSource.name || `Form ${formNumber}`,
             forms: [
                 {
-                    name: formData.name || `Form ${formNumber}`,
-                    title: formData.title || '',
-                    steps: formData.steps || [],
-                    summary: formData.summary || '',
-                    notes: formData.notes || ''
+                    name: dataSource.name || `Form ${formNumber}`,
+                    beltSlug: dataSource.beltSlug || 'advanced',
+                    intro: dataSource.intro || '',
+                    sets: dataSource.sets || [],
+                    title: dataSource.title || '',
+                    steps: dataSource.steps || [],
+                    footerNotes: dataSource.footerNotes || ''
                 }
             ]
         }
-        return res.render(`training/form-template`, viewModel);
+        return res.render(`training/forms-template`, viewModel);
 
     } catch (err) {
         logger.error(`Error loading Form ${formNumber}: ${err.message}`);
