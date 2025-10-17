@@ -81,7 +81,7 @@ exports.getBeltTechniques = async (req, res, next) => {
 };
 
 exports.getAdvancedForm = async (req, res) => {
-    const { formNumber } = String(req.params.num);
+    const formNumber = String(req.params.formNumber);
 
     const filePath = path.join(__dirname, '..', 'data', 'curriculum', 'advanced_forms', `form_${formNumber}.json`);
 
