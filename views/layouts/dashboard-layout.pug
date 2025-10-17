@@ -41,9 +41,8 @@ html(lang="en")
         p.bg-red-100.text-red-800.p-3.rounded.border.border-red-300= msg
 
     // Sidebar
-    aside(class="w-64 bg-red-800 text-white h-screen p-6 flex flex-col space-y-6")
+    aside(class="fixed inset-y-0 left-0 w-64 bg-red-800 text-white p-6 flex flex-col space-y-6 z-20")
       img(src="/images/AMTSPatch.jpg" alt="Kenpo Kicks Logo" class="mx-auto w-full max-w-lg")
-
       nav.flex.flex-col.text-lg.pl-4.pr-2
         a(href="/portal/dashboard" class="hover:text-green-700 transition") Dashboard
 
@@ -67,7 +66,7 @@ html(lang="en")
         a(href="/auth/logout" class="hover:text-green-700 transition mt-auto text-sm") Logout
 
     // Main Content
-    main(class="flex-1 p-10")
+    main(class="flex-1 p-10 lg:ml-64 h-screen overflow-y-auto")
       block content
       script(src="/js/app.client.js" defer)
       block pageScripts
