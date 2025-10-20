@@ -115,3 +115,39 @@ exports.getAdvancedForm = async (req, res) => {
         }
     }
 };
+
+exports.getHeritageSet = async (req, res) => {
+    const setName = String(req.params.setName);
+
+    const filePath = path.join(__dirname, '..', 'data', 'curriculum', 'heritage_sets', `set_${setName}.json`);
+
+    try {
+        const setData = loadJson(filePath);
+
+        const dataSource = Array.isArray(setData.sets) && setData.sets.length
+            ? setData.sets[0]
+            : setData;
+
+        const viewModel = {
+            pageTitle: dataSource.name || setName,
+            forms: [
+                {
+                    name: dataSource.name || setName,
+                    beltSlug: dataSource.beltSlug || 'heritage',
+                    intro: dataSource.intro || '',
+                    sets: dataSource.sets || [],
+                    title: dataSource.title || '',
+                    steps: dataSource.steps || [],
+                    footerNotes: dataSource.footerNotes || ''
+                }
+            ]
+        }
+        return res.render(`training/sets-template`, viewModel);
+
+    } catch (err) {
+        logger.error(`Error loading ${setName}: ${err.message}`);
+        if (err.stack) {
+            logger.error(err.stack);
+        }
+    }
+};
