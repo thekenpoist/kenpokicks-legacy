@@ -6,31 +6,30 @@
     {
       "title": "SET 1: Finger Set 1 — Seven Methods of Execution",
       "steps": [
-        { "text": "Poke, Thrust, Whip, Slice, Hammer, Rake, Hook." },
         { "text": "Do a right 4-finger thrust at face level (3/4 extension, palm down). This is intended for longer range—3/4 extension means full reach without locking the elbow." },
-        { "text": "Repeat with left hand." },
-        { "text": "Do a right 4-finger thrust at chest level (1/2 extension, palm in — hand tipped on its side). This is intended for mid-range—your elbow moves forward past your stomach, but not all the way out." },
-        { "text": "Repeat with left hand." },
+        { "text": "Do a left 4-finger thrust at face level (3/4 extension, palm down). Maintain structure—do not lock the elbow." },
+        { "text": "Do a right 4-finger thrust at chest level (1/2 extension, palm in—hand tipped on its side). This is intended for mid-range—your elbow moves forward past your stomach, but not all the way out." },
+        { "text": "Do a left 4-finger thrust at chest level (1/2 extension, palm in). Keep the shoulder relaxed and the wrist aligned." },
         { "text": "Do a right 4-finger thrust at solar plexus level (1/4 extension, palm up, in an uppercut fashion). This is intended for in-close—your elbow does not move forward past your side." },
-        { "text": "Repeat with left hand." },
-        { "text": "Do a right 4-finger thrust over your left shoulder, palm down." },
-        { "text": "Repeat with left hand." },
-        { "text": "Place your right hand on your left hand (left hand is still on your right shoulder); circle both hands down to the front and do double two-finger eye pokes at face level, palm up then palm down." },
-        { "text": "Place your right elbow on the back of your left hand (arms level with your chest), fingers of your right hand facing away. Strike forward (moving from finger to elbow only) with your fingers in a whipping fashion toward the face." },
-        { "text": "Repeat with left hand." },
-        { "text": "Extend your right arm straight down, palm out. Place your left hand over the front of your right elbow and strike forward (moving from finger to elbow only) with a whipping motion toward the groin." },
-        { "text": "Repeat with left hand." },
+        { "text": "Do a left 4-finger thrust at solar plexus level (1/4 extension, palm up, uppercut fashion). Keep the elbow close to the ribs." },
+        { "text": "Do a right 4-finger thrust over your left shoulder, palm down, maintaining posture and balance." },
+        { "text": "Do a left 4-finger thrust over your right shoulder, palm down, mirroring the previous action." },
+        { "text": "Place your right hand on your left hand (left hand still on your right shoulder); circle both hands down to the front and execute double two-finger eye pokes at face level—first palm up, then palm down." },
+        { "text": "Place your right elbow on the back of your left hand (arms level with the chest), fingers of the right hand facing away; whip the fingers forward using finger-to-elbow motion toward the face." },
+        { "text": "Place your left elbow on the back of your right hand, fingers of the left hand facing away; whip the fingers forward toward the face." },
+        { "text": "Extend your right arm straight down, palm out. Place your left hand over the front of your right elbow and whip the fingers forward (finger-to-elbow motion) toward the groin." },
+        { "text": "Extend your left arm straight down, palm out. Place your right hand over the front of your left elbow and whip the fingers forward toward the groin." },
         { "text": "Do a right inward, palm-up eye slice (right to left) followed by an outward, palm-down eye slice (left to right)." },
-        { "text": "Repeat with left hand." },
-        { "text": "Do a right inward horizontal heel-palm at face level, followed by an in-place raking claw and draw your hand to your left shoulder. Follow with a right outward handsword at neck level." },
-        { "text": "Repeat with left hand." },
-        { "text": "Do a right overhead/downward heel-palm claw at face level as your left hand does a rear upward heel-palm claw toward your back at groin level." },
-        { "text": "Repeat with left hand." },
-        { "text": "Do a right underhand heel-palm claw at groin level as your left hand does a rear upward heel-palm claw toward your back at groin level." },
-        { "text": "Repeat with left hand." },
-        { "text": "Do a right underhand claw to the groin (do not move your left hand), then track both hands up to eye level and do double eye pokes with your thumbs." },
-        { "text": "Pull your hands back to your hips and do a right two-finger eye hook." },
-        { "text": "Repeat with left hand." }
+        { "text": "Do a left inward, palm-up eye slice (left to right) followed by an outward, palm-down eye slice (right to left)." },
+        { "text": "Do a right inward horizontal heel-palm at face level, followed by an in-place raking claw; draw the right hand to the left shoulder. Follow with a right outward handsword at neck level." },
+        { "text": "Do a left inward horizontal heel-palm at face level, followed by an in-place raking claw; draw the left hand to the right shoulder. Follow with a left outward handsword at neck level." },
+        { "text": "Do a right overhead/downward heel-palm claw at face level as the left hand executes a rear upward heel-palm claw toward your back at groin level." },
+        { "text": "Do a left overhead/downward heel-palm claw at face level as the right hand executes a rear upward heel-palm claw toward your back at groin level." },
+        { "text": "Do a right underhand heel-palm claw at groin level as the left hand executes a rear upward heel-palm claw toward your back at groin level." },
+        { "text": "Do a left underhand heel-palm claw at groin level as the right hand executes a rear upward heel-palm claw toward your back at groin level." },
+        { "text": "Do a right underhand claw to the groin (do not move the left hand), then track both hands up to eye level and execute double eye pokes with the thumbs." },
+        { "text": "Pull both hands back to the hips and execute a right two-finger eye hook." },
+        { "text": "Execute a left two-finger eye hook, returning to a balanced guard." }
       ]
     }
   ],
@@ -39,6 +38,6 @@
   "footerNotes": [
     "Seven Methods of Execution: Poke, Thrust, Whip, Slice, Hammer, Rake, Hook.",
     "Range emphasis: 3/4 extension (long), 1/2 extension (mid), 1/4 extension (close).",
-    "Do not lock the elbow on extended thrusts; prioritize structure over reach."
+    "Avoid locking the elbow on extended thrusts; prioritize structure over reach."
   ]
 }
