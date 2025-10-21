@@ -11,5 +11,8 @@ router.get('/:beltColor/:section', isAuthenticated, trainingController.getBeltCu
 
 router.get('/advanced/forms/:formNumber', isAuthenticated, trainingController.getAdvancedForm);
 
+router.get('/heritage/sets/:setName', isAuthenticated, trainingController.getHeritageSet);
+
+
 
 module.exports = router;
