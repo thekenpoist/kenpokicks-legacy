@@ -1,0 +1,59 @@
+{
+    "sets": [
+        {
+            "name": "Kicking Set 1",
+            "beltSlug": "heritage",
+            "intro": "This set emphasizes directional kicking—executed at the four cardinal points—to build balance, control, and recovery through transitions between neutral, twist, and spinning stances.",
+            "sets": [
+                {
+                "title": "SET 1: 12 o'clock — Right Foot Kicks",
+                "steps": [
+                    { "text": "Right foot steps back into a left neutral bow." },
+                    { "text": "Step through with a right ball kick, landing in a right neutral bow." },
+                    { "text": "Left foot crosses over right into a twist stance; execute a right side kick, landing in a right neutral bow." },
+                    { "text": "Left foot shuffle, right roundhouse kick, landing in a right neutral bow." },
+                    { "text": "Left spinning rear kick, landing in a left neutral bow." },
+                    { "text": "Drop the right foot back to 9 o'clock into a left neutral bow facing 3 o'clock." }
+                ]
+                },
+                {
+                "title": "SET 2: 3 o'clock",
+                "steps": [
+                    { "text": "Right step-through side kick, landing in a right neutral bow." },
+                    { "text": "Left foot shuffle, right ball kick, landing in a right neutral bow." },
+                    { "text": "Left foot shuffle, right roundhouse kick, landing in a right neutral bow." },
+                    { "text": "Left foot shuffle, right rear kick, landing in a right neutral bow." },
+                    { "text": "Drop the left foot to 12 o'clock into a right neutral bow facing 6 o'clock." }
+                ]
+                },
+                {
+                "title": "SET 3: 6 o'clock — Left Foot Kicks",
+                "steps": [
+                    { "text": "Left spinning rear kick, landing in a left neutral bow." },
+                    { "text": "Shuffle left roundhouse kick, landing in a left neutral bow." },
+                    { "text": "Shuffle left front kick, landing in a left neutral bow." },
+                    { "text": "Shuffle left side kick, landing in a left neutral bow." },
+                    { "text": "Drop the right foot back to 3 o'clock into a left neutral bow facing 9 o'clock." }
+                ]
+                },
+                {
+                "title": "SET 4: 9 o'clock",
+                "steps": [
+                    { "text": "Right step-through ball kick, landing in a right neutral bow." },
+                    { "text": "Left step-through roundhouse kick, landing in a left neutral bow." },
+                    { "text": "Right spinning rear kick, landing in a right neutral bow." },
+                    { "text": "Left step-through side kick, landing in a horse stance facing 12 o'clock." }
+                ]
+                }
+            ],
+            "title": "",
+            "steps": [],
+            "footerNotes": [
+                "Focus on balance and chamber control between kicks.",
+                "Each set aligns with a cardinal direction: 12, 3, 6, and 9 o’clock.",
+                "Maintain structure and recover to a stable stance after each kick."
+            ]
+        }
+
+    ]
+}
