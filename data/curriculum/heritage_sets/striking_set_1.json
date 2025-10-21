@@ -1,79 +1,74 @@
 {
-    "sets": [
+  "sets": [
+    {
+      "name": "Striking Set 1",
+      "beltSlug": "heritage",
+      "intro": "From a horse stance — a progressive striking drill that pairs thrust punches with follow-up back-knuckles, hammer fists, and inward strikes across multiple lines.",
+      "sets": [
         {
-            "name": "Striking Set 1",
-            "beltSlug": "heritage",
-            "intro": "From a horse stance — a progressive striking drill that pairs thrust punches with follow-up back-knuckles, hammer fists, and inward strikes across multiple lines.",
-            "sets": [
-                {
-                "title": "SET 1: Striking Set 1 — From a Horse Stance",
-                "sets": [
-                    {
-                    "title": "Striking to the Front",
-                    "steps": [
-                        { "text": "Right horizontal thrust punch to face level into right back-knuckle to face level." },
-                        { "text": "Left horizontal thrust punch to face level into left back-knuckle to face level." },
-                        { "text": "Right horizontal thrust punch to face level into right inverted hammer-fist to groin." },
-                        { "text": "Left horizontal thrust punch to face level into left inverted hammer-fist to groin." },
-                        { "text": "Right horizontal thrust punch to face level into right back-knuckle to temple." },
-                        { "text": "Left horizontal thrust punch to face level into left back-knuckle to temple." },
-                        { "text": "Right horizontal thrust punch to face level into right inward hammer-fist to ribs." },
-                        { "text": "Left horizontal thrust punch to face level into left inward hammer-fist to ribs." }
-                    ]
-                    },
-                    {
-                    "title": "Striking to the Side",
-                    "steps": [
-                        { "text": "Right vertical thrust punch to face level into right back-knuckle to face level." },
-                        { "text": "Left vertical thrust punch to face level into left back-knuckle to face level." },
-                        { "text": "Right vertical thrust punch to face level into right inverted hammer-fist to groin." },
-                        { "text": "Left vertical thrust punch to face level into left inverted hammer-fist to groin." },
-                        { "text": "Right vertical thrust punch to face level into right back-knuckle to temple." },
-                        { "text": "Left vertical thrust punch to face level into left back-knuckle to temple." },
-                        { "text": "Right vertical thrust punch to face level into right inward hammer-fist to ribs." },
-                        { "text": "Left vertical thrust punch to face level into left inward hammer-fist to ribs." }
-                    ]
-                    },
-                    {
-                    "title": "Double Strikes to the Front",
-                    "steps": [
-                        { "text": "Double horizontal thrust punch to face level into double back-knuckles to face level." },
-                        { "text": "Double horizontal thrust punch to face level into double inverted hammer-fists to groin." },
-                        { "text": "Double horizontal thrust punch to face level into double back-knuckles to temple." },
-                        { "text": "Double horizontal thrust punch to face level into double inward hammer-fists to ribs." }
-                    ]
-                    },
-                    {
-                    "title": "Strikes to Both Sides Simultaneously",
-                    "steps": [
-                        { "text": "Double vertical thrust punch to face level into double back-knuckles to face level." },
-                        { "text": "Double vertical thrust punch to face level into double inverted hammer-fists to groin." },
-                        { "text": "Double vertical thrust punch to face level into double back-knuckles to temple." },
-                        { "text": "Double vertical thrust punch to face level into double inward hammer-fists to ribs." }
-                    ]
-                    },
-                    {
-                    "title": "Closing Sequence — Compressed, Forward Drill",
-                    "steps": [
-                        { "text": "Slide left foot to right foot (knees bent), strike forward with double horizontal thrust punches to face level." },
-                        { "text": "Double back-knuckles at face level." },
-                        { "text": "Double inverted hammer-fists to groin." },
-                        { "text": "Double back-knuckles to temple." },
-                        { "text": "Double inward hammer-fists to ribs." },
-                        { "text": "Return to attention stance." }
-                    ]
-                    }
-                ]
-                }
-            ],
-            "title": "",
-            "steps": [],
-            "footerNotes": [
-                "Maintain a strong horse stance: knees bent, weight centered, feet shoulder-width apart.",
-                "Drive through the hips and shoulders on thrusts; recover to guard quickly after each follow-up strike.",
-                "Keep strikes compact when following up to groin/temple/ribs—accuracy and structure over wild power.",
-                "Breathe on motion: exhale on the strike, reset on recovery."
-            ]
+          "title": "SET 1: Striking to the Front",
+          "steps": [
+            { "text": "Right horizontal thrust punch to face level into right back-knuckle to face level." },
+            { "text": "Left horizontal thrust punch to face level into left back-knuckle to face level." },
+            { "text": "Right horizontal thrust punch to face level into right inverted hammer-fist to groin." },
+            { "text": "Left horizontal thrust punch to face level into left inverted hammer-fist to groin." },
+            { "text": "Right horizontal thrust punch to face level into right back-knuckle to temple." },
+            { "text": "Left horizontal thrust punch to face level into left back-knuckle to temple." },
+            { "text": "Right horizontal thrust punch to face level into right inward hammer-fist to ribs." },
+            { "text": "Left horizontal thrust punch to face level into left inward hammer-fist to ribs." }
+          ]
+        },
+        {
+          "title": "SET 2: Striking to the Side",
+          "steps": [
+            { "text": "Right vertical thrust punch to face level into right back-knuckle to face level." },
+            { "text": "Left vertical thrust punch to face level into left back-knuckle to face level." },
+            { "text": "Right vertical thrust punch to face level into right inverted hammer-fist to groin." },
+            { "text": "Left vertical thrust punch to face level into left inverted hammer-fist to groin." },
+            { "text": "Right vertical thrust punch to face level into right back-knuckle to temple." },
+            { "text": "Left vertical thrust punch to face level into left back-knuckle to temple." },
+            { "text": "Right vertical thrust punch to face level into right inward hammer-fist to ribs." },
+            { "text": "Left vertical thrust punch to face level into left inward hammer-fist to ribs." }
+          ]
+        },
+        {
+          "title": "SET 3: Double Strikes to the Front",
+          "steps": [
+            { "text": "Double horizontal thrust punch to face level into double back-knuckles to face level." },
+            { "text": "Double horizontal thrust punch to face level into double inverted hammer-fists to groin." },
+            { "text": "Double horizontal thrust punch to face level into double back-knuckles to temple." },
+            { "text": "Double horizontal thrust punch to face level into double inward hammer-fists to ribs." }
+          ]
+        },
+        {
+          "title": "SET 4: Strikes to Both Sides Simultaneously",
+          "steps": [
+            { "text": "Double vertical thrust punch to face level into double back-knuckles to face level." },
+            { "text": "Double vertical thrust punch to face level into double inverted hammer-fists to groin." },
+            { "text": "Double vertical thrust punch to face level into double back-knuckles to temple." },
+            { "text": "Double vertical thrust punch to face level into double inward hammer-fists to ribs." }
+          ]
+        },
+        {
+          "title": "SET 5: Closing Sequence (Compressed, Forward Drill)",
+          "steps": [
+            { "text": "Slide left foot to right foot (knees bent), strike forward with double horizontal thrust punches to face level." },
+            { "text": "Double back-knuckles at face level." },
+            { "text": "Double inverted hammer-fists to groin." },
+            { "text": "Double back-knuckles to temple." },
+            { "text": "Double inward hammer-fists to ribs." },
+            { "text": "Return to attention stance." }
+          ]
         }
-    ]
+      ],
+      "title": "",
+      "steps": [],
+      "footerNotes": [
+        "Maintain a strong horse stance: knees bent, weight centered, feet shoulder-width apart.",
+        "Drive through the hips and shoulders on thrusts; recover to guard quickly after each follow-up strike.",
+        "Keep strikes compact when following up to groin/temple/ribs—accuracy and structure over wild power.",
+        "Breathe on motion: exhale on the strike, reset on recovery."
+      ]
+    }
+  ]
 }
