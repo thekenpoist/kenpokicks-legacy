@@ -119,7 +119,7 @@ exports.getAdvancedForm = async (req, res) => {
 exports.getHeritageSet = async (req, res) => {
     const setName = String(req.params.setName);
 
-    const filePath = path.join(__dirname, '..', 'data', 'curriculum', 'heritage_sets', `set_${setName}.json`);
+    const filePath = path.join(__dirname, '..', 'data', 'curriculum', 'heritage_sets', `${setName}.json`);
 
     try {
         const setData = loadJson(filePath);
@@ -130,7 +130,7 @@ exports.getHeritageSet = async (req, res) => {
 
         const viewModel = {
             pageTitle: dataSource.name || setName,
-            forms: [
+            content: { sets: [
                 {
                     name: dataSource.name || setName,
                     beltSlug: dataSource.beltSlug || 'heritage',
@@ -140,7 +140,7 @@ exports.getHeritageSet = async (req, res) => {
                     steps: dataSource.steps || [],
                     footerNotes: dataSource.footerNotes || ''
                 }
-            ]
+            ]}
         }
         return res.render(`training/sets-template`, viewModel);
 
