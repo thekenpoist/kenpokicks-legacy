@@ -1,0 +1,45 @@
+{
+    "sets": [
+        {
+            "name": "Stance Set 1",
+            "beltSlug": "heritage",
+            "intro": "This set demonstrates the 22 fundamental stances and their transitions. It emphasizes smooth, controlled movement between stances, developing balance, coordination, and awareness of foot maneuvers used throughout techniques and forms.",
+            "sets": [
+                {
+                "title": "SET 1: Stance Transitions — Flow and Continuity",
+                "steps": [
+                    { "text": "Attention stance." },
+                    { "text": "Left leg steps out into a Horse stance." },
+                    { "text": "Left leg moves back into a Right Neutral Bow." },
+                    { "text": "Right leg slides back into a Right 45° Cat Stance." },
+                    { "text": "Right leg steps back into a Horse stance." },
+                    { "text": "Right leg moves back into a Left Neutral Bow." },
+                    { "text": "Left leg slides back into a Left 45° Cat Stance." },
+                    { "text": "Left leg crosses back into a Right Twist Stance." },
+                    { "text": "Unwind into a Right Neutral Bow." },
+                    { "text": "Right leg moves back into a Left Twist Stance." },
+                    { "text": "Unwind into a Left Neutral Bow." },
+                    { "text": "Rotate into a Right Reverse Bow." },
+                    { "text": "Rotate in place into a Left Forward Bow." },
+                    { "text": "Front-to-Back switch." },
+                    { "text": "Rotate into a Left Reverse Bow." },
+                    { "text": "Rotate in place into a Right Forward Bow." },
+                    { "text": "Transition into a Right Rotating Twist Stance." },
+                    { "text": "Step through forward to continue motion." },
+                    { "text": "Transition into a Left Rotating Twist Stance." },
+                    { "text": "Unwind into a Left Neutral Bow." },
+                    { "text": "Left leg steps back into a Horse stance." },
+                    { "text": "Left leg moves in to Attention stance." }
+                ]
+                }
+            ],
+            "title": "",
+            "steps": [],
+            "footerNotes": [
+                "There are 22 stances in this set. Each transition teaches balance, flow, and awareness of foot placement.",
+                "Focus on keeping your weight centered and transitions smooth—avoid bouncing or shifting abruptly.",
+                "Hidden within this set are numerous foot maneuvers necessary for seamless stance changes found in techniques and forms."
+            ]
+        }
+    ]
+}
