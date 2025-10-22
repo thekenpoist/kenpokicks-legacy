@@ -1,5 +1,5 @@
 'use strict';
-const { Model, DataTypes, DATE, ENUM } = require('sequelize');
+const { Model, DataTypes } = require('sequelize');
 
 module.exports = (sequelize) => {
     class AdminLog extends Model {
@@ -15,7 +15,7 @@ module.exports = (sequelize) => {
             autoIncrement: true
         },
         actor: {
-            type: DataTypes.CHAR(50),
+            type: DataTypes.STRING(50),
             allowNull: false
         },
         actor_uuid: {
@@ -24,7 +24,8 @@ module.exports = (sequelize) => {
         },
         occurred_at: {
             type: DataTypes.DATE,
-            allowNull: false
+            allowNull: false,
+            defaultValue: DataTypes.NOW
         },
         action: {
             type: DataTypes.ENUM(
@@ -41,27 +42,27 @@ module.exports = (sequelize) => {
             allowNull: false
         },
         entity_affected: {
-            type: ENUM(
+            type: DataTypes.ENUM(
                 "User",
                 "Technique",
                 "Form",
-                "set",
+                "Set",
                 "Basics"
             )
         },
         entity_label: {
-            type: DataTypes.VARCHAR(128),
+            type: DataTypes.STRING(128),
             allowNull: true
         },
         summary: {
-            type: DataTypes.VARCHAR(256),
+            type: DataTypes.STRING(256),
             allowNull: false
         }
     }, {
         sequelize,
         modelName: 'AdminLog',
         tableName: 'adminlogs',
-        timestamps: true
+        timestamps: false
     });
 
     return AdminLog;
