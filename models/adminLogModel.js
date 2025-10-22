@@ -10,7 +10,7 @@ module.exports = (sequelize) => {
 
     AdminLog.init({
         id: {
-            type: DataTypes.BIGINT,
+            type: DataTypes.BIGINT.UNSIGNED,
             primaryKey: true,
             autoIncrement: true
         },
@@ -23,7 +23,7 @@ module.exports = (sequelize) => {
             allowNull: false
         },
         occurred_at: {
-            type: DataTypes.DATE,
+            type: DataTypes.DATE(3),
             allowNull: false,
             defaultValue: DataTypes.NOW
         },
@@ -48,7 +48,8 @@ module.exports = (sequelize) => {
                 "Form",
                 "Set",
                 "Basics"
-            )
+            ),
+            allowNull: false
         },
         entity_label: {
             type: DataTypes.STRING(128),

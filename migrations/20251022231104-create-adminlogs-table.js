@@ -5,7 +5,7 @@ module.exports = {
   async up (queryInterface, Sequelize) {
     await queryInterface.createTable('adminlogs', {
        id: {
-          type: Sequelize.BIGINT,
+          type: Sequelize.BIGINT.UNSIGNED,
           primaryKey: true,
           autoIncrement: true
       },
@@ -18,9 +18,9 @@ module.exports = {
           allowNull: false
       },
       occurred_at: {
-          type: Sequelize.DATE,
+          type: Sequelize.DATE(3),
           allowNull: false,
-          defaultValue: Sequelize.NOW
+          defaultValue: Sequelize.literal('CURRENT_TIMESTAMP(3)')
       },
       action: {
           type: Sequelize.ENUM(
@@ -43,7 +43,8 @@ module.exports = {
               "Form",
               "Set",
               "Basics"
-          )
+          ),
+          allowNull: false
       },
       entity_label: {
           type: Sequelize.STRING(128),
