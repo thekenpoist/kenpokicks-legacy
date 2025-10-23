@@ -18,30 +18,30 @@ module.exports = (sequelize) => {
             type: DataTypes.STRING(50),
             allowNull: false
         },
-        actor_uuid: {
+        actorUuid: {
             type: DataTypes.CHAR(36),
             allowNull: false
         },
-        occurred_at: {
+        action: {
+            type: DataTypes.ENUM(
+                "Edit User",
+                "Suspend User",
+                "Unsuspend User",
+                "Delete User",
+                "Edit Technique",
+                "Create Technique",
+                "Edit Form",
+                "Edit Set",
+                "Edit Basics"
+            ),
+            allowNull: false
+        },
+        actionDate: {
             type: DataTypes.DATE(3),
             allowNull: false,
             defaultValue: DataTypes.NOW
         },
-        action: {
-            type: DataTypes.ENUM(
-                "edit_user",
-                "suspend_user",
-                "unsuspend_user",
-                "delete_user",
-                "edit_technique",
-                "create_technique",
-                "edit_form",
-                "edit_set",
-                "edit_basics"
-            ),
-            allowNull: false
-        },
-        entity_affected: {
+        entityAffected: {
             type: DataTypes.ENUM(
                 "User",
                 "Technique",
@@ -51,7 +51,7 @@ module.exports = (sequelize) => {
             ),
             allowNull: false
         },
-        entity_label: {
+        entityLabel: { // Steve, this is username, technique name, belt color, etc...
             type: DataTypes.STRING(128),
             allowNull: true
         },
