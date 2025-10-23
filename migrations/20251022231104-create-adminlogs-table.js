@@ -13,30 +13,30 @@ module.exports = {
           type: Sequelize.STRING(50),
           allowNull: false
       },
-      actor_uuid: {
+      actorUuid: {
           type: Sequelize.CHAR(36),
           allowNull: false
       },
-      occurred_at: {
+      action: {
+          type: Sequelize.ENUM(
+                "Edit User",
+                "Suspend User",
+                "Unsuspend User",
+                "Delete User",
+                "Edit Technique",
+                "Create Technique",
+                "Edit Form",
+                "Edit Set",
+                "Edit Basics"
+          ),
+          allowNull: false
+      },
+      actionDate: {
           type: Sequelize.DATE(3),
           allowNull: false,
           defaultValue: Sequelize.literal('CURRENT_TIMESTAMP(3)')
       },
-      action: {
-          type: Sequelize.ENUM(
-              "edit_user",
-              "suspend_user",
-              "unsuspend_user",
-              "delete_user",
-              "edit_technique",
-              "create_technique",
-              "edit_form",
-              "edit_set",
-              "edit_basics"
-          ),
-          allowNull: false
-      },
-      entity_affected: {
+      entityAffected: {
           type: Sequelize.ENUM(
               "User",
               "Technique",
@@ -46,7 +46,7 @@ module.exports = {
           ),
           allowNull: false
       },
-      entity_label: {
+      entityLabel: {
           type: Sequelize.STRING(128),
           allowNull: true
       },
