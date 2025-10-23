@@ -3,7 +3,7 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {
-    await queryInterface.createTable('adminlogs', {
+    await queryInterface.createTable('adminLogs', {
        id: {
           type: Sequelize.BIGINT.UNSIGNED,
           primaryKey: true,
@@ -57,6 +57,6 @@ module.exports = {
     });
   },
   async down (queryInterface, Sequelize) {
-    await queryInterface.dropTable('adminlogs');
+    await queryInterface.dropTable('adminLogs');
   }
 };

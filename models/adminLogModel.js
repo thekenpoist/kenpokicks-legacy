@@ -62,7 +62,7 @@ module.exports = (sequelize) => {
     }, {
         sequelize,
         modelName: 'AdminLog',
-        tableName: 'adminlogs',
+        tableName: 'adminLogs',
         timestamps: false
     });
 
