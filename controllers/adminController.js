@@ -1,4 +1,4 @@
-const { User } = require('../models');
+const { User, AdminLog } = require('../models');
 const { Op } = require('sequelize');
 const { logger } = require('../utils/loggerUtil');
 const { renderServerError } = require('../utils/errorUtil');
@@ -346,4 +346,45 @@ exports.postEditUser = async (req, res, next) => {
         }
         return renderServerError(res, err, 'users');
     }
+};
+
+exports.getRecentAdminLogs = async (req, res, next) => {
+  try {
+    const { fmt } = res.locals;
+
+    const adminLogs = await AdminLog.findAll({
+      order: [['actionDate', 'DESC']],
+      limit: 10
+    });
+
+    const esc = (v) =>
+      String(v ?? '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+
+    const html = adminLogs.map((log) => {
+      const dateStr = fmt
+        ? fmt(log.actionDate, 'MMM d, yyyy, h:mm a')
+        : new Date(log.actionDate).toISOString().slice(0, 16).replace('T', ' ');
+
+      const href = `/logs/${encodeURIComponent(log.id)}`;
+      return `
+        <a href="${href}" id="log-${esc(log.id)}"
+        class="block grid grid-cols-3 text-sm text-gray-800 border-b border-gray-100 py-2 hover:bg-gray-50">
+        <div>${esc(dateStr)}</div>
+        <div>${esc(log.action)}</div>
+        <div class="truncate">${esc(log.entityAffected)}</div>
+        <div>${esc(log.actor)}</div>
+        </a>`;
+        }).join('');
+
+    res.send(html);
+  } catch (err) {
+    logger.error(`Error fetching training log: ${err.message}`);
+    if (err.stack) logger.error(err.stack);
+    res.status(500).send('Failed to fetch recent admin logs');
+  }
 };
