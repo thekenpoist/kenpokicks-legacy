@@ -1,4 +1,4 @@
-const { Technique } = require('../models');
+const { Technique, AdminLog } = require('../models');
 const { validationResult } = require('express-validator');
 const { renderServerError } = require('../utils/errorUtil')
 const { logger } = require('../utils/loggerUtil');
@@ -168,6 +168,15 @@ exports.postEditTechnique = async (req, res, next) => {
         },{
             where: { techId }
         });
+
+        await AdminLog.create({
+            actor: user.username,
+            actorUuid: user.uuid,
+            action: 'Edit Technique',
+            entityAffected: 'Technique',
+            entityLabel: techTitle,
+            summary: 'Made a change to a technique'
+        })
 
         return res.redirect('/techniques/all');
     } catch (err) {
