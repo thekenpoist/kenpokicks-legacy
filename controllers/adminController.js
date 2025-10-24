@@ -353,8 +353,9 @@ exports.getRecentAdminLogs = async (req, res, next) => {
     const { fmt } = res.locals;
 
     const adminLogs = await AdminLog.findAll({
-      order: [['actionDate', 'DESC']],
-      limit: 10
+        attributes: ['id', 'action', 'entityAffected', 'actor', 'actionDate'],
+        order: [['actionDate', 'DESC']],
+        limit: 10
     });
 
     const esc = (v) =>
@@ -375,6 +376,7 @@ exports.getRecentAdminLogs = async (req, res, next) => {
         : new Date(log.actionDate).toLocaleString();
 
     const href = `/logs/${encodeURIComponent(log.id)}`;
+
     return `
         <a href="${href}" id="log-${esc(log.id)}"
             class="block grid grid-cols-4 gap-3 text-sm text-gray-800 border-b border-gray-100 py-2 hover:bg-gray-50 focus:bg-gray-50 focus:outline-none">
@@ -385,16 +387,7 @@ exports.getRecentAdminLogs = async (req, res, next) => {
         </a>`;
         }).join('');
 
-    const header = `
-        <div class="grid grid-cols-4 gap-3 text-xs font-medium text-gray-500 uppercase tracking-wide px-1 py-2 border-b border-gray-100">
-            <div>Date</div>
-            <div>Action</div>
-            <div>Entity</div>
-            <div>Actor</div>
-        </div>`;
-    
-
-    res.send(header + rows);
+    res.send(rows);
   } catch (err) {
     logger.error(`Error fetching recent admin log: ${err.message}`);
     if (err.stack) logger.error(err.stack);
