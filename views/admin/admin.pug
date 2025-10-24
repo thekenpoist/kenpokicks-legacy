@@ -30,19 +30,21 @@ block content
       h3(class="text-lg font-semibold text-gray-900") Manage Techniques
       p(class="text-sm text-gray-600 mt-1") View, edit, and publish techniques.
 
-  // Recent activity (unchanged)
+  // Recent activity
   .mt-8.bg-white.rounded-xl.shadow.border.border-gray-100
-    .p-5.border-b.border-gray-100
+    .p-5.border-b.border-gray-100.flex.items-center.justify-between
       h3(class="text-lg font-semibold text-gray-900") Recent Activity
-      p(class="text-sm text-gray-600 mt-1") Last 10 admin actions (coming soon)
-    .divide-y.divide-gray-100
-      if recentEvents && recentEvents.length
-        each ev in recentEvents
-          .p-4.flex.items-center.justify-between
-            .text-sm.text-gray-800= ev.message
-            .text-xs.text-gray-500= ev.time
-      else
-        .p-4.text-sm.text-gray-500 No recent admin activity yet.
+      a(href="/admin/logs" class="text-sm text-blue-600 hover:underline") View all
+    // Header row (same look as Training Diary’s headers)
+    .grid.grid-cols-4.font-semibold.text-gray-600.border-b.border-gray-300.pb-2.mb-2.text-sm.px-5
+      div Date
+      div Action
+      div Entity
+      div Actor
+
+    // Entries container — hydrated via fetch
+    #admin-recent-activity.px-5
+      .p-4.text-sm.text-gray-500 Loading…
 
   // New Accounts
   .mt-8.bg-white.rounded-xl.shadow.border.border-gray-100
@@ -60,3 +62,7 @@ block content
               | #{u.createdAtFormatted || u.createdAt}
     else
       .p-4.text-sm.text-gray-500 No new accounts yet.
+
+block pageScripts
+  script(src="/js/features/admin-console.js" defer)
+
