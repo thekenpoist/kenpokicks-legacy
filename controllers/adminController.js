@@ -365,26 +365,39 @@ exports.getRecentAdminLogs = async (req, res, next) => {
         .replace(/"/g, '&quot;')
         .replace(/'/g, '&#39;');
 
-    const html = adminLogs.map((log) => {
+    if (!adminLogs.length) {
+        return res.send(`<div class="p-4 text-sm text-gray-500">No recent admin activity yet.</div>`);
+    }
+
+    const rows = adminLogs.map((log) => {
       const dateStr = fmt
         ? fmt(log.actionDate, 'MMM d, yyyy, h:mm a')
-        : new Date(log.actionDate).toISOString().slice(0, 16).replace('T', ' ');
+        : new Date(log.actionDate).toLocaleString();
 
-      const href = `/logs/${encodeURIComponent(log.id)}`;
-      return `
+    const href = `/logs/${encodeURIComponent(log.id)}`;
+    return `
         <a href="${href}" id="log-${esc(log.id)}"
-        class="block grid grid-cols-3 text-sm text-gray-800 border-b border-gray-100 py-2 hover:bg-gray-50">
-        <div>${esc(dateStr)}</div>
-        <div>${esc(log.action)}</div>
-        <div class="truncate">${esc(log.entityAffected)}</div>
-        <div>${esc(log.actor)}</div>
+            class="block grid grid-cols-4 gap-3 text-sm text-gray-800 border-b border-gray-100 py-2 hover:bg-gray-50 focus:bg-gray-50 focus:outline-none">
+            <div class="whitespace-nowrap">${esc(dateStr)}</div>
+            <div class="whitespace-nowrap">${esc(log.action)}</div>
+            <div class="truncate" title="${esc(log.entityAffected)}">${esc(log.entityAffected)}</div>
+            <div class="whitespace-nowrap">${esc(log.actor)}</div>
         </a>`;
         }).join('');
 
-    res.send(html);
+    const header = `
+        <div class="grid grid-cols-4 gap-3 text-xs font-medium text-gray-500 uppercase tracking-wide px-1 py-2 border-b border-gray-100">
+            <div>Date</div>
+            <div>Action</div>
+            <div>Entity</div>
+            <div>Actor</div>
+        </div>`;
+    
+
+    res.send(header + rows);
   } catch (err) {
-    logger.error(`Error fetching admin log: ${err.message}`);
+    logger.error(`Error fetching recent admin log: ${err.message}`);
     if (err.stack) logger.error(err.stack);
-    res.status(500).send('Failed to fetch recent admin logs');
+    res.status(500).send('<div class="p-4 text-sm text-red-600">Failed to fetch recent admin logs.</div>');
   }
 };
