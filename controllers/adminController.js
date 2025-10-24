@@ -383,7 +383,7 @@ exports.getRecentAdminLogs = async (req, res, next) => {
 
     res.send(html);
   } catch (err) {
-    logger.error(`Error fetching training log: ${err.message}`);
+    logger.error(`Error fetching admin log: ${err.message}`);
     if (err.stack) logger.error(err.stack);
     res.status(500).send('Failed to fetch recent admin logs');
   }
