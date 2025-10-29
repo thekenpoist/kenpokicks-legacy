@@ -1,4 +1,4 @@
-function changedFieldNames(before, after, fields = TRACKED_FILEDS) {
+function changedFieldNames(before, after, fields = TRACKED_FIELDS) {
     const changed = [];
     
     for (const f of fields) {
