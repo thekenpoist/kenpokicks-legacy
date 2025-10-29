@@ -8,4 +8,6 @@ function changedFieldNames(before, after, fields = TRACKED_FILEDS) {
     return changed;
 }
 
-module.exports = { changedFieldNames };
+const pick = (obj, keys) => Object.fromEntries(keys.map(k => [k, obj?.[k]]));
+
+module.exports = { changedFieldNames, pick };
