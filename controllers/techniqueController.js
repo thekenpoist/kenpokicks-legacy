@@ -3,6 +3,7 @@ const { validationResult } = require('express-validator');
 const { renderServerError } = require('../utils/errorUtil')
 const { logger } = require('../utils/loggerUtil');
 const { techAttackAngle, beltColor, techGroup } = require('../utils/constants');
+const { changedFieldNames, pick } = require('../utils/diffUtils');
 
 
 exports.getAllTechniques = async (req, res, next) => {
@@ -99,6 +100,10 @@ exports.postEditTechnique = async (req, res, next) => {
 
     const { techId } = req.params;
 
+    const TRACKED_FIELDS = ['techTitle', 'techSlug', 'techAttack', 'techDescription', 'techGroup',
+                                'techAttackAngle', 'techNotes', 'relatedForm', 'beltColor', 'videoUrl'
+                            ];
+
     const formAction = `/techniques/${techId}/edit`;
 
     const errors = validationResult(req);
@@ -153,6 +158,8 @@ exports.postEditTechnique = async (req, res, next) => {
             });
         }
 
+        const before = pick(technique.get({ plain: true }), TRACKED_FIELDS);
+
         await Technique.update({
             techTitle,
             techSlug,
@@ -169,13 +176,17 @@ exports.postEditTechnique = async (req, res, next) => {
             where: { techId }
         });
 
+        const after = pick(technique.get({ plain: true}), TRACKED_FIELDS);
+        const fieldsChanged = changedFieldNames(before, after, TRACKED_FIELDS);
+        
+
         await AdminLog.create({
             actor: user.username,
             actorUuid: user.uuid,
             action: 'Edit Technique',
             entityAffected: 'Technique',
             entityLabel: techTitle,
-            summary: 'Made a change to a technique'
+            summary: fieldsChanged
         })
 
         return res.redirect('/techniques/all');
