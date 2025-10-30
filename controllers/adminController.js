@@ -382,7 +382,7 @@ exports.getRecentAdminLogs = async (req, res, next) => {
             class="block grid grid-cols-4 gap-3 text-sm text-gray-800 border-b border-gray-100 py-2 hover:bg-gray-50 focus:bg-gray-50 focus:outline-none">
             <div class="whitespace-nowrap">${esc(dateStr)}</div>
             <div class="whitespace-nowrap">${esc(log.action)}</div>
-            <div class="truncate" title="${esc(log.entityAffected)}">${esc(log.entityAffected)}</div>
+            <div class="truncate" title="${esc(log.entityLabel)}">${esc(log.entityLabel)}</div>
             <div class="whitespace-nowrap">${esc(log.actor)}</div>
         </a>`;
         }).join('');
