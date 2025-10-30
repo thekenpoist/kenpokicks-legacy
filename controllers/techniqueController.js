@@ -179,6 +179,8 @@ exports.postEditTechnique = async (req, res, next) => {
         const after = pick(technique.get({ plain: true}), TRACKED_FIELDS);
         const fieldsChanged = changedFieldNames(before, after, TRACKED_FIELDS);
         const names = Array.isArray(fieldsChanged) ? fieldsChanged : Object.keys(fieldsChanged);
+        const summary = names.length ? `Summary of changed fields: ${names.join(', ')}` : 'No field changes detected';
+
         
 
         await AdminLog.create({
@@ -187,7 +189,7 @@ exports.postEditTechnique = async (req, res, next) => {
             action: 'Edit Technique',
             entityAffected: 'Technique',
             entityLabel: techTitle,
-            summary: names
+            summary
         })
 
         return res.redirect('/techniques/all');
