@@ -1,9 +1,3 @@
-//- views/techniques/tech-form.pug
-//- Expects from controller:
-//-   layout: 'layouts/admin-layout'
-//-   pageTitle, formAction, submitButtonText
-//-   formData (plain object with techId, techTitle, techSlug, techAttack, techDescription, techGroup, techAttackAngle, techNotes, relatedForm, beltColor, videoUrl, updatedAt?)
-//-   csrfToken? , errorMessage? , fieldErrors? , beltColors? , groups?
 extends ../layouts/admin-layout.pug
 
 block content
@@ -83,9 +77,9 @@ block content
       if fieldErrors && fieldErrors.techDescription
         p(class="text-xs text-red-600 mt-1") #{fieldErrors.techDescription}
 
-    // Attack Type (techGroup)
+    // Technique Group
     .flex.flex-col
-      label(for="techGroup" class="text-sm font-medium text-gray-700") Attack Type
+      label(for="techGroup" class="text-sm font-medium text-gray-700") Technique Group
       if techGroup && techGroup.length
         select#techGroup(
           name="techGroup"
@@ -94,7 +88,7 @@ block content
             ? "mt-1 w-full rounded border-gray-300 focus:ring-2 focus:ring-blue-500 border-red-400"
             : "mt-1 w-full rounded border-gray-300 focus:ring-2 focus:ring-blue-500")
         )
-          option(value="" disabled selected=!(formData && formData.techGroup)) Select an attack type
+          option(value="" disabled selected=!(formData && formData.techGroup)) Select an group type
           each g in techGroup
             option(
               value=g
