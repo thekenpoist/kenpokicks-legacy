@@ -159,7 +159,6 @@ exports.postEditTechnique = async (req, res, next) => {
         }
 
         const before = pick(technique.get({ plain: true }), TRACKED_FIELDS);
-        console.log('BEF', before);
 
         await Technique.update({
             techTitle,
@@ -180,13 +179,9 @@ exports.postEditTechnique = async (req, res, next) => {
         await technique.reload();
 
         const after = pick(technique.get({ plain: true}), TRACKED_FIELDS);
-        console.log('AFT', after);
         const fieldsChanged = changedFieldNames(before, after, TRACKED_FIELDS);
         const names = Array.isArray(fieldsChanged) ? fieldsChanged : Object.keys(fieldsChanged);
-        console.log('CHG', names);
         const summary = names.length ? `Summary of changed fields: ${names.join(', ')}` : 'No field changes detected';
-
-        
 
         await AdminLog.create({
             actor: user.username,
