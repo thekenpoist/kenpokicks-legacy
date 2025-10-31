@@ -24,7 +24,7 @@ function toComparable(data) {
 }
 
 
-const pick = (obj, keys) {
+function pick(obj, keys) {
     return Object.fromEntries(keys.map(k => [k, obj?.[k]]));
 }
 
