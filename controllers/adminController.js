@@ -394,3 +394,32 @@ exports.getRecentAdminLogs = async (req, res, next) => {
     res.status(500).send('<div class="p-4 text-sm text-red-600">Failed to fetch recent admin logs.</div>');
   }
 };
+
+exports.getAllAdminLogs = async (req, res, next) => {
+    const user = res.locals.currentUser;
+    
+    if (!user) {
+        return res.redirect('/auth/login')
+    }
+
+    try {
+        const allAdminLogs = await AdminLog.findAll({
+            attributes: ['id', 'action', 'entityLabel', 'actor', 'actionDate'],
+            order: [['actionDate', 'DESC']],
+        });
+        
+        res.render('admin/logs/all-admin-logs', {
+            pageTitle: 'View admin logs',
+            currentPage: 'logs',
+            errorMessage: null,
+            allAdminLogs
+        });
+    } catch (err) {
+        logger.error(`Error fetching admin logs: ${err.message}`);
+        if (err.stack) {
+            logger.error(err.stack);
+        }
+
+        return renderServerError(res, err, 'admin');
+    }
+};
