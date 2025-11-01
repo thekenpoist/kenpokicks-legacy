@@ -408,7 +408,7 @@ exports.getAllAdminLogs = async (req, res, next) => {
             order: [['actionDate', 'DESC']],
         });
         
-        res.render('admin/logs/all-admin-logs', {
+        res.render('admin/admin-logs/all-admin-logs', {
             pageTitle: 'View admin logs',
             currentPage: 'logs',
             errorMessage: null,
