@@ -5,6 +5,7 @@ const { renderServerError } = require('../utils/errorUtil');
 const { validationResult } = require('express-validator');
 const { v4: uuidv4 } = require('uuid');
 const { sendVerificationEmail } = require('../utils/sendVerificationEmailUtil');
+const { changedFieldNames, pick } = require('../utils/diffUtils');
 
 
 
@@ -179,7 +180,6 @@ exports.getEditUser = async (req, res, next) => {
 
 exports.postEditUser = async (req, res, next) => {
     const admin = res.locals.currentUser;
-    const { uuid } = req.params;
 
     if (!admin) {
         return res.redirect('/auth/login');
@@ -192,6 +192,12 @@ exports.postEditUser = async (req, res, next) => {
             layout: 'layouts/dashboard-layout'
         });
     }
+
+    const { uuid } = req.params;
+
+    const TRACKED_FIELDS = ['username', 'firstName', 'lastName', 'email', 
+                            'confirmEmail', 'style', 'rank', 'timezone'
+                            ]
 
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -225,6 +231,8 @@ exports.postEditUser = async (req, res, next) => {
                 layout: 'layouts/admin-layout'
             });
         }
+
+        const before = pick(targetUser.get({ plain: true }), TRACKED_FIELDS);
 
         const {
             email = '',
@@ -336,7 +344,22 @@ exports.postEditUser = async (req, res, next) => {
 
         await targetUser.update(updatedFields);
 
-        // req.flash('success', 'Profile updated successfully.');
+        await targetUser.reload();
+
+        const after = pick(targetUser.get({ plain: true}), TRACKED_FIELDS);
+        const fieldsChanged = changedFieldNames(before, after, TRACKED_FIELDS);
+        const names = Array.isArray(fieldsChanged) ? fieldsChanged : Object.keys(fieldsChanged);
+        const summary = names.length ? `Summary of changed fields: ${names.join(', ')}` : 'No field changes detected';
+
+        await AdminLog.create({
+            actor: admin.username,
+            actorUuid: admin.uuid,
+            action: 'Edit User',
+            entityAffected: 'User',
+            entityLabel: targetUser.username,
+            summary
+        })
+
         return res.redirect(`/admin/users/${uuid}/show`);
 
     } catch (err) {
