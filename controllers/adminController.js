@@ -139,7 +139,7 @@ exports.getEditUser = async (req, res, next) => {
 
     try {
         const userProfile = await User.findByPk(userUuid, {
-            attributes: ['uuid','username','firstName','lastName','email','style','rank','timezone', 'fullName']
+            attributes: ['uuid', 'username', 'firstName', 'lastName', 'email', 'style', 'rank', 'timezone', 'fullName', 'role']
         });
 
         if (!userProfile) {
@@ -163,6 +163,7 @@ exports.getEditUser = async (req, res, next) => {
                     confirmEmail: userProfile.email,
                     style: userProfile.style || '',
                     rank: userProfile.rank || '',
+                    role: userProfile.role || '',
                     timezone: userProfile.timezone || ''
                 },
                 submitLabel: 'Update Profile',
