@@ -150,6 +150,13 @@ exports.getEditUser = async (req, res, next) => {
             });
         }
 
+        const attributes = User.getAttributes();
+        const roleAttribute = attributes.role;
+        const roles = 
+            roleAttribute?.values ??
+            roleAttribute?.type?.values ??
+            roleAttribute?.type?.options?.values ?? [];
+
         return res.render('admin/edit-user-profile', {
                 pageTitle: "Edit User Profile",
                 currentPage: 'users',
@@ -166,6 +173,7 @@ exports.getEditUser = async (req, res, next) => {
                     role: userProfile.role || '',
                     timezone: userProfile.timezone || ''
                 },
+                roles,
                 submitLabel: 'Update Profile',
                 formMode: 'edit',
                 formAction: `/admin/users/${userUuid}/update`
