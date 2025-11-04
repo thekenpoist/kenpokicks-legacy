@@ -36,6 +36,16 @@ block content
             input#confirmEmail(type="email", name="confirmEmail", required, value=formData.confirmEmail, class="w-full border border-gray-300 rounded-lg px-3 py-2")
 
           .form-group
+            label.block.text-sm.font-medium.mb-1(for="role") Role
+            select#role(name="role" required class="w-full border border-gray-300 rounded-lg px-3 py-2 bg-white")
+              option(value="" disabled selected=!formData?.role) — Select a role —
+              each r in roles
+                option(
+                  value=r
+                  selected=(String(r) === String(formData?.role))
+                )= r
+
+          .form-group
             label.block.text-sm.font-medium.mb-1(for="style") Style
             input#style(type="text", name="style", value=formData.style, class="w-full border border-gray-300 rounded-lg px-3 py-2")
 
