@@ -205,7 +205,7 @@ exports.postEditUser = async (req, res, next) => {
     const { uuid } = req.params;
 
     const TRACKED_FIELDS = ['username', 'firstName', 'lastName', 'email', 
-                            'confirmEmail', 'style', 'rank', 'timezone'
+                            'confirmEmail', 'style', 'rank', 'role', 'timezone'
                             ]
 
     const errors = validationResult(req);
@@ -229,7 +229,7 @@ exports.postEditUser = async (req, res, next) => {
 
         const targetUser = await User.findByPk(uuid, {
             attributes: [
-                'uuid', 'email', 'username', 'firstName', 'lastName', 
+                'uuid', 'email', 'username', 'firstName', 'lastName', 'role',
                 'style', 'rank', 'avatar', 'timezone', 'isVerified', 'verificationToken'
             ]
         });
@@ -251,6 +251,7 @@ exports.postEditUser = async (req, res, next) => {
             username = '',
             rank = '',
             style = '',
+            role = '',
             timezone = ''
         } = req.body;
 
@@ -262,6 +263,7 @@ exports.postEditUser = async (req, res, next) => {
             lastName: lastName.trim(),
             rank: rank.trim(),
             style: style.trim(),
+            role: role.trim(),
             timezone: timezone.trim()
         };
 
@@ -279,6 +281,7 @@ exports.postEditUser = async (req, res, next) => {
                     confirmEmail: normalizedInput.confirmEmail,
                     style: normalizedInput.style,
                     rank: normalizedInput.rank,
+                    role: normalizedInput.role,
                     timezone: normalizedInput.timezone
                 },
                 submitLabel: 'Update Profile',
@@ -317,6 +320,7 @@ exports.postEditUser = async (req, res, next) => {
                     confirmEmail: normalizedInput.confirmEmail,
                     style: normalizedInput.style,
                     rank: normalizedInput.rank,
+                    role: normalizedInput.role,
                     timezone: normalizedInput.timezone
                 },
                 submitLabel: 'Update Profile',
@@ -333,6 +337,7 @@ exports.postEditUser = async (req, res, next) => {
             lastName: normalizedInput.lastName || targetUser.lastName,
             style: normalizedInput.style || targetUser.style,
             rank: normalizedInput.rank || targetUser.rank,
+            role: normalizedInput.role || targetUser.role,
             avatar: req.avatarPath || targetUser.avatar,
             timezone: normalizedInput.timezone || targetUser.timezone
         };
