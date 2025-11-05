@@ -2,6 +2,8 @@
 
 module.exports = {
   async up (queryInterface, Sequelize) {
+    await queryInterface.sequelize.transacti
+
     await queryInterface.changeColumn('users', 'role', {
       type: Sequelize.ENUM('superadmin', 'admin', 'instructor', 'student'),
          defaultValue: 'student',
@@ -11,8 +13,9 @@ module.exports = {
 
   async down (queryInterface, Sequelize) {
     await queryInterface.changeColumn('users', 'role', {
-      type: Sequelize.STRING,
-      allowNull: false,
+      type: Sequelize.ENUM('admin', 'instructor', 'student'),
+         defaultValue: 'student',
+         allowNull: false
     });
   }
 };
