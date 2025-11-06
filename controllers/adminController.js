@@ -20,7 +20,7 @@ exports.getAdminConsole = async (req, res, next) => {
     const instructors = await User.count({ where: { role: { [Op.in]: ['instructor', 'admin'] } } });
     const admins = await User.count({ where: { role : { [Op.in]: ['admin'] } } });
 
-    if (user.role !== 'admin') {
+    if (user.role !== 'admin' || user.role !== 'superadmin') {
         return res.status(403).render('403', {
             pageTitle: 'Access Denied',
             currentPage: 'portal/dashboard',

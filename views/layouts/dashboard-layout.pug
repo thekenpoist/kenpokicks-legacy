@@ -56,7 +56,7 @@ html(lang="en")
 
         a(href="/" class="hover:text-green-700 transition mt-6") Home
 
-        if currentUser && currentUser.role === 'admin'
+        if currentUser && currentUser.role === 'admin' || currentUser && currentUser.role === 'superadmin'
           a(href="/admin", class="hover:text-green-700 transition mt-6") Admin
 
 
