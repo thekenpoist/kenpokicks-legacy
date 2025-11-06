@@ -8,7 +8,7 @@ const { validateUserUpdate } = require('../middleware/validators/adminValidator'
 
 const router = express.Router();
 
-router.get('/', isAuthenticated, requireRole('admin'), adminController.getAdminConsole);
+router.get('/', isAuthenticated, requireRole('admin', 'superadmin'), adminController.getAdminConsole);
 
 router.get('/all', isAuthenticated, requireRole('admin'), adminController.getAllUsers)
 
