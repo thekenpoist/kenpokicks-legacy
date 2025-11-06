@@ -18,7 +18,7 @@ exports.getAdminConsole = async (req, res, next) => {
 
     const students = await User.count({ where: { role: { [Op.in]: ['student', 'instructor', 'admin'] } } });
     const instructors = await User.count({ where: { role: { [Op.in]: ['instructor', 'admin'] } } });
-    const admins = await User.count({ where: { role : { [Op.in]: ['admin'] } } });
+    const admins = await User.count({ where: { role : { [Op.in]: ['admin', 'superadmin'] } } });
 
     if (user.role !== 'admin' || user.role !== 'superadmin') {
         return res.status(403).render('403', {
