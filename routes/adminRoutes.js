@@ -1,7 +1,7 @@
 const express = require('express');
 const adminController = require('../controllers/adminController');
 const { isAuthenticated } = require('../middleware/auth/authMiddleware');
-const requireRole = require('../middleware/requireRoleMiddleware');
+const requireRole = require('../middleware/userRolesMiddleware');
 const processAvatar = require('../middleware/uploadAvatarMiddleware');
 const { verifyCsrfToken } = require('../middleware/csrfMiddleware');
 const { validateUserUpdate } = require('../middleware/validators/adminValidator');
