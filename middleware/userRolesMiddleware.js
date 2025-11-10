@@ -1,3 +1,5 @@
+const { error } = require("winston");
+
 function requireRole(...allowed) {
     return (req, res, next) => {
         const user = res.locals.currentUser || req.user ||null;
@@ -22,4 +24,22 @@ function requireRole(...allowed) {
     };
 }
 
-module.exports = requireRole;
+function checkForSuperadmin() {
+    return (req, res, next) => {
+        const user = res.locals.user || req.user || null;
+
+        if (user.role === 'superadmin') {
+            if (req.accepts('html')) { 
+                return res.status(403).render('403', {
+                    pageTitle: 'Access Denied',
+                    currentPage: 'admin',
+                    layout: 'layouts/admin-layout'
+                });
+            }
+            return res.status(403).json({ error: 'Forbidden' });
+        }
+        next();
+    };
+}
+
+module.exports = { requireRole, checkForSuperadmin };
