@@ -12,7 +12,7 @@ router.get('/', isAuthenticated, requireRole('admin', 'superadmin'), adminContro
 
 router.get('/all', isAuthenticated, requireRole('admin', 'superadmin'), adminController.getAllUsers)
 
-router.get('/users/:uuid/show', isAuthenticated, requireRole('admin', 'suerpadmin'), adminController.getOneUser);
+router.get('/users/:uuid/show', isAuthenticated, requireRole('admin', 'superadmin'), adminController.getOneUser);
 
 router.get('/logs/recent', isAuthenticated, requireRole('admin', 'superadmin'), adminController.getRecentAdminLogs);
 router.get('/logs', isAuthenticated, requireRole('admin', 'superadmin'), adminController.getAllAdminLogs);
