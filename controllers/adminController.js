@@ -20,13 +20,6 @@ exports.getAdminConsole = async (req, res, next) => {
     const instructors = await User.count({ where: { role: { [Op.in]: ['instructor', 'admin'] } } });
     const admins = await User.count({ where: { role : { [Op.in]: ['admin', 'superadmin'] } } });
 
-    if (user.role !== 'admin' && user.role !== 'superadmin') {
-        return res.status(403).render('403', {
-            pageTitle: 'Access Denied',
-            currentPage: 'portal/dashboard',
-            layout: 'layouts/dashboard-layout'
-        });
-    }
     
     res.render('admin/admin', {
         pageTitle: `Admin Console`,
@@ -43,14 +36,6 @@ exports.getOneUser = async (req, res, next) => {
 
     if (!user) {
         return res.redirect('/auth/login');
-    }
-
-    if (user.role !== 'admin') {
-        return res.status(403).render('403', {
-            pageTitle: 'Access Denied',
-            currentPage: 'portal/dashboard',
-            layout: 'layouts/dashboard-layout'
-        });
     }
 
     try {
@@ -86,14 +71,6 @@ exports.getAllUsers = async (req, res, next) => {
         return res.redirect('/auth/login');
     }
 
-    if (user.role !== 'admin') {
-        return res.status(403).render('403', {
-            pageTitle: 'Access Denied',
-            currentPage: 'portal/dashboard',
-            layout: 'layouts/dashboard-layout'
-        });
-    }
-
     try {
         const allUsers = await User.findAll();
         const usersPlain = allUsers.map(u => u.get({ plain: true }));
@@ -127,14 +104,6 @@ exports.getEditUser = async (req, res, next) => {
 
     if (!user) {
         return res.redirect('/auth/login');
-    }
-
-    if (user.role !== 'admin') {
-        return res.status(403).render('403', {
-            pageTitle: 'Access Denied',
-            currentPage: 'portal/dashboard',
-            layout: 'layouts/dashboard-layout'
-        });
     }
 
     try {
@@ -192,14 +161,6 @@ exports.postEditUser = async (req, res, next) => {
 
     if (!admin) {
         return res.redirect('/auth/login');
-    }
-
-    if (admin.role !== 'admin') {
-        return res.status(403).render('403', {
-            pageTitle: 'Access Denied',
-            currentPage: 'portal/dashboard',
-            layout: 'layouts/dashboard-layout'
-        });
     }
 
     const { uuid } = req.params;
