@@ -1,5 +1,3 @@
-const { error } = require("winston");
-
 function requireRole(...allowed) {
     return (req, res, next) => {
         const user = res.locals.currentUser || req.user ||null;
@@ -42,4 +40,4 @@ function checkForSuperadmin() {
     };
 }
 
-module.exports = { requireRole, checkForSuperadmin };
+module.exports = requireRole;
