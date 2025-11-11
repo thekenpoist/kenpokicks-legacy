@@ -48,6 +48,12 @@ exports.getOneUser = async (req, res, next) => {
                 currentPage: 'users'
             });
         }
+
+        if (oneUser.role === 'superadmin' && user.role !== 'superadmin') {
+            req.flash('error', 'This user profile is restricted');
+            return res.redirect('/admin/all');
+        }
+
         res.render('admin/users/show-user', {
             pageTitle: 'View User',
             currentPage: 'users',
