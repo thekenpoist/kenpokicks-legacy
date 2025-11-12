@@ -92,7 +92,7 @@ exports.getAllUsers = async (req, res, next) => {
             pageTitle: 'All users',
             currentPage: 'users',
             layout: 'layouts/admin-layout',
-            errorMessage: null,
+            errorMessage: req.flash('error')[0] || null,
             allUsers: usersPlain
         });
     } catch (err) {
