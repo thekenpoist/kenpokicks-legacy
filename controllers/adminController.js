@@ -92,8 +92,8 @@ exports.getAllUsers = async (req, res, next) => {
             pageTitle: 'All users',
             currentPage: 'users',
             layout: 'layouts/admin-layout',
-            errorMessage: req.flash('error')[0] || null,
-            allUsers: usersPlain
+            allUsers: usersPlain,
+            messages: res.locals.messages
         });
     } catch (err) {
         logger.error(`Error fetching all users: ${err.message}`);
