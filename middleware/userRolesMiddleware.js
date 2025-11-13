@@ -20,24 +20,6 @@ function requireRole(...allowed) {
 
         next();
     };
-}
-
-function checkForSuperadmin() {
-    return (req, res, next) => {
-        const user = res.locals.user || req.user || null;
-
-        if (user.role === 'superadmin') {
-            if (req.accepts('html')) { 
-                return res.status(403).render('403', {
-                    pageTitle: 'Access Denied',
-                    currentPage: 'admin',
-                    layout: 'layouts/admin-layout'
-                });
-            }
-            return res.status(403).json({ error: 'Forbidden' });
-        }
-        next();
-    };
-}
+};
 
 module.exports = requireRole;
