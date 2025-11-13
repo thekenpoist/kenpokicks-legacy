@@ -130,6 +130,9 @@ exports.getEditUser = async (req, res, next) => {
             return res.redirect('/admin/all');
         }
 
+        const isSelfEdit = user.uuid === userProfile.uuid;
+        const canChangeRole = user.role === 'superadmin' && !isSelfEdit;
+
         const attributes = User.getAttributes();
         const roleAttribute = attributes.role;
         const roles = 
@@ -154,6 +157,7 @@ exports.getEditUser = async (req, res, next) => {
                     timezone: userProfile.timezone || ''
                 },
                 roles,
+                canChangeRole,
                 submitLabel: 'Update Profile',
                 formMode: 'edit',
                 formAction: `/admin/users/${userUuid}/update`
