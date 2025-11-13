@@ -125,6 +125,11 @@ exports.getEditUser = async (req, res, next) => {
             });
         }
 
+        if (userProfile.role === 'superadmin' && user.role !== 'superadmin') {
+            req.flash('error', 'This user profile is restricted');
+            return res.redirect('/admin/all');
+        }
+
         const attributes = User.getAttributes();
         const roleAttribute = attributes.role;
         const roles = 
@@ -295,6 +300,11 @@ exports.postEditUser = async (req, res, next) => {
                 formAction: `/admin/users/${uuid}/update`
             });
         }
+
+
+
+
+
 
         const emailChanged = normalizedInput.email !== targetUser.email.toLowerCase();
         const updatedFields = {
