@@ -213,6 +213,11 @@ exports.postEditUser = async (req, res, next) => {
             });
         }
 
+        if (targetUser.role === 'superadmin' && admin.role !== 'superadmin') {
+            req.flash('error', 'This user profile is restricted');
+            return res.redirect('/admin/all');
+        }
+
         const before = pick(targetUser.get({ plain: true }), TRACKED_FIELDS);
 
         const {
