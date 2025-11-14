@@ -37,7 +37,7 @@ block content
 
           .form-group
             label.block.text-sm.font-medium.mb-1(for="role") Role
-            select#role(name="role", required, class="w-full border border-gray-300 rounded-lg px-3 py-2 bg-white")
+            select#role(name="role", required, class="w-full border border-gray-300 rounded-lg px-3 py-2 bg-white" disabled=!canChangeRole)
               option(value="", disabled, selected=!formData || !formData.role) — Select a role —
               if roles && roles.length
                 each r in roles
