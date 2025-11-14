@@ -44,11 +44,30 @@ exports.getBeltCurriculum = async (req, res) => {
 };
 
 exports.getBeltTechniques = async (req, res, next) => {
-    const beltColor = req.params.beltColor;
     const user = res.locals.currentUser;
-
+    
     if (!user) {
         return res.redirect('/auth/login');
+    }
+
+    const beltSlug = req.params.beltColor;
+
+    const slugToColor = {
+        'yellow': 'Yellow',
+        'orange': 'Orange',
+        'purple': 'Purple',
+        'blue': 'Blue',
+        'green': 'Green',
+        'brown': 'Brown',
+        'red': 'Red',
+        'red-black': 'Red/Black',
+        'black': 'Black'
+    };
+
+    const beltColor = slugToColor[beltSlug];
+
+    if (!beltColor) {
+        return res.status(404).render('404', { pageTitle: 'Not Found' });
     }
 
     try {
