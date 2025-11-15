@@ -222,6 +222,9 @@ exports.postEditUser = async (req, res, next) => {
             return res.redirect('/admin/all');
         }
 
+        const isSelfEdit = admin.uuid === targetUser.uuid;
+        const canChangeRole = admin.role === 'superadmin' && !isSelfEdit;
+
         const before = pick(targetUser.get({ plain: true }), TRACKED_FIELDS);
 
         const {
@@ -270,7 +273,16 @@ exports.postEditUser = async (req, res, next) => {
                 formAction: `/admin/users/${uuid}/update`
         });
         }
-        
+
+        const requestedRole = role;
+        if (requestedRole && requestedRole !== targetUser.role) {
+            if (canChangeRole) {
+                newRole = requestedRole;
+            } else {
+                req.flash('error', 'You are not authorized to change roles');
+                return res.redirect('/users/:uuid/edit');
+            }
+        }
 
         const conflict = await User.findOne({
             where: {
@@ -310,11 +322,6 @@ exports.postEditUser = async (req, res, next) => {
             });
         }
 
-
-
-
-
-
         const emailChanged = normalizedInput.email !== targetUser.email.toLowerCase();
         const updatedFields = {
             username: normalizedInput.username || targetUser.username,
@@ -323,7 +330,7 @@ exports.postEditUser = async (req, res, next) => {
             lastName: normalizedInput.lastName || targetUser.lastName,
             style: normalizedInput.style || targetUser.style,
             rank: normalizedInput.rank || targetUser.rank,
-            role: normalizedInput.role || targetUser.role,
+            role: newRole || targetUser.role,
             avatar: req.avatarPath || targetUser.avatar,
             timezone: normalizedInput.timezone || targetUser.timezone
         };
