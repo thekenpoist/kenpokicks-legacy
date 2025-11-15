@@ -217,6 +217,8 @@ exports.postEditUser = async (req, res, next) => {
             });
         }
 
+        let newRole;
+
         if (targetUser.role === 'superadmin' && admin.role !== 'superadmin') {
             req.flash('error', 'This user profile is restricted');
             return res.redirect('/admin/all');
@@ -280,7 +282,7 @@ exports.postEditUser = async (req, res, next) => {
                 newRole = requestedRole;
             } else {
                 req.flash('error', 'You are not authorized to change roles');
-                return res.redirect('/users/:uuid/edit');
+                return res.redirect(`/admin/users/${uuid}/edit`);
             }
         }
 
