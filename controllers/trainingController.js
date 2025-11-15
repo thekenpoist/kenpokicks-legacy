@@ -1,7 +1,7 @@
 const path = require('path');
 const fs = require('fs');
 const { logger } = require('../utils/loggerUtil');
-const { Technique } = require('../models');
+const { Technique, Belt } = require('../models');
 
 function loadJson(p) {
     return JSON.parse(fs.readFileSync(p, 'utf-8'));
@@ -45,34 +45,21 @@ exports.getBeltCurriculum = async (req, res) => {
 
 exports.getBeltTechniques = async (req, res, next) => {
     const user = res.locals.currentUser;
-    
+
     if (!user) {
         return res.redirect('/auth/login');
     }
 
-    const beltSlug = req.params.beltColor;
+    const beltSlug = req.params.beltSlug;
+    const belt = await Belt.findOne({ where: { beltSlug } });
 
-    const slugToColor = {
-        'yellow': 'Yellow',
-        'orange': 'Orange',
-        'purple': 'Purple',
-        'blue': 'Blue',
-        'green': 'Green',
-        'brown': 'Brown',
-        'red': 'Red',
-        'red-black': 'Red/Black',
-        'black': 'Black'
-    };
-
-    const beltColor = slugToColor[beltSlug];
-
-    if (!beltColor) {
+    if (!belt) {
         return res.status(404).render('404', { pageTitle: 'Not Found' });
     }
 
     try {
         const techniques = await Technique.findAll({
-            where: { beltColor }
+            where: { beltColor: belt.beltColor }
         });
 
         if (techniques.length === 0) {
@@ -83,7 +70,7 @@ exports.getBeltTechniques = async (req, res, next) => {
         }
 
         res.render('training/techniques-template', {
-            pageTitle: `Techniques for ${beltColor}`,
+            pageTitle: `Techniques for ${belt.beltColor}`,
             currentPage: 'techniques',
             layout: 'layouts/dashboard-layout',
             errorMessage: null,
