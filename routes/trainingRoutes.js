@@ -5,7 +5,7 @@ const { isAuthenticated } = require('../middleware/auth/authMiddleware');
 
 const router = express.Router();
 
-router.get('/belt/:beltColor', isAuthenticated, trainingController.getBeltTechniques);
+router.get('/belt/:beltSlug', isAuthenticated, trainingController.getBeltTechniques);
 
 router.get('/:beltColor/:section', isAuthenticated, trainingController.getBeltCurriculum);
 
