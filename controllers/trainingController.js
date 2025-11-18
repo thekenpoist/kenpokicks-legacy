@@ -9,15 +9,45 @@ function loadJson(p) {
 
 
 exports.getBeltCurriculum = async (req, res) => {
-    const { beltColor, section } = req.params;
-    const ALLOWED_SECTIONS = new Set(['techniques', 'basics', 'forms', 'sets']);
-    if (!ALLOWED_SECTIONS.has(section)) {
-        return res.status(404).render('404', { message: 'Section not found.' });
-    }
+    try { 
+        const user = res.locals.currentUser;
+        if (!user) {
+            return res.redirect('/auth/login');
+        }
 
-    const filePath = path.join(__dirname, '..', 'data', 'curriculum', beltColor, `${beltColor}_${section}.json`);
+        const { beltColor, section } = req.params;
+        
+        const requestedBelt = await Belt.findOne({ where: { beltColor } });
+        if (!requestedBelt) {
+            return res.status(404).render('404', { pageTitle: 'Belt not found' });
+        }
 
-    try {
+        const elevatedRoles = ['instructor', 'admin', 'superadmin' ];
+        const isElevated = elevatedRoles.includes(user.role);
+
+        if (!isElevated) {
+            const userBelt = await Belt.findOne({ where: { beltColor: user.beltColor } });
+            if (!userBelt) {
+                req.flash('error', 'Your belt level is not set. Please contact your instructor.');
+                return res.redirect('/portal/dashboard');
+            }
+            
+            const maxAllowedRank = userBelt.beltRankOrder +1;
+
+            if (requestedBelt.beltRankOrder > maxAllowedRank) {
+                req.flash('error', 'This curriculum is not available at your rank.')
+                return res.redirect('/portal/dashboard')
+            }
+        }
+
+        const ALLOWED_SECTIONS = new Set(['techniques', 'basics', 'forms', 'sets']);
+        if (!ALLOWED_SECTIONS.has(section)) {
+            return res.status(404).render('404', { message: 'Section not found.' });
+        }
+
+        const filePath = path.join(__dirname, '..', 'data', 'curriculum', beltColor, `${beltColor}_${section}.json`);
+
+    
         const data = JSON.parse(fs.readFileSync(filePath, 'utf8'));
         res.render(`training/${section}-template`, {
             beltColor,
