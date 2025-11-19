@@ -26,7 +26,7 @@ exports.getBeltCurriculum = async (req, res) => {
         const isElevated = elevatedRoles.includes(user.role);
 
         if (!isElevated) {
-            const userBelt = await Belt.findOne({ where: { beltColor: user.beltColor } });
+            const userBelt = await Belt.findOne({ where: { beltColor: user.rank } });
             if (!userBelt) {
                 req.flash('error', 'Your belt level is not set. Please contact your instructor.');
                 return res.redirect('/portal/dashboard');
