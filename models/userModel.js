@@ -46,9 +46,24 @@ module.exports = (sequelize) => {
       }
     },
     rank: {
-      type: DataTypes.STRING,
+      type: DataTypes.ENUM(
+          "White",
+          "Yellow",
+          "Orange",
+          "Purple",
+          "Blue",
+          "Green",
+          "Brown",
+          "Red",
+          "Red/Black",
+          "Black"
+      ),
       allowNull: false,
       defaultValue: 'White Belt'
+    },
+    rankDetails: {
+      type: DataTypes.STRING,
+      allowNull: true
     },
     style: {
       type: DataTypes.STRING,
