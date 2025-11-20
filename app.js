@@ -17,7 +17,7 @@ const trainingRouter = require('./routes/trainingRoutes');
 const trainingLogRouter = require('./routes/trainingLogRoutes');
 const userRouter = require('./routes/userRoutes');
 const { createCsrfToken } = require('./middleware/csrfMiddleware');
-const { ppid } = require('process');
+const rankOptions = require('./middleware/rankOptions');
 const PORT = process.env.PORT || 3000;
 const helmet = require('helmet');
 const morgan = require('morgan');
@@ -84,6 +84,7 @@ app.use(flash());
 app.use(attachFlashMessages);
 app.use(setCurrentUser);
 app.use(timezoneConversion);
+app.use(rankOptions);
 
 app.use('/admin', adminRouter);
 app.use('/auth', authRouter);
