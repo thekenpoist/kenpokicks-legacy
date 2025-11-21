@@ -36,6 +36,7 @@ exports.getDashboard = async (req, res, next) => {
 
     res.render('portal/dashboard', { 
         trainingLogs,
+        messages: res.locals.messages,
         belts,
         pageTitle: 'Training Dashboard',
         currentPage: 'dashboard',
