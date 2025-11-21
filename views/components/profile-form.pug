@@ -45,8 +45,20 @@ form(action=formAction method="POST" enctype="multipart/form-data" class="space-
   label(for="style" class="font-semibold") Art Style (optional)
   input(type="text", name="style", id="style", value=formData.style || '', class="w-full border border-gray-300 px-3 py-2 rounded")
 
-  label(for="rank" class="font-semibold") Belt Rank (optional)
-  input(type="text", name="rank", id="rank", value=formData.rank || '', class="w-full border border-gray-300 px-3 py-2 rounded")
+  .form-group
+    label(for="rank") Belt Rank
+    select#rank(name="rank" required class="w-full border border-gray-300 rounded-lg px-3 py-2")
+      option(
+        value=""
+        disabled
+        selected=!user || !user.rank
+      ) — Select a rank —
+      each r in ranks
+        option(
+          value=r
+          selected=(user && String(r) === String(user.rank))
+        )= r
+
 
   // Avatar Upload
   label(for="avatar" class="font-semibold") Upload Avatar (optional)
