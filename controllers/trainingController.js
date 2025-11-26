@@ -150,9 +150,10 @@ exports.getAdvancedForm = async (req, res) => {
             return res.redirect('/portal/dashboard');
         }
         
-        const maxAllowedRank = 10;
+        const highestRank = await Belt.max('beltRankORder')
+        const isHighestRank = userBelt.beltRankOrder === highestRank;
 
-        if (userBelt.beltRankOrder !== maxAllowedRank) {
+        if (!isHighestRank) {
             req.flash('error', 'This curriculum is not available at your rank.')
             return res.redirect('/portal/dashboard')
         }
