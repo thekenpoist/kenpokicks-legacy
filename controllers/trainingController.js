@@ -135,11 +135,33 @@ exports.getBeltTechniques = async (req, res, next) => {
 };
 
 exports.getAdvancedForm = async (req, res) => {
+    const user = res.locals.currentUser;
+    if (!user) {
+        return res.redirect('/auth/login');
+    }
+
+    const elevatedRoles = ['instructor', 'admin', 'superadmin' ];
+    const isElevated = elevatedRoles.includes(user.role);
+
+    if (!isElevated) {
+        const userBelt = await Belt.findOne({ where: { beltColor: user.rank } });
+        if (!userBelt) {
+            req.flash('error', 'Your belt level is not set. Please contact your instructor.');
+            return res.redirect('/portal/dashboard');
+        }
+        
+        const maxAllowedRank = 10;
+
+        if (userBelt.beltRankOrder !== maxAllowedRank) {
+            req.flash('error', 'This curriculum is not available at your rank.')
+            return res.redirect('/portal/dashboard')
+        }
+    }
+
     const formNumber = String(req.params.formNumber);
 
-    const filePath = path.join(__dirname, '..', 'data', 'curriculum', 'advanced_forms', `form_${formNumber}.json`);
-
     try {
+        const filePath = path.join(__dirname, '..', 'data', 'curriculum', 'advanced_forms', `form_${formNumber}.json`);
         const formData = loadJson(filePath);
 
         const dataSource = Array.isArray(formData.forms) && formData.forms.length
