@@ -103,17 +103,12 @@ exports.postCreateTrainingLog = async (req, res, next) => {
 };
 
 exports.getOneTrainingLog = async (req, res, next) => {
-    const user = res.locals.currentUser;
     const trainingLogId = req.params.logId;
-
-    if (!user) {
-        return res.redirect('/auth/login');
-    }
 
     try {
         const trainingLog = await TrainingLog.findOne({
             where: {
-                userUuid: user.uuid,
+                userUuid: res.locals.currentUser.uuid,
                 logId: trainingLogId
             }
         });
@@ -184,15 +179,9 @@ exports.getRecentTrainingLogs = async (req, res, next) => {
 
 
 exports.getAllTrainingLogs = async (req, res, next) => {
-    const user = res.locals.currentUser;
-
-    if (!user) {
-        return res.redirect('/auth/login');
-    }
-
     try {
         const alltrainingLogs = await TrainingLog.findAll({
-            where: { userUuid: user.uuid },
+            where: { userUuid: res.locals.currentUser.uuid },
             order: [['logDate', 'DESC']]
         });
 
@@ -214,17 +203,12 @@ exports.getAllTrainingLogs = async (req, res, next) => {
 };
 
 exports.getEditTrainingLog = async (req, res, next) => {
-    const user = res.locals.currentUser;
     const trainingLogId = req.params.logId;
-
-    if (!user) {
-        return res.redirect('/auth/login');
-    }
 
     try {
         const trainingLog = await TrainingLog.findOne({
             where: {
-                userUuid: user.uuid,
+                userUuid: res.locals.currentUser.uuid,
                 logId: trainingLogId
             }
         });
@@ -372,17 +356,12 @@ exports.postEditTrainingLog = async (req, res, next) => {
 };
 
 exports.deleteTrainingLog = async (req, res, next) => {
-    const user = res.locals.currentUser;
     const trainingLogId = req.params.logId;
-
-    if (!user) {
-        return res.redirect('/auth/login')
-    }
 
     try {
         const deleted = await TrainingLog.destroy({
             where: {
-                userUuid: user.uuid,
+                userUuid: res.locals.currentUser.uuid,
                 logId: trainingLogId
             }
         });
