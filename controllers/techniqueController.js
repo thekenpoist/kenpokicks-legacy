@@ -7,12 +7,6 @@ const { changedFieldNames, pick } = require('../utils/diffUtils');
 
 
 exports.getAllTechniques = async (req, res, next) => {
-    const user = res.locals.currentUser;
-    
-    if (!user) {
-        return res.redirect('/auth/login')
-    }
-
     try {
         const techniques = await Technique.findAll();
         const techniquesPlain = techniques.map(t => t.get({ plain: true }));
@@ -42,7 +36,6 @@ exports.getAllTechniques = async (req, res, next) => {
 }
 
 exports.getEditTechnique = async (req, res, next) => {
-    const user = res.locals.currentUser;
     const { techId } = req.params;
 
     try {
