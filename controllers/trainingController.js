@@ -194,6 +194,11 @@ exports.getAdvancedForm = async (req, res) => {
 };
 
 exports.getHeritageSet = async (req, res) => {
+    const user = res.locals.currentUser;
+    if (!user) {
+        return res.redirect('/auth/login');
+    }
+    
     const setName = String(req.params.setName);
 
     const filePath = path.join(__dirname, '..', 'data', 'curriculum', 'heritage_sets', `${setName}.json`);
