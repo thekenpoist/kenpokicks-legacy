@@ -59,6 +59,14 @@ form(action=formAction method="POST" enctype="multipart/form-data" class="space-
           selected=(user && String(r) === String(user.rank))
         )= r
 
+  label(for="rankDetails" class="font-semibold mt-4 block") Rank Details (optional)
+    input#rankDetails(
+      type="text"
+      name="rankDetails"
+      value=formData.rankDetails || (user && user.rankDetails) || ''
+      placeholder="e.g. 2nd Dan, 3 stripes, under Prof. John Doe, etc."
+      class="w-full border border-gray-300 px-3 py-2 rounded mt-1"
+    )
 
   // Avatar Upload
   label(for="avatar" class="font-semibold") Upload Avatar (optional)
