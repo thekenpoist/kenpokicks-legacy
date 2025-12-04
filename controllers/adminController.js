@@ -10,14 +10,8 @@ const { changedFieldNames, pick } = require('../utils/diffUtils');
 
 
 exports.getAdminConsole = async (req, res, next) => {
-    const user = res.locals.currentUser;
-
-    if (!user) {
-        return res.redirect('/auth/login');
-    }
-
-    const students = await User.count({ where: { role: { [Op.in]: ['student', 'instructor', 'admin'] } } });
-    const instructors = await User.count({ where: { role: { [Op.in]: ['instructor', 'admin'] } } });
+    const students = await User.count({ where: { role: { [Op.in]: ['student', 'instructor', 'admin', 'superadmin'] } } });
+    const instructors = await User.count({ where: { role: { [Op.in]: ['instructor', 'admin', 'superadmin'] } } });
     const admins = await User.count({ where: { role : { [Op.in]: ['admin', 'superadmin'] } } });
 
     
@@ -31,15 +25,8 @@ exports.getAdminConsole = async (req, res, next) => {
 };
 
 exports.getOneUser = async (req, res, next) => {
-    const user = res.locals.currentUser;
-    const userUuid = req.params.uuid;
-
-    if (!user) {
-        return res.redirect('/auth/login');
-    }
-
     try {
-        const oneUser = await User.scope('forAdminShow').findByPk(userUuid);
+        const oneUser = await User.scope('forAdminShow').findByPk(req.params.uuid);
 
         if (!oneUser) {
             return res.status(404).render('404', {
@@ -49,7 +36,7 @@ exports.getOneUser = async (req, res, next) => {
             });
         }
 
-        if (oneUser.role === 'superadmin' && user.role !== 'superadmin') {
+        if (oneUser.role === 'superadmin' && res.locals.currentUser.role !== 'superadmin') {
             req.flash('error', 'This user profile is restricted');
             return res.redirect('/admin/all');
         }
@@ -71,12 +58,6 @@ exports.getOneUser = async (req, res, next) => {
 };
 
 exports.getAllUsers = async (req, res, next) => {
-    const user = res.locals.currentUser;
-
-    if (!user) {
-        return res.redirect('/auth/login');
-    }
-
     try {
         const allUsers = await User.findAll();
         const usersPlain = allUsers.map(u => u.get({ plain: true }));
@@ -105,12 +86,7 @@ exports.getAllUsers = async (req, res, next) => {
 };
 
 exports.getEditUser = async (req, res, next) => {
-    const user = res.locals.currentUser;
     const userUuid = req.params.uuid;
-
-    if (!user) {
-        return res.redirect('/auth/login');
-    }
 
     try {
         const userProfile = await User.findByPk(userUuid, {
@@ -125,13 +101,13 @@ exports.getEditUser = async (req, res, next) => {
             });
         }
 
-        if (userProfile.role === 'superadmin' && user.role !== 'superadmin') {
+        if (userProfile.role === 'superadmin' && res.locals.currentUser.role !== 'superadmin') {
             req.flash('error', 'This user profile is restricted');
             return res.redirect('/admin/all');
         }
 
-        const isSelfEdit = user.uuid === userProfile.uuid;
-        const canChangeRole = user.role === 'superadmin' && !isSelfEdit;
+        const isSelfEdit = res.locals.currentUser.uuid === userProfile.uuid;
+        const canChangeRole = res.locals.currentUser.role === 'superadmin' && !isSelfEdit;
 
         const attributes = User.getAttributes();
         const roleAttribute = attributes.role;
@@ -428,12 +404,6 @@ exports.getRecentAdminLogs = async (req, res, next) => {
 };
 
 exports.getAllAdminLogs = async (req, res, next) => {
-    const user = res.locals.currentUser;
-    
-    if (!user) {
-        return res.redirect('/auth/login')
-    }
-
     try {
         const allAdminLogs = await AdminLog.findAll({
             attributes: ['id', 'action', 'entityLabel', 'actor', 'actionDate'],
