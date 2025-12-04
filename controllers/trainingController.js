@@ -9,11 +9,6 @@ function loadJson(p) {
 
 
 exports.getBeltCurriculum = async (req, res) => {
-    const user = res.locals.currentUser;
-    if (!user) {
-        return res.redirect('/auth/login');
-    }
-
     const { beltColor, section } = req.params;
     
     const requestedBelt = await Belt.findOne({ where: { beltColor } });
@@ -73,12 +68,6 @@ exports.getBeltCurriculum = async (req, res) => {
 };
 
 exports.getBeltTechniques = async (req, res, next) => {
-    const user = res.locals.currentUser;
-
-    if (!user) {
-        return res.redirect('/auth/login');
-    }
-
     const beltSlug = req.params.beltSlug;
     const belt = await Belt.findOne({ where: { beltSlug } });
 
@@ -135,11 +124,6 @@ exports.getBeltTechniques = async (req, res, next) => {
 };
 
 exports.getAdvancedForm = async (req, res) => {
-    const user = res.locals.currentUser;
-    if (!user) {
-        return res.redirect('/auth/login');
-    }
-
     const elevatedRoles = ['instructor', 'admin', 'superadmin' ];
     const isElevated = elevatedRoles.includes(user.role);
 
@@ -194,11 +178,6 @@ exports.getAdvancedForm = async (req, res) => {
 };
 
 exports.getHeritageSet = async (req, res) => {
-    const user = res.locals.currentUser;
-    if (!user) {
-        return res.redirect('/auth/login');
-    }
-    
     const setName = String(req.params.setName);
 
     const filePath = path.join(__dirname, '..', 'data', 'curriculum', 'heritage_sets', `${setName}.json`);
