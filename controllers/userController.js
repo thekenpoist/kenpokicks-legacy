@@ -12,10 +12,6 @@ const { rmSync } = require('fs');
 exports.getShowProfile = async (req, res, next) => {
     const user = res.locals.currentUser;
 
-    if (!user) {
-        return res.redirect('/auth/login');
-    }
-
     const memberSinceFormatted = user.createdAt.toLocaleDateString('en-us', {
         year: 'numeric',
         month: 'long',
@@ -43,10 +39,6 @@ exports.getShowProfile = async (req, res, next) => {
 exports.getEditProfile = (req, res, next) => {
     const user = res.locals.currentUser;
 
-    if (!user) {
-        return res.redirect('/auth/login');
-    }
-
     res.render('profiles/edit-profile', {
             pageTitle: "Edit Profile",
             currentPage: 'profile',
@@ -60,6 +52,7 @@ exports.getEditProfile = (req, res, next) => {
                 confirmEmail: user.email,
                 style: user.style || '',
                 rank: user.rank || '',
+                rankDetails: user.rankDetails || '',
                 timezone: user.timezone || ''
             },
             submitLabel: 'Update Profile',
@@ -71,10 +64,6 @@ exports.getEditProfile = (req, res, next) => {
 exports.postEditProfile = async (req, res, next) => {
     const user = res.locals.currentUser;
 
-    if (!user) {
-        return res.redirect('/auth/login');
-    }
-    
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
@@ -103,6 +92,7 @@ exports.postEditProfile = async (req, res, next) => {
             lastName,
             username,
             rank,
+            rankDetails,
             style,
             timezone
         } = req.body;
@@ -159,6 +149,7 @@ exports.postEditProfile = async (req, res, next) => {
             lastName: lastName || user.lastName,
             style: style || user.style,
             rank: rank || user.rank,
+            rankDetails: rankDetails || user.rankDetails,
             avatar: req.avatarPath || user.avatar,
             timezone: timezone || user.timezone,
             updatedAt: new Date()
@@ -208,14 +199,8 @@ exports.postEditProfile = async (req, res, next) => {
 };
 
 exports.deleteProfile = async (req, res, next) => {
-    const user = res.locals.currentUser;
-
-    if (!user) {
-        return res.redirect('/auth/login');
-    }
-
     try {
-        const deleted = await User.destroy({ where: { uuid: user.uuid }});
+        const deleted = await User.destroy({ where: { uuid: res.locals.currentUser.uuid }});
 
         if (!deleted) {
             return res.status(404).render('404', {

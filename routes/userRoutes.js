@@ -14,6 +14,6 @@ router.post('/edit-profile', isAuthenticated, processAvatar, verifyCsrfToken, va
 
 router.post('/delete-profile', isAuthenticated, verifyCsrfToken, userController.deleteProfile);
 
-router.get('/me', userController.getShowProfile);
+router.get('/me', isAuthenticated, userController.getShowProfile);
 
 module.exports = router;
