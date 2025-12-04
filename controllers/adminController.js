@@ -90,7 +90,7 @@ exports.getEditUser = async (req, res, next) => {
 
     try {
         const userProfile = await User.findByPk(userUuid, {
-            attributes: ['uuid', 'username', 'firstName', 'lastName', 'email', 'style', 'rank', 'timezone', 'fullName', 'role']
+            attributes: ['uuid', 'username', 'firstName', 'lastName', 'email', 'style', 'rank', 'rankDetails', 'timezone', 'fullName', 'role']
         });
 
         if (!userProfile) {
@@ -129,6 +129,7 @@ exports.getEditUser = async (req, res, next) => {
                     confirmEmail: userProfile.email,
                     style: userProfile.style || '',
                     rank: userProfile.rank || '',
+                    rankDetails: userProfile.rankDetails || '',
                     role: userProfile.role || '',
                     timezone: userProfile.timezone || ''
                 },
@@ -156,8 +157,8 @@ exports.postEditUser = async (req, res, next) => {
 
     const { uuid } = req.params;
 
-    const TRACKED_FIELDS = ['username', 'firstName', 'lastName', 'email', 
-                            'confirmEmail', 'style', 'rank', 'role', 'timezone'
+    const TRACKED_FIELDS = ['username', 'firstName', 'lastName', 'email', 'confirmEmail',
+                            'style', 'rank', 'rankDetails', 'role', 'timezone'
                             ]
 
     const errors = validationResult(req);
@@ -181,8 +182,8 @@ exports.postEditUser = async (req, res, next) => {
 
         const targetUser = await User.findByPk(uuid, {
             attributes: [
-                'uuid', 'email', 'username', 'firstName', 'lastName', 'role',
-                'style', 'rank', 'avatar', 'timezone', 'isVerified', 'verificationToken'
+                'uuid', 'email', 'username', 'firstName', 'lastName', 'role', 'style',
+                'rank', 'rankDetails', 'avatar', 'timezone', 'isVerified', 'verificationToken'
             ]
         });
         if (!targetUser) {
@@ -212,6 +213,7 @@ exports.postEditUser = async (req, res, next) => {
             lastName = '',
             username = '',
             rank = '',
+            rankDetails = '',
             style = '',
             role = '',
             timezone = ''
@@ -224,6 +226,7 @@ exports.postEditUser = async (req, res, next) => {
             firstName: firstName.trim(),
             lastName: lastName.trim(),
             rank: rank.trim(),
+            rankDetails: rankDetails.trim(),
             style: style.trim(),
             role: role.trim(),
             timezone: timezone.trim()
@@ -243,6 +246,7 @@ exports.postEditUser = async (req, res, next) => {
                     confirmEmail: normalizedInput.confirmEmail,
                     style: normalizedInput.style,
                     rank: normalizedInput.rank,
+                    rankDetails: normalizedInput.rankDetails,
                     role: normalizedInput.role,
                     timezone: normalizedInput.timezone
                 },
@@ -291,6 +295,7 @@ exports.postEditUser = async (req, res, next) => {
                     confirmEmail: normalizedInput.confirmEmail,
                     style: normalizedInput.style,
                     rank: normalizedInput.rank,
+                    rankDetails: normalizedInput.rankDetails,
                     role: normalizedInput.role,
                     timezone: normalizedInput.timezone
                 },
@@ -308,6 +313,7 @@ exports.postEditUser = async (req, res, next) => {
             lastName: normalizedInput.lastName || targetUser.lastName,
             style: normalizedInput.style || targetUser.style,
             rank: normalizedInput.rank || targetUser.rank,
+            rankDetails: normalizedInput.rankDetails || targetUser.rankDetails,
             role: newRole || targetUser.role,
             avatar: req.avatarPath || targetUser.avatar,
             timezone: normalizedInput.timezone || targetUser.timezone

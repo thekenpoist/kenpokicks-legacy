@@ -163,7 +163,7 @@ module.exports = (sequelize) => {
       forList: { attributes: ['uuid','username','email','role','rank','style','isVerified','lastLoggedIn'] },
       forAdminShow: {
         attributes: [
-          'uuid','username','email','firstName','lastName','rank','style','role','avatar','timezone',
+          'uuid','username','email','firstName','lastName','rank','rankDetails','style','role','avatar','timezone',
           'isVerified','lastLoggedIn','createdAt','updatedAt',
           'failedLoginAttempts','lockoutUntil','suspendUntil','statusReason',
           'deletedAt','deletedBy','deleteReason',
