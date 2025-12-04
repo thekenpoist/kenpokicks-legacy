@@ -32,7 +32,7 @@ exports.postSignup = async (req, res, next) => {
     }
 
     try {
-        const { email, password, firstName, lastName, username, rank, style, timezone } = req.body;
+        const { email, password, firstName, lastName, username, rank, rankDetails, style, timezone } = req.body;
 
         const trimmedEmail = email.trim().toLowerCase();
         const trimmedUsername = username.trim().toLowerCase();
@@ -74,6 +74,7 @@ exports.postSignup = async (req, res, next) => {
             email: trimmedEmail,
             password: hashedPassword,
             rank: rank || 'White Belt',
+            rankDetails,
             style: style || 'None',
             avatar: req.avatarPath || null,
             timezone,

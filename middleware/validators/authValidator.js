@@ -25,7 +25,7 @@ exports.signupRules = [
     body('username')
         .toLowerCase()
         .notEmpty().withMessage('Username is required.')
-        .isLength({ min: 8, max: 25 }).withMessage('Username must be between 3 and 25 characters.')
+        .isLength({ min: 3, max: 25 }).withMessage('Username must be between 3 and 25 characters.')
         .matches(/^[a-zA-Z0-9_\-]+$/).withMessage('Username may only contain letters, numbers, underscores, or dashes.')
         .trim(),
 
