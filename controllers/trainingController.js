@@ -68,6 +68,7 @@ exports.getBeltCurriculum = async (req, res) => {
 };
 
 exports.getBeltTechniques = async (req, res, next) => {
+    const user = res.locals.currentUser;
     const beltSlug = req.params.beltSlug;
     const belt = await Belt.findOne({ where: { beltSlug } });
 
