@@ -48,14 +48,14 @@ block content
       ) Edit Profile
 
       // delete profile button
-      form.inline-block.ml-4(action="/profiles/delete-profile" method="POST")
+      form.inline-block.ml-4(action="/profiles/delete-profile" method="POST" data-confirm-delete="true")
         +csrfField()
         button(
           type="submit"
           class="text-sm text-red-600 hover:underline hover:text-red-800"
-          data-action="confirm-delete-profile"
+          data-action="confirmDeleteProfile"
         ) Delete Profile
-
 
   block pageScripts
     script(src="/js/features/profile-actions.js" defer)
+
