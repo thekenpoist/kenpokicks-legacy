@@ -1,32 +1,14 @@
-(function () {
-  function confirmDeleteHandler(el, e) {
-    const form = el.closest('form');
-    if (!form) return;
+window.registerAction('confirmDeleteProfile', (button, event) => {
+event.preventDefault(); // stop normal submission
 
-    const ok = window.confirm(
-      'Are you sure you want to delete your profile? This action cannot be undone.'
-    );
+const form = button.closest('form');
+if (!form) return;
 
-    if (ok) {
-      form.submit();
-    }
-  }
+const confirmed = window.confirm(
+    'Are you sure you want to delete your profile? This action cannot be undone.'
+);
 
-  // If the global action system exists, use it
-  if (window.registerAction && typeof window.registerAction === 'function') {
-    window.registerAction('confirm-delete-profile', confirmDeleteHandler);
-  } else {
-    // Fallback: our own delegated click handler
-    document.addEventListener('click', (e) => {
-      const el = e.target.closest('[data-action="confirm-delete-profile"]');
-      if (!el) return;
-
-      e.preventDefault();
-      try {
-        confirmDeleteHandler(el, e);
-      } catch (err) {
-        console.error('confirm-delete-profile fallback error:', err);
-      }
-    });
-  }
-})();
+if (confirmed) {
+    form.submit(); // now submit for real (bypasses other listeners safely)
+}
+});
