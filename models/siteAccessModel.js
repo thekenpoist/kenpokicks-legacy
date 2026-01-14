@@ -26,7 +26,7 @@ module.exports = (sequelize) => {
         },
         displayName: {
             type: DataTypes.STRING,
-            allowNull: false
+            allowNull: true
         },
         intendedRole: {
             type: DataTypes.ENUM('admin', 'instructor', 'student'),
