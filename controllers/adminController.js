@@ -431,3 +431,15 @@ exports.getAllAdminLogs = async (req, res, next) => {
         return renderServerError(res, err, 'admin');
     }
 };
+
+exports.getInviteUser = async (req, res, next) => {
+    res.render('admin/invite', {
+        pageTitle: 'Invite User',
+        currentPage: 'invite',
+        errorMessage: null,
+        formData: {},
+        submitLabel: 'Send Invitation',
+        formAction: '/admin/invite',
+        formMode: 'invite'
+    });
+};
