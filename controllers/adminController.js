@@ -432,7 +432,7 @@ exports.getAllAdminLogs = async (req, res, next) => {
     }
 };
 
-exports.getInviteUser = async (req, res, next) => {
+exports.getInviteUser = (req, res, next) => {
     res.render('admin/invite', {
         pageTitle: 'Invite User',
         currentPage: 'invite',
@@ -443,3 +443,20 @@ exports.getInviteUser = async (req, res, next) => {
         formMode: 'invite'
     });
 };
+
+exports.postInviteUser = async (req, res, next) => {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+        return res.status(422).render('admin/invite', {
+            pageTitle: 'Invite User',
+            currentPage: 'invite',
+            errorMessage: errors.array().map(e => e.msg).join(', '),
+            formData: req.body
+        });
+    }
+
+
+
+    
+}
