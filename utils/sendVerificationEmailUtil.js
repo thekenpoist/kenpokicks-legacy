@@ -5,11 +5,12 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 async function sendVerificationEmail(email, token) {
     try {
         const data = await resend.emails.send({
-            from: 'amts@thekenpoist.net',
+            from: 'amts@kenpokicks.com',
             to: email,
-            subject: 'Verify your email for kenpokicks',
+            subject: 'Verify your email for AMTS',
             html:`
-                <p>Thanks for signing up for kenpokicks. Please verify your email by clicking the link below:</p>
+                <p>Thanks for signing up for American Martial Training Systems.</p>
+                <p>Please verify your email by clicking the link below:</p>
                 <p><a href="http://localhost:3000/auth/verify-email?token=${token}">Verify Email</a></p>
                 <p>If you didn’t sign up, you can ignore this email.</p>`
         });
