@@ -5,6 +5,7 @@ const { renderServerError } = require('../utils/errorUtil');
 const { validationResult } = require('express-validator');
 const { v4: uuidv4 } = require('uuid');
 const { sendVerificationEmail } = require('../utils/sendVerificationEmailUtil');
+const { sendInviteEmail } = require('../utils/sendInviteEmailUtil');
 const { changedFieldNames, pick } = require('../utils/diffUtils');
 
 
