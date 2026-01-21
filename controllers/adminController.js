@@ -434,7 +434,7 @@ exports.getAllAdminLogs = async (req, res, next) => {
 };
 
 exports.getInviteUser = (req, res, next) => {
-    res.render('admin/invite', {
+    res.render('admin/invite-user', {
         pageTitle: 'Invite User',
         currentPage: 'invite',
         errorMessage: null,
