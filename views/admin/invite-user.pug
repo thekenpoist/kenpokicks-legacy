@@ -1,0 +1,83 @@
+form(action=formAction method="POST" class="space-y-4 max-w-xl mx-auto text-left")
+  +csrfField()
+  input(type="hidden", name="timezone", id="timezone")
+
+  // Email & Confirm Email
+  .grid.grid-cols-2.gap-4
+    .flex.flex-col
+      label(for="email" class="font-semibold") Email
+      input(
+        type="email"
+        name="email"
+        id="email"
+        value=formData.email || ''
+        class="border border-gray-300 px-3 py-2 rounded"
+        required
+      )
+    .flex.flex-col
+      label(for="confirmEmail" class="font-semibold") Confirm Email
+      input(
+        type="email"
+        name="confirmEmail"
+        id="confirmEmail"
+        value=formData.confirmEmail || ''
+        class="border border-gray-300 px-3 py-2 rounded"
+        required
+      )
+
+  // Display Name
+  .flex.flex-col
+    label(for="displayName" class="font-semibold") Name (optional)
+    input(
+      type="text"
+      name="displayName"
+      id="displayName"
+      value=formData.displayName || ''
+      class="w-full border border-gray-300 px-3 py-2 rounded"
+      placeholder="e.g. Steve Hull"
+    )
+
+  hr(class="my-4")
+
+  // Role & Allowed
+  .grid.grid-cols-2.gap-4
+    .flex.flex-col
+      label(for="intendedRole" class="font-semibold") Role
+      select(
+        name="intendedRole"
+        id="intendedRole"
+        class="w-full border border-gray-300 rounded-lg px-3 py-2"
+        required
+      )
+        option(
+          value="student"
+          selected=((formData.intendedRole || 'student') === 'student')
+        ) student
+        option(
+          value="instructor"
+          selected=((formData.intendedRole || 'student') === 'instructor')
+        ) instructor
+        option(
+          value="admin"
+          selected=((formData.intendedRole || 'student') === 'admin')
+        ) admin
+
+    .flex.flex-col
+      label(class="font-semibold") Access
+      label(for="isAllowed" class="inline-flex items-center gap-2 mt-2 select-none")
+        - const allowed = (typeof formData.isAllowed === 'boolean') ? formData.isAllowed : true;
+        input(
+          type="checkbox"
+          name="isAllowed"
+          id="isAllowed"
+          value="1"
+          checked=allowed
+          class="h-4 w-4"
+        )
+        span Allow signup
+
+  // Submit
+  button(
+    type="submit"
+    class="bg-red-800 hover:bg-red-700 text-white font-bold py-2 px-4 rounded shadow transition w-full"
+  ) #{submitLabel}
