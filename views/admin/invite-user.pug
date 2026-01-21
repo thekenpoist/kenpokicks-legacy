@@ -1,83 +1,81 @@
-form(action=formAction method="POST" class="space-y-4 max-w-xl mx-auto text-left")
-  +csrfField()
-  input(type="hidden", name="timezone", id="timezone")
+//- views/admin/invite-user.pug
+extends ../layouts/admin-layout.pug
 
-  // Email & Confirm Email
-  .grid.grid-cols-2.gap-4
-    .flex.flex-col
-      label(for="email" class="font-semibold") Email
-      input(
-        type="email"
-        name="email"
-        id="email"
-        value=formData.email || ''
-        class="border border-gray-300 px-3 py-2 rounded"
-        required
-      )
-    .flex.flex-col
-      label(for="confirmEmail" class="font-semibold") Confirm Email
-      input(
-        type="email"
-        name="confirmEmail"
-        id="confirmEmail"
-        value=formData.confirmEmail || ''
-        class="border border-gray-300 px-3 py-2 rounded"
-        required
-      )
+block content
+  .flex.items-center.justify-between.mb-6
+    a(href="/admin/all", class="text-blue-600 hover:underline") ← Back to Users
+    h1(class="text-xl font-semibold")= pageTitle
 
-  // Display Name
-  .flex.flex-col
-    label(for="displayName" class="font-semibold") Name (optional)
-    input(
-      type="text"
-      name="displayName"
-      id="displayName"
-      value=formData.displayName || ''
-      class="w-full border border-gray-300 px-3 py-2 rounded"
-      placeholder="e.g. Steve Hull"
-    )
+  //- Main card
+  .bg-white.shadow-lg.rounded-xl.p-6
+    if errorMessage
+      .mb-4.text-red-600.text-sm= errorMessage
 
-  hr(class="my-4")
+    include ../mixins/csrf
+    form(method="POST", action=formAction, novalidate)
+      +csrfField()
 
-  // Role & Allowed
-  .grid.grid-cols-2.gap-4
-    .flex.flex-col
-      label(for="intendedRole" class="font-semibold") Role
-      select(
-        name="intendedRole"
-        id="intendedRole"
-        class="w-full border border-gray-300 rounded-lg px-3 py-2"
-        required
-      )
-        option(
-          value="student"
-          selected=((formData.intendedRole || 'student') === 'student')
-        ) student
-        option(
-          value="instructor"
-          selected=((formData.intendedRole || 'student') === 'instructor')
-        ) instructor
-        option(
-          value="admin"
-          selected=((formData.intendedRole || 'student') === 'admin')
-        ) admin
+      .space-y-4
+        .grid.grid-cols-1.gap-4
+          //- Display Name (optional)
+          .form-group
+            label.block.text-sm.font-medium.mb-1(for="displayName") Name (optional)
+            input#displayName(
+              type="text"
+              name="displayName"
+              value=(formData && formData.displayName) || ''
+              placeholder="e.g. Steve Hull"
+              class="w-full border border-gray-300 rounded-lg px-3 py-2"
+            )
 
-    .flex.flex-col
-      label(class="font-semibold") Access
-      label(for="isAllowed" class="inline-flex items-center gap-2 mt-2 select-none")
-        - const allowed = (typeof formData.isAllowed === 'boolean') ? formData.isAllowed : true;
-        input(
-          type="checkbox"
-          name="isAllowed"
-          id="isAllowed"
-          value="1"
-          checked=allowed
-          class="h-4 w-4"
-        )
-        span Allow signup
+          //- Email
+          .form-group
+            label.block.text-sm.font-medium.mb-1(for="email") Email
+            input#email(
+              type="email"
+              name="email"
+              required
+              value=(formData && formData.email) || ''
+              class="w-full border border-gray-300 rounded-lg px-3 py-2"
+            )
 
-  // Submit
-  button(
-    type="submit"
-    class="bg-red-800 hover:bg-red-700 text-white font-bold py-2 px-4 rounded shadow transition w-full"
-  ) #{submitLabel}
+          //- Confirm Email
+          .form-group
+            label.block.text-sm.font-medium.mb-1(for="confirmEmail") Confirm Email
+            input#confirmEmail(
+              type="email"
+              name="confirmEmail"
+              required
+              value=(formData && formData.confirmEmail) || ''
+              class="w-full border border-gray-300 rounded-lg px-3 py-2"
+            )
+
+          //- Intended Role
+          .form-group
+            label.block.text-sm.font-medium.mb-1(for="intendedRole") Intended Role
+            select#intendedRole(
+              name="intendedRole"
+              required
+              class="w-full border border-gray-300 rounded-lg px-3 py-2 bg-white"
+            )
+              -
+                const selectedRole =
+                  (formData && formData.intendedRole) ? String(formData.intendedRole) : 'student';
+              option(value="student", selected=selectedRole === 'student') student
+              option(value="instructor", selected=selectedRole === 'instructor') instructor
+              option(value="admin", selected=selectedRole === 'admin') admin
+
+          //- Allowed checkbox
+          .form-group
+            -
+              const allowed =
+                (formData && typeof formData.isAllowed !== 'undefined')
+                  ? (String(formData.isAllowed) === 'true' || String(formData.isAllowed) === '1')
+                  : true;
+            label.block.text-sm.font-medium.mb-1 Access
+            label.inline-flex.items-center.gap-2
+              input#isAllowed(type="checkbox", name="isAllowed", value="1", checked=allowed)
+              span.text-sm Allow signup for this email
+
+      .mt-4
+        button(type="submit", class="inline-flex items-center px-4 py-2 rounded-lg bg-blue-600 text-white")= submitLabel
