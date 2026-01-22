@@ -440,7 +440,7 @@ exports.getInviteUser = (req, res, next) => {
         errorMessage: null,
         formData: {},
         submitLabel: 'Send Invitation',
-        formAction: '/admin/invite',
+        formAction: 'admin/invite-user',
         formMode: 'invite'
     });
 };
