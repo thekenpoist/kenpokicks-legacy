@@ -12,7 +12,9 @@ exports.getBeltCurriculum = async (req, res) => {
     const user = res.locals.currentUser;
     const { beltColor, section } = req.params;
     
-    const requestedBelt = await Belt.findOne({ where: { beltColor } });
+    const beltSlug = String(beltColor || '').trim().toLowerCase();
+
+    const requestedBelt = await Belt.findOne({ where: { beltSlug } });
     if (!requestedBelt) {
         return res.status(404).render('404', { pageTitle: 'Belt not found' });
     }
