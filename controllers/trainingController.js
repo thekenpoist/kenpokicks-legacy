@@ -9,6 +9,7 @@ function loadJson(p) {
 
 
 exports.getBeltCurriculum = async (req, res) => {
+    const user = res.locals.currentUser;
     const { beltColor, section } = req.params;
     
     const requestedBelt = await Belt.findOne({ where: { beltColor } });
