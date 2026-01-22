@@ -31,6 +31,9 @@ db.TrainingLog = TrainingLog;
 const AdminLog = require('./adminLogModel')(sequelize, Sequelize.DataTypes);
 db.AdminLog = AdminLog;
 
+const SiteAccess = require('./siteAccessModel')(sequelize, Sequelize.DataTypes);
+db.SiteAccess = SiteAccess;
+
 Object.keys(db).forEach(modelName => {
   if (db[modelName].associate) {
     db[modelName].associate(db);
