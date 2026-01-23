@@ -10,14 +10,16 @@ function loadJson(p) {
 
 exports.getBeltCurriculum = async (req, res) => {
     const user = res.locals.currentUser;
-    const { beltColor, section } = req.params;
+    const { beltSlug, section } = req.params;
     
-    const beltSlug = String(beltColor || '').trim().toLowerCase();
+    //const beltSlug = String(beltColor || '').trim().toLowerCase();
 
     const requestedBelt = await Belt.findOne({ where: { beltSlug } });
     if (!requestedBelt) {
         return res.status(404).render('404', { pageTitle: 'Belt not found' });
     }
+
+    const displayBeltColor = requestedBelt.beltColor;
 
     const elevatedRoles = ['instructor', 'admin', 'superadmin' ];
     const isElevated = elevatedRoles.includes(user.role);
@@ -43,11 +45,11 @@ exports.getBeltCurriculum = async (req, res) => {
     }
 
     try { 
-        const filePath = path.join(__dirname, '..', 'data', 'curriculum', beltColor, `${beltColor}_${section}.json`);
-
+        const filePath = path.join(__dirname, '..', 'data', 'curriculum', beltSlug, `${beltSlug}_${section}.json`);
+        
         const data = JSON.parse(fs.readFileSync(filePath, 'utf8'));
         res.render(`training/${section}-template`, {
-            beltColor,
+            displayBeltColor,
             section,
             content: typeof data === 'object' && !Array.isArray(data) ? data : { [section]: data },
             hasData: Array.isArray(data) ? data.length > 0 : !!data
@@ -55,13 +57,13 @@ exports.getBeltCurriculum = async (req, res) => {
     } catch (err) {
         if (err.code === 'ENOENT' && ALLOWED_SECTIONS.has(section)) {
             return res.render(`training/${section}-template`, { 
-                beltColor,
+                displayBeltColor,
                 section,
                 content: { [section]: [] },
                 hasData: false
         })
         }
-        logger.error(`Error loading curriculum for ${beltColor}/${section}: ${err.message}`);
+        logger.error(`Error loading curriculum for ${beltSlug}/${section}: ${err.message}`);
         if (err.stack) {
             logger.error(err.stack);
         }
@@ -128,6 +130,7 @@ exports.getBeltTechniques = async (req, res, next) => {
 };
 
 exports.getAdvancedForm = async (req, res) => {
+    const user = res.locals.currentUser;
     const elevatedRoles = ['instructor', 'admin', 'superadmin' ];
     const isElevated = elevatedRoles.includes(user.role);
 
