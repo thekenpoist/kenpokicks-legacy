@@ -7,7 +7,7 @@ const router = express.Router();
 
 router.get('/belt/:beltSlug', isAuthenticated, trainingController.getBeltTechniques);
 
-router.get('/:beltColor/:section', isAuthenticated, trainingController.getBeltCurriculum);
+router.get('/:beltSlug/:section', isAuthenticated, trainingController.getBeltCurriculum);
 
 router.get('/advanced/forms/:formNumber', isAuthenticated, trainingController.getAdvancedForm);
 
