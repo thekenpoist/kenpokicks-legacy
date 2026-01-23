@@ -2,7 +2,7 @@ extends ../layouts/dashboard-layout
 
 block content
   .container.mx-auto.p-6
-    h1.text-2xl.font-bold.mb-4.text-center #{beltColor.charAt(0).toUpperCase() + beltColor.slice(1)} Belt Basics
+    h1.text-2xl.font-bold.mb-4.text-center #{displayBeltColor} Basics
 
     div(class="grid grid-cols-1 md:grid-cols-2 gap-8")
       // LEFT COLUMN — Fundamentals
