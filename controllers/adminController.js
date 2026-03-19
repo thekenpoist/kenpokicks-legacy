@@ -470,27 +470,29 @@ exports.postInviteUser = async (req, res, next) => {
             let errorMsg = 'Email already registered';
 
             if (existingUser.email === trimmedEmail) {
-                errorMsg = 'That user has already been invited'
+                errorMsg = 'That user is already registered'
             }
 
-            return res.status(400).render('auth/signup', {
-                pageTitle: 'Sign Up',
-                currentPage: 'signup',
+            return res.status(400).render('admin/invite', {
+                pageTitle: 'Invite User',
+                currentPage: 'invite',
                 errorMessage: errorMsg,
                 formData: req.body
             });
         }
 
         await sendInviteEmail(email);
+        req.flash('success', 'Invite email sent.');
+        res.redirect(`admin/admin`);
     
     } catch (err) {
-        logger.error(`Error during signup: ${err.message}`);
+        logger.error(`Error during invite: ${err.message}`);
         if (err.errors) {
         err.errors.forEach(e => logger.error(`  - ${e.message}`));
         }
-        res.status(500).render('auth/signup', {
-            pageTitle: 'Sign Up',
-            currentPage: 'signup',
+        res.status(500).render('admin/invite', {
+            pageTitle: 'Invite User',
+            currentPage: 'invite',
             errorMessage: err.message || 'Something went wrong. Please try again.',
             formData: req.body
         });
