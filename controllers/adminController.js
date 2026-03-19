@@ -457,7 +457,42 @@ exports.postInviteUser = async (req, res, next) => {
         });
     }
 
+    try {
+        const { email } = req.body;
 
+        const trimmedEmail = email.trim().toLowerCase();
 
+        const existingUser = await User.findOne({ 
+            where: { email: trimmedEmail }
+        });
+
+        if (existingUser) {
+            let errorMsg = 'Email already registered';
+
+            if (existingUser.email === trimmedEmail) {
+                errorMsg = 'That user has already been invited'
+            }
+
+            return res.status(400).render('auth/signup', {
+                pageTitle: 'Sign Up',
+                currentPage: 'signup',
+                errorMessage: errorMsg,
+                formData: req.body
+            });
+        }
+
+        await sendInviteEmail(email);
     
-}
+    } catch (err) {
+        logger.error(`Error during signup: ${err.message}`);
+        if (err.errors) {
+        err.errors.forEach(e => logger.error(`  - ${e.message}`));
+        }
+        res.status(500).render('auth/signup', {
+            pageTitle: 'Sign Up',
+            currentPage: 'signup',
+            errorMessage: err.message || 'Something went wrong. Please try again.',
+            formData: req.body
+        });
+    }
+};
